@@ -441,7 +441,7 @@ class _CategoriaPageWidgetState extends State<CategoriaPageWidget> {
                                           functions.imageCompress(getJsonField(
                                             novdadesItem,
                                             r'''$.ImagemRemota[0]''',
-                                          ).toString()),
+                                          ).toString())!,
                                           width: 170.0,
                                           height: 170.0,
                                           fit: BoxFit.cover,

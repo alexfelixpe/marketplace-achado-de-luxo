@@ -197,7 +197,7 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                                                             getJsonField(
                                                           imagensItem,
                                                           r'''$''',
-                                                        ).toString()),
+                                                        ).toString())!,
                                                         width: MediaQuery.of(
                                                                     context)
                                                                 .size

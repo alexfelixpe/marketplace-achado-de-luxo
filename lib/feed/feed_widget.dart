@@ -541,7 +541,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                                 getJsonField(
                                                           produtosItem,
                                                           r'''$.ImagemRemota[0]''',
-                                                        ).toString()),
+                                                        ).toString())!,
                                                         width: MediaQuery.of(
                                                                     context)
                                                                 .size

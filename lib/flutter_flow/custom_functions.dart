@@ -9,12 +9,14 @@ import 'lat_lng.dart';
 import 'place.dart';
 import '../../auth/auth_util.dart';
 
-String imageCompress(String? url) {
+String? imageCompress(String? url) {
   // Add your function code here!
 
-  return "https://d1muf25xaso8hp.cloudfront.net/" +
-      (url ?? "") +
-      "?w=220&h=220&auto=compress,enhance,&q=100&dpr=2&fit=max";
+  //return "https://d1muf25xaso8hp.cloudfront.net/" +
+  //    (url ?? "") +
+  //    "?w=220&h=220&auto=compress,enhance,&q=100&dpr=2&fit=max";
+
+  return "https://d1muf25xaso8hp.cloudfront.net/" + (url ?? "");
 }
 
 String? transformString(String inputString) {
