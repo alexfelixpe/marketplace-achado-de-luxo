@@ -386,7 +386,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                         image:
                                                             CachedNetworkImage(
                                                           imageUrl:
-                                                              'https:${functions.circleImage(UsersByIdCall.foto(
+                                                              '${functions.circleImage(UsersByIdCall.foto(
                                                             rowProfilePicUsersByIdResponse
                                                                 .jsonBody,
                                                           ).toString())}',
@@ -394,7 +394,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                         ),
                                                         allowRotation: false,
                                                         tag:
-                                                            'https:${functions.circleImage(UsersByIdCall.foto(
+                                                            '${functions.circleImage(UsersByIdCall.foto(
                                                           rowProfilePicUsersByIdResponse
                                                               .jsonBody,
                                                         ).toString())}',
@@ -405,7 +405,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                 },
                                                 child: Hero(
                                                   tag:
-                                                      'https:${functions.circleImage(UsersByIdCall.foto(
+                                                      '${functions.circleImage(UsersByIdCall.foto(
                                                     rowProfilePicUsersByIdResponse
                                                         .jsonBody,
                                                   ).toString())}',
@@ -421,7 +421,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                     ),
                                                     child: CachedNetworkImage(
                                                       imageUrl:
-                                                          'https:${functions.circleImage(UsersByIdCall.foto(
+                                                          '${functions.circleImage(UsersByIdCall.foto(
                                                         rowProfilePicUsersByIdResponse
                                                             .jsonBody,
                                                       ).toString())}',

@@ -28,14 +28,9 @@ String? transformString(String inputString) {
 }
 
 String? circleImage(String? imageUrl) {
-  if (imageUrl == null || imageUrl.isEmpty || !imageUrl.startsWith("//")) {
-    return "//www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"; // Insira aqui a URL da imagem genérica que deseja exibir
+  if (imageUrl == null || !imageUrl.startsWith('//')) {
+    return 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
   } else {
-    final response = await http.get(Uri.parse('https:' + imageUrl));
-    if (response.statusCode == 200) {
-      return imageUrl;
-    } else {
-      return "//www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y";
-    }
+    return 'https:' + imageUrl;
   }
 }
