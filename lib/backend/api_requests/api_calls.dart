@@ -217,7 +217,7 @@ class ProdutosByIdCall {
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: true,
+      decodeUtf8: false,
       cache: false,
     );
   }
@@ -519,7 +519,7 @@ class ProdutosNovidadesCall {
       },
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: true,
+      decodeUtf8: false,
       cache: false,
     );
   }

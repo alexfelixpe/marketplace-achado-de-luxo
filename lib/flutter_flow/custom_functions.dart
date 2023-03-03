@@ -8,6 +8,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'lat_lng.dart';
 import 'place.dart';
 import '../../auth/auth_util.dart';
+import 'package:http/http.dart' as http;
 
 String imageCompress(String? url) {
   // Add your function code here!
@@ -27,10 +28,17 @@ String? transformString(String inputString) {
   return outputString;
 }
 
-String? circleImage(String? imageUrl) {
-  if (imageUrl == null || !imageUrl.startsWith('//')) {
-    return 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
+Future<String?> circleImage(String? imageUrl) async {
+
+  if (imageUrl == null || imageUrl.isEmpty || !imageUrl.startsWith("//")) {
+    return "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"; // Insira aqui a URL da imagem genérica que deseja exibir
   } else {
-    return 'https:' + imageUrl;
+    final response = await http.get(Uri.parse('https:' + imageUrl));
+    if (response.statusCode == 200) {
+      return 'https:' + imageUrl;
+    } else {
+      return "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y";
+    }
   }
+
 }
