@@ -386,18 +386,18 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                         image:
                                                             CachedNetworkImage(
                                                           imageUrl:
-                                                              '${functions.circleImage(UsersByIdCall.foto(
+                                                              '${'${functions.circleImage(UsersByIdCall.foto(
                                                             rowProfilePicUsersByIdResponse
                                                                 .jsonBody,
-                                                          ).toString())}',
+                                                          ).toString())}'}',
                                                           fit: BoxFit.contain,
                                                         ),
                                                         allowRotation: false,
                                                         tag:
-                                                            '${functions.circleImage(UsersByIdCall.foto(
+                                                            '${'${functions.circleImage(UsersByIdCall.foto(
                                                           rowProfilePicUsersByIdResponse
                                                               .jsonBody,
-                                                        ).toString())}',
+                                                        ).toString())}'}',
                                                         useHeroAnimation: true,
                                                       ),
                                                     ),
@@ -405,10 +405,10 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                 },
                                                 child: Hero(
                                                   tag:
-                                                      '${functions.circleImage(UsersByIdCall.foto(
+                                                      '${'${functions.circleImage(UsersByIdCall.foto(
                                                     rowProfilePicUsersByIdResponse
                                                         .jsonBody,
-                                                  ).toString())}',
+                                                  ).toString())}'}',
                                                   transitionOnUserGestures:
                                                       true,
                                                   child: Container(
@@ -421,10 +421,10 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                     ),
                                                     child: CachedNetworkImage(
                                                       imageUrl:
-                                                          '${functions.circleImage(UsersByIdCall.foto(
+                                                          '${'${functions.circleImage(UsersByIdCall.foto(
                                                         rowProfilePicUsersByIdResponse
                                                             .jsonBody,
-                                                      ).toString())}',
+                                                      ).toString())}'}',
                                                       fit: BoxFit.cover,
                                                     ),
                                                   ),
