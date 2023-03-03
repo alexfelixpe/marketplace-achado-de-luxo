@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "499751513546",
+    "project_id": "marketplace-achado-de-luxo",
+    "storage_bucket": "marketplace-achado-de-luxo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:499751513546:android:0d604f5685a4c097a93333",
+        "android_client_info": {
+          "package_name": "br.com.achadodeluxo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "499751513546-oqjmusk782d2dohm1b7t8n43t1o93de3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.achadodeluxo",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "499751513546-l8tv0epp0k2nmm2bokb8ofhrc7vbb1ff.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASf8Chud_A7uJ7l-hYj7-tbQ_GfaR5Hag"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "499751513546-l8tv0epp0k2nmm2bokb8ofhrc7vbb1ff.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "499751513546-tfcmvd7vldeandd7n9k1drgot57tbmb4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "br.com.achadodeluxo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
