@@ -386,18 +386,18 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                         image:
                                                             CachedNetworkImage(
                                                           imageUrl:
-                                                              'https:${UsersByIdCall.foto(
+                                                              'https:${functions.circleImage(UsersByIdCall.foto(
                                                             rowProfilePicUsersByIdResponse
                                                                 .jsonBody,
-                                                          ).toString()}',
+                                                          ).toString())}',
                                                           fit: BoxFit.contain,
                                                         ),
                                                         allowRotation: false,
                                                         tag:
-                                                            'https:${UsersByIdCall.foto(
+                                                            'https:${functions.circleImage(UsersByIdCall.foto(
                                                           rowProfilePicUsersByIdResponse
                                                               .jsonBody,
-                                                        ).toString()}',
+                                                        ).toString())}',
                                                         useHeroAnimation: true,
                                                       ),
                                                     ),
@@ -405,10 +405,10 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                 },
                                                 child: Hero(
                                                   tag:
-                                                      'https:${UsersByIdCall.foto(
+                                                      'https:${functions.circleImage(UsersByIdCall.foto(
                                                     rowProfilePicUsersByIdResponse
                                                         .jsonBody,
-                                                  ).toString()}',
+                                                  ).toString())}',
                                                   transitionOnUserGestures:
                                                       true,
                                                   child: Container(
@@ -421,10 +421,10 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                     ),
                                                     child: CachedNetworkImage(
                                                       imageUrl:
-                                                          'https:${UsersByIdCall.foto(
+                                                          'https:${functions.circleImage(UsersByIdCall.foto(
                                                         rowProfilePicUsersByIdResponse
                                                             .jsonBody,
-                                                      ).toString()}',
+                                                      ).toString())}',
                                                       fit: BoxFit.cover,
                                                     ),
                                                   ),
@@ -811,10 +811,10 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                 children: [
                                                   Expanded(
                                                     child: Text(
-                                                      'R\$ ${getJsonField(
+                                                      'R\$ ${functions.transformString(getJsonField(
                                                         produtosItem,
                                                         r'''$.Preco''',
-                                                      ).toString()}',
+                                                      ).toString())}',
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)

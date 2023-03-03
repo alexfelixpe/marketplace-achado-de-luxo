@@ -16,3 +16,26 @@ String imageCompress(String? url) {
       (url ?? "") +
       "?w=220&h=220&auto=compress,enhance,&q=100&dpr=2&fit=max";
 }
+
+String? transformString(String inputString) {
+  String outputString = inputString.replaceAll(".", ",");
+  if (!outputString.contains(",")) {
+    outputString += ",00";
+  } else if (outputString.split(",")[1].length == 1) {
+    outputString += "0";
+  }
+  return outputString;
+}
+
+String? circleImage(String? imageUrl) {
+  if (imageUrl == null || imageUrl.isEmpty || !imageUrl.startsWith("//")) {
+    return "//www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"; // Insira aqui a URL da imagem genérica que deseja exibir
+  } else {
+    final response = await http.get(Uri.parse('https:' + imageUrl));
+    if (response.statusCode == 200) {
+      return imageUrl;
+    } else {
+      return "//www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y";
+    }
+  }
+}
