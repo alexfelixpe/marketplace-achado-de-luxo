@@ -216,7 +216,7 @@ class _CartWidgetState extends State<CartWidget> {
                                                   .imageCompress(getJsonField(
                                                 carrinhoItem,
                                                 r'''$.ImagemProduto''',
-                                              ).toString()),
+                                              ).toString())!,
                                               transitionOnUserGestures: true,
                                               child: ClipRRect(
                                                 borderRadius:
@@ -226,7 +226,7 @@ class _CartWidgetState extends State<CartWidget> {
                                                       getJsonField(
                                                     carrinhoItem,
                                                     r'''$.ImagemProduto''',
-                                                  ).toString()),
+                                                  ).toString())!,
                                                   width: 80.0,
                                                   height: 80.0,
                                                   fit: BoxFit.fitWidth,

@@ -12,6 +12,7 @@ import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'index.dart';
 
 void main() async {
@@ -128,66 +129,74 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'Feed': FeedWidget(),
-      'AdicionarProduto': AdicionarProdutoWidget(),
       'Explore': ExploreWidget(),
-      'cart': CartWidget(),
-      'CategoriaPage': CategoriaPageWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
     return Scaffold(
       body: _currentPage ?? tabs[_currentPageName],
-      bottomNavigationBar: BottomNavigationBar(
+      extendBody: true,
+      bottomNavigationBar: FloatingNavbar(
         currentIndex: currentIndex,
         onTap: (i) => setState(() {
           _currentPage = null;
           _currentPageName = tabs.keys.toList()[i];
         }),
         backgroundColor: Colors.white,
-        selectedItemColor: FlutterFlowTheme.of(context).primaryColor,
-        unselectedItemColor: Color(0x8A000000),
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              size: 24.0,
+        selectedItemColor: Color(0x00000000),
+        unselectedItemColor: Color(0x00000000),
+        selectedBackgroundColor: Color(0x00000000),
+        borderRadius: 8.0,
+        itemBorderRadius: 8.0,
+        margin: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+        width: double.infinity,
+        elevation: 0.0,
+        items: [
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.home,
+                  color:
+                      currentIndex == 0 ? Color(0x00000000) : Color(0x00000000),
+                  size: 24.0,
+                ),
+                Text(
+                  'Feed',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: currentIndex == 0
+                        ? Color(0x00000000)
+                        : Color(0x00000000),
+                    fontSize: 11.0,
+                  ),
+                ),
+              ],
             ),
-            label: 'Feed',
-            tooltip: '',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.add,
-              size: 24.0,
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.search,
+                  color:
+                      currentIndex == 1 ? Color(0x00000000) : Color(0x00000000),
+                  size: 24.0,
+                ),
+                Text(
+                  'Explorar',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: currentIndex == 1
+                        ? Color(0x00000000)
+                        : Color(0x00000000),
+                    fontSize: 11.0,
+                  ),
+                ),
+              ],
             ),
-            label: 'Home',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
-              size: 24.0,
-            ),
-            label: 'Explorar',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.shopping_cart,
-              size: 24.0,
-            ),
-            label: 'Carrinho',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
-              size: 24.0,
-            ),
-            label: 'Explorar',
-            tooltip: '',
           )
         ],
       ),

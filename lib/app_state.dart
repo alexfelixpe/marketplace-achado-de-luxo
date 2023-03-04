@@ -30,6 +30,7 @@ class FFAppState extends ChangeNotifier {
         }).toList() ??
         _Feed;
     _Like = prefs.getStringList('ff_Like') ?? _Like;
+    _prodMensagem = prefs.getStringList('ff_prodMensagem') ?? _prodMensagem;
   }
 
   void update(VoidCallback callback) {
@@ -175,6 +176,28 @@ class FFAppState extends ChangeNotifier {
   void removeAtIndexFromLike(int _index) {
     _Like.removeAt(_index);
     prefs.setStringList('ff_Like', _Like);
+  }
+
+  List<String> _prodMensagem = [];
+  List<String> get prodMensagem => _prodMensagem;
+  set prodMensagem(List<String> _value) {
+    _prodMensagem = _value;
+    prefs.setStringList('ff_prodMensagem', _value);
+  }
+
+  void addToProdMensagem(String _value) {
+    _prodMensagem.add(_value);
+    prefs.setStringList('ff_prodMensagem', _prodMensagem);
+  }
+
+  void removeFromProdMensagem(String _value) {
+    _prodMensagem.remove(_value);
+    prefs.setStringList('ff_prodMensagem', _prodMensagem);
+  }
+
+  void removeAtIndexFromProdMensagem(int _index) {
+    _prodMensagem.removeAt(_index);
+    prefs.setStringList('ff_prodMensagem', _prodMensagem);
   }
 }
 

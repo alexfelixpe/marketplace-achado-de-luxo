@@ -1,4 +1,5 @@
 import '/account/account_widget.dart';
+import '/adicionar_produto/adicionar_produto_widget.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';

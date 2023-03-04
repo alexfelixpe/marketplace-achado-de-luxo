@@ -1,3 +1,4 @@
+import '/auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -5,7 +6,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/login/login_widget.dart';
-import '/main.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -117,31 +117,36 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 5.0, 0.0, 0.0),
-                                              child: AutoSizeText(
-                                                getJsonField(
-                                                  widget.produto,
-                                                  r'''$.Nome''',
-                                                ).toString(),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .title2
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color:
-                                                              Color(0xFF3C3462),
-                                                          fontSize: 26.0,
-                                                        ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 5.0, 0.0, 5.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        5.0, 10.0, 0.0, 0.0),
+                                                child: AutoSizeText(
+                                                  getJsonField(
+                                                    widget.produto,
+                                                    r'''$.Nome''',
+                                                  ).toString(),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .title2
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            Color(0xFF3C3462),
+                                                        fontSize: 26.0,
+                                                      ),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -197,7 +202,7 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                                                             getJsonField(
                                                           imagensItem,
                                                           r'''$''',
-                                                        ).toString()),
+                                                        ).toString())!,
                                                         width: MediaQuery.of(
                                                                     context)
                                                                 .size
@@ -315,49 +320,54 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
               decoration: BoxDecoration(
                 color: Colors.white,
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional(-1.0, 0.0),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
-                      child: AutoSizeText(
-                        'R\$ ${getJsonField(
-                          widget.produto,
-                          r'''$..Preco''',
-                        ).toString()}',
-                        textAlign: TextAlign.start,
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'Poppins',
-                              color:
-                                  FlutterFlowTheme.of(context).secondaryColor,
-                              fontSize: 18.0,
-                            ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(-1.0, 0.0),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
-                      child: InkWell(
-                        onTap: () async {
-                          scaffoldKey.currentState!.openEndDrawer();
-                        },
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional(-1.0, 0.0),
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
                         child: AutoSizeText(
-                          getJsonField(
+                          'R\$ ${functions.transformString(getJsonField(
                             widget.produto,
-                            r'''$.Descricao''',
-                          ).toString(),
-                          style: FlutterFlowTheme.of(context).bodyText1,
+                            r'''$..Preco''',
+                          ).toString())}',
+                          textAlign: TextAlign.start,
+                          style: FlutterFlowTheme.of(context)
+                              .bodyText1
+                              .override(
+                                fontFamily: 'Poppins',
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryColor,
+                                fontSize: 18.0,
+                              ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    Align(
+                      alignment: AlignmentDirectional(-1.0, 0.0),
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+                        child: InkWell(
+                          onTap: () async {
+                            scaffoldKey.currentState!.openEndDrawer();
+                          },
+                          child: AutoSizeText(
+                            getJsonField(
+                              widget.produto,
+                              r'''$.Descricao''',
+                            ).toString(),
+                            style: FlutterFlowTheme.of(context).bodyText1,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Padding(
@@ -402,104 +412,122 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(30.0, 5.0, 30.0, 10.0),
-              child: FFButtonWidget(
-                onPressed: () async {
-                  await AddToCartCall.call(
-                    produtoId: getJsonField(
+            if (FFAppState().prodMensagem.contains(getJsonField(
+                  widget.produto,
+                  r'''$._id''',
+                )))
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(30.0, 5.0, 30.0, 30.0),
+                child: FutureBuilder<ApiCallResponse>(
+                  future: UsersByIdCall.call(
+                    id: getJsonField(
                       widget.produto,
-                      r'''$._id''',
+                      r'''$.Vendedor''',
                     ).toString(),
-                    userId: FFAppState().userid,
-                    qtd: _model.countControllerValue,
-                  );
-                  await Navigator.push(
-                    context,
-                    PageTransition(
-                      type: PageTransitionType.fade,
-                      duration: Duration(milliseconds: 300),
-                      reverseDuration: Duration(milliseconds: 300),
-                      child: NavBarPage(initialPage: 'cart'),
-                    ),
-                  );
-                },
-                text: 'Eu Quero',
-                options: FFButtonOptions(
-                  width: double.infinity,
-                  height: 40.0,
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  iconPadding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: FlutterFlowTheme.of(context).primaryColor,
-                  textStyle: FlutterFlowTheme.of(context).subtitle2.override(
-                        fontFamily: 'Poppins',
-                        color: Colors.white,
-                      ),
-                  borderSide: BorderSide(
-                    color: Colors.transparent,
-                    width: 1.0,
                   ),
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(30.0, 5.0, 30.0, 30.0),
-              child: FutureBuilder<ApiCallResponse>(
-                future: UsersByIdCall.call(
-                  id: getJsonField(
-                    widget.produto,
-                    r'''$.Vendedor''',
-                  ).toString(),
-                ),
-                builder: (context, snapshot) {
-                  // Customize what your widget looks like when it's loading.
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: SizedBox(
-                        width: 50.0,
-                        height: 50.0,
-                        child: CircularProgressIndicator(
-                          color: FlutterFlowTheme.of(context).primaryColor,
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50.0,
+                          height: 50.0,
+                          child: CircularProgressIndicator(
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                          ),
                         ),
+                      );
+                    }
+                    final enviaMensagemUsersByIdResponse = snapshot.data!;
+                    return FFButtonWidget(
+                      onPressed: () async {
+                        _model.apiResulthdk =
+                            await MegaApiGroup.enviarMensagemCall.call(
+                          jid: '55${UsersByIdCall.whatsApp(
+                            enviaMensagemUsersByIdResponse.jsonBody,
+                          ).toString()}@s.whatsapp.net',
+                          msg:
+                              'Olá, tudo bem? É aqui é o *Achado de Luxo* passando para informar que ${currentUserDisplayName} gostou do seu desapego *${getJsonField(
+                            widget.produto,
+                            r'''$.Nome''',
+                          ).toString()}.* Entre em contato através do WhatsApp: ${FFAppState().userWhats}',
+                        );
+                        if ((_model.apiResulthdk?.succeeded ?? true)) {
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title: Text('Sucesso!'),
+                                content: Text(
+                                    'O vendedor recebeu sua mensagem e entrará em contato assim que possível.k'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          setState(() {
+                            FFAppState().prodMensagem = (getJsonField(
+                              widget.produto,
+                              r'''$._id''',
+                            ) as List)
+                                .map<String>((s) => s.toString())
+                                .toList()!
+                                .toList();
+                          });
+                        } else {
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title: Text('Erro'),
+                                content: Text(
+                                    'Sinto muito pelo ocorrido. Infelizmente, não foi possível enviar sua mensagem neste momento. Por favor, tente novamente em alguns instantes.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+
+                        setState(() {});
+                      },
+                      text: 'Está disponível?',
+                      icon: FaIcon(
+                        FontAwesomeIcons.whatsapp,
+                      ),
+                      options: FFButtonOptions(
+                        width: double.infinity,
+                        height: 40.0,
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).tertiary400,
+                        textStyle:
+                            FlutterFlowTheme.of(context).subtitle2.override(
+                                  fontFamily: 'Poppins',
+                                  color: Colors.white,
+                                ),
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(12.0),
                       ),
                     );
-                  }
-                  final buttonUsersByIdResponse = snapshot.data!;
-                  return FFButtonWidget(
-                    onPressed: () async {
-                      await launchURL('https://wa.me/55${UsersByIdCall.whatsApp(
-                        buttonUsersByIdResponse.jsonBody,
-                      ).toString()}');
-                    },
-                    text: 'Falar com Vendedor',
-                    icon: FaIcon(
-                      FontAwesomeIcons.whatsapp,
-                    ),
-                    options: FFButtonOptions(
-                      width: double.infinity,
-                      height: 40.0,
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).tertiary400,
-                      textStyle:
-                          FlutterFlowTheme.of(context).subtitle2.override(
-                                fontFamily: 'Poppins',
-                                color: Colors.white,
-                              ),
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                  );
-                },
+                  },
+                ),
               ),
-            ),
           ],
         ),
       ),

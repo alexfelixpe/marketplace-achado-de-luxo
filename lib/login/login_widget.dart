@@ -155,7 +155,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                           fontFamily: 'Poppins',
                                                           color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .black600,
+                                                              .grayIcon,
                                                         ),
                                                     hintText: 'WhatsApp',
                                                     hintStyle: FlutterFlowTheme
@@ -244,7 +244,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                       .override(
                                                         fontFamily: 'Poppins',
                                                         color:
-                                                            Color(0xFF0F1113),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .grayIcon,
                                                       ),
                                                   keyboardType:
                                                       TextInputType.phone,
@@ -523,7 +525,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   text: 'Esqueceu sua senha?',
                                                   options: FFButtonOptions(
                                                     width: 170.0,
-                                                    height: 40.0,
+                                                    height: 20.0,
                                                     padding:
                                                         EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
