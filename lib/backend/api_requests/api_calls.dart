@@ -9,6 +9,44 @@ export 'api_manager.dart' show ApiCallResponse;
 
 const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 
+/// Start MegaApi Group Code
+
+class MegaApiGroup {
+  static String baseUrl = 'http://api2.megaapi.com.br:15638';
+  static Map<String, String> headers = {};
+  static EnviarMensagemCall enviarMensagemCall = EnviarMensagemCall();
+}
+
+class EnviarMensagemCall {
+  Future<ApiCallResponse> call({
+    String? jid = '',
+    String? body = '',
+  }) {
+    final body = '''
+{
+  "jid": "",
+  "body": ""
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'EnviarMensagem',
+      apiUrl: '${MegaApiGroup.baseUrl}/sendmessage?token=M_FvNkmxpbQGfi8',
+      callType: ApiCallType.POST,
+      headers: {
+        ...MegaApiGroup.headers,
+      },
+      params: {},
+      body: body,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+/// End MegaApi Group Code
+
 class AuthCall {
   static Future<ApiCallResponse> call({
     String? user = '11964591802',

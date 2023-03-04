@@ -36,3 +36,7 @@ String? circleImage(String? imageUrl) {
     return 'https:' + imageUrl;
   }
 }
+
+String urlEncoder(String input) {
+  return Uri.encodeFull(input);
+}

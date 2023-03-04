@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/login/login_widget.dart';
-import '/main.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -20,6 +19,8 @@ class ProdutoModel extends FlutterFlowModel {
 
   // State field(s) for CountController widget.
   int? countControllerValue;
+  // Stores action output result for [Backend Call - API (EnviarMensagem)] action in Button widget.
+  ApiCallResponse? apiResulthdk;
 
   /// Initialization and disposal methods.
 
