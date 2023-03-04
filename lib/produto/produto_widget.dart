@@ -428,13 +428,13 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                       ),
                     );
                   }
-                  final buttonUsersByIdResponse = snapshot.data!;
+                  final enviaMensagemUsersByIdResponse = snapshot.data!;
                   return FFButtonWidget(
                     onPressed: () async {
                       _model.apiResulthdk =
                           await MegaApiGroup.enviarMensagemCall.call(
                         jid: '5511964591802@s.whatsapp.net',
-                        body:
+                        msg:
                             'O cliente XXXXX está interessado no produto XXXXXX Entre em contato agora mesmo pelo WhatsApp XXXXXX',
                       );
                       if ((_model.apiResulthdk?.succeeded ?? true)) {

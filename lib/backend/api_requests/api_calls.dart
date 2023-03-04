@@ -19,13 +19,13 @@ class MegaApiGroup {
 
 class EnviarMensagemCall {
   Future<ApiCallResponse> call({
-    String? jid = '',
-    String? body = '',
+    String? jid = '5511964591802@s.whatsapp.net',
+    String? msg = 'Teste que deu certo',
   }) {
     final body = '''
 {
-  "jid": "",
-  "body": ""
+  "jid": "${jid}",
+  "body": "${msg}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'EnviarMensagem',

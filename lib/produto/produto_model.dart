@@ -19,7 +19,7 @@ class ProdutoModel extends FlutterFlowModel {
 
   // State field(s) for CountController widget.
   int? countControllerValue;
-  // Stores action output result for [Backend Call - API (EnviarMensagem)] action in Button widget.
+  // Stores action output result for [Backend Call - API (EnviarMensagem)] action in EnviaMensagem widget.
   ApiCallResponse? apiResulthdk;
 
   /// Initialization and disposal methods.
