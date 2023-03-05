@@ -40,3 +40,8 @@ String? circleImage(String? imageUrl) {
 String urlEncoder(String input) {
   return Uri.encodeFull(input);
 }
+
+int? countApiRecords(dynamic apiEndpoint) {
+  List<dynamic> records = apiEndpoint['records'];
+  return records.length;
+}
