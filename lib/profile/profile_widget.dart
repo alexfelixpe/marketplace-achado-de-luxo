@@ -181,17 +181,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               children: [
                                                 Text(
                                                   functions
-                                                      .somaQuantidade(
-                                                          ProdutosNovidadesPorVendedorCall
-                                                              .qtd1(
-                                                            profileProdutosNovidadesPorVendedorResponse
-                                                                .jsonBody,
-                                                          ),
-                                                          ProdutosNovidadesPorVendedorCall
-                                                              .qtd2(
-                                                            profileProdutosNovidadesPorVendedorResponse
-                                                                .jsonBody,
-                                                          ))
+                                                      .countRecords(
+                                                          profileProdutosNovidadesPorVendedorResponse
+                                                              .jsonBody)
                                                       .toString(),
                                                   style: FlutterFlowTheme.of(
                                                           context)
