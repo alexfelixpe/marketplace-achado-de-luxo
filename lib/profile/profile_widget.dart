@@ -180,8 +180,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Text(
-                                                  profileProdutosNovidadesPorVendedorResponse
-                                                      .jsonBody
+                                                  functions
+                                                      .countRecords(
+                                                          profileProdutosNovidadesPorVendedorResponse
+                                                              .jsonBody)
                                                       .toString(),
                                                   style: FlutterFlowTheme.of(
                                                           context)
