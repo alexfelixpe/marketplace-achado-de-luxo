@@ -55,7 +55,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         constraints:
             '%5B%7B%22key%22%3A%22is_marketplace%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%22true%22%7D%2C%7B%22key%22%3A%22Status%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%221638810592650x910538349165423400%22%7D%2C%7B%22key%22%3A%22Quantidade%22%2C%22constraint_type%22%3A%22greater%20than%22%2C%22value%22%3A%220%22%7D%2C%7B%22key%22%3A%22Vendedor%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%22${getJsonField(
           widget.user,
-          r'''$.response.id''',
+          r'''$.response._id''',
         ).toString()}%22%7D%5D',
       ),
       builder: (context, snapshot) {
@@ -181,9 +181,17 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               children: [
                                                 Text(
                                                   functions
-                                                      .countRecords(
-                                                          profileProdutosNovidadesPorVendedorResponse
-                                                              .jsonBody)
+                                                      .somaQuantidade(
+                                                          ProdutosNovidadesPorVendedorCall
+                                                              .qtd1(
+                                                            profileProdutosNovidadesPorVendedorResponse
+                                                                .jsonBody,
+                                                          ),
+                                                          ProdutosNovidadesPorVendedorCall
+                                                              .qtd2(
+                                                            profileProdutosNovidadesPorVendedorResponse
+                                                                .jsonBody,
+                                                          ))
                                                       .toString(),
                                                   style: FlutterFlowTheme.of(
                                                           context)
