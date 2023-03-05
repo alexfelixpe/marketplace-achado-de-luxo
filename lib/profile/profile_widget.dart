@@ -180,25 +180,15 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Text(
-                                                  functions
-                                                      .somaQuantidade(
-                                                          ProdutosNovidadesPorVendedorCall
-                                                              .qtd1(
-                                                            profileProdutosNovidadesPorVendedorResponse
-                                                                .jsonBody,
-                                                          ),
-                                                          ProdutosNovidadesPorVendedorCall
-                                                              .qtd2(
-                                                            profileProdutosNovidadesPorVendedorResponse
-                                                                .jsonBody,
-                                                          ))
+                                                  profileProdutosNovidadesPorVendedorResponse
+                                                      .jsonBody
                                                       .toString(),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyText1
                                                       .override(
                                                         fontFamily: 'Poppins',
-                                                        fontSize: 20.0,
+                                                        fontSize: 18.0,
                                                       ),
                                                 ),
                                                 Text(

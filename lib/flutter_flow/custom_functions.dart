@@ -41,15 +41,15 @@ String urlEncoder(String input) {
   return Uri.encodeFull(input);
 }
 
-int? countApiRecords(dynamic apiEndpoint) {
-  List<dynamic> records = apiEndpoint['records'];
-  return records.length;
-}
-
 int somaQuantidade(
   int qtd1,
   int qtd2,
 ) {
   num resultado = qtd1 + qtd2;
   return resultado.toInt();
+}
+
+int? countRecords(dynamic jsonData) {
+  final data = json.decode(jsonData)['data'];
+  return data is List ? data.length : 0;
 }
