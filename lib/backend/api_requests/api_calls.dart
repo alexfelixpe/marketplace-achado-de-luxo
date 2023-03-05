@@ -662,6 +662,7 @@ class ProdutosNovidadesPorVendedorCall {
   static dynamic allFields(dynamic response) => getJsonField(
         response,
         r'''$.response.results''',
+        true,
       );
   static dynamic response(dynamic response) => getJsonField(
         response,
@@ -670,42 +671,52 @@ class ProdutosNovidadesPorVendedorCall {
   static dynamic nome(dynamic response) => getJsonField(
         response,
         r'''$.response.results[:].Nome''',
+        true,
       );
   static dynamic quantidade(dynamic response) => getJsonField(
         response,
         r'''$.response.results[:].Quantidade''',
+        true,
       );
   static dynamic price(dynamic response) => getJsonField(
         response,
         r'''$.response.results[:].Preco''',
+        true,
       );
   static dynamic slug(dynamic response) => getJsonField(
         response,
         r'''$.response.results[:].Slug''',
+        true,
       );
   static dynamic description(dynamic response) => getJsonField(
         response,
         r'''$.response.results[:].Descricao''',
+        true,
       );
   static dynamic vendedor(dynamic response) => getJsonField(
         response,
         r'''$.response.results[:].Vendedor''',
+        true,
       );
   static dynamic cor(dynamic response) => getJsonField(
         response,
         r'''$.response.results[:].Cor''',
+        true,
       );
   static dynamic status(dynamic response) => getJsonField(
         response,
         r'''$.response.results[:].Status''',
+        true,
       );
   static dynamic marca(dynamic response) => getJsonField(
         response,
         r'''$.response.results[:].Marca''',
+        true,
       );
   static dynamic consdicao(dynamic response) => getJsonField(
         response,
         r'''$.response.results[:].Condicao''',
+        true,
       );
   static dynamic vires(dynamic response) => getJsonField(
         response,
@@ -720,6 +731,15 @@ class ProdutosNovidadesPorVendedorCall {
   static dynamic imagem(dynamic response) => getJsonField(
         response,
         r'''$.response.results[:].ImagemRemota''',
+        true,
+      );
+  static dynamic qtd1(dynamic response) => getJsonField(
+        response,
+        r'''$.response.count''',
+      );
+  static dynamic qtd2(dynamic response) => getJsonField(
+        response,
+        r'''$.response.remaining''',
       );
 }
 

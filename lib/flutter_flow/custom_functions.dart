@@ -45,3 +45,11 @@ int? countApiRecords(dynamic apiEndpoint) {
   List<dynamic> records = apiEndpoint['records'];
   return records.length;
 }
+
+int somaQuantidade(
+  int qtd1,
+  int qtd2,
+) {
+  num resultado = qtd1 + qtd2;
+  return resultado.toInt();
+}

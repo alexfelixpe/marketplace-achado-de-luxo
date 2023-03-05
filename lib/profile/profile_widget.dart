@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -52,13 +53,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     return FutureBuilder<ApiCallResponse>(
       future: ProdutosNovidadesPorVendedorCall.call(
         constraints:
-            '%5B%7B%22key%22%3A%22is_marketplace%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%22true%22%7D%2C%7B%22key%22%3A%22Status%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%221638810592650x910538349165423400%22%7D%2C%7B%22key%22%3A%22Quantidade%22%2C%22constraint_type%22%3A%22greater%20than%22%2C%22value%22%3A%220%22%7D%2C%7B%22key%22%3A%22Vendedor%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%22${valueOrDefault<String>(
-          getJsonField(
-            widget.user,
-            r'''$.response._id''',
-          ).toString(),
-          'responseId',
-        )}%22%7D%5D',
+            '%5B%7B%22key%22%3A%22is_marketplace%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%22true%22%7D%2C%7B%22key%22%3A%22Status%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%221638810592650x910538349165423400%22%7D%2C%7B%22key%22%3A%22Quantidade%22%2C%22constraint_type%22%3A%22greater%20than%22%2C%22value%22%3A%220%22%7D%2C%7B%22key%22%3A%22Vendedor%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%22${getJsonField(
+          widget.user,
+          r'''$.response.id''',
+        ).toString()}%22%7D%5D',
       ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
@@ -77,74 +75,37 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBtnText,
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(45.0),
-            child: AppBar(
-              backgroundColor: Color(0x95886BC7),
-              automaticallyImplyLeading: false,
-              actions: [],
-              flexibleSpace: FlexibleSpaceBar(
-                title: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 14.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 8.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12.0, 0.0, 0.0, 0.0),
-                                child: FlutterFlowIconButton(
-                                  borderColor: Colors.transparent,
-                                  borderRadius: 30.0,
-                                  borderWidth: 1.0,
-                                  buttonSize: 50.0,
-                                  icon: Icon(
-                                    Icons.arrow_back_rounded,
-                                    color: Colors.white,
-                                    size: 30.0,
-                                  ),
-                                  onPressed: () async {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    4.0, 0.0, 0.0, 0.0),
-                                child: Text(
-                                  'Back',
-                                  style: FlutterFlowTheme.of(context)
-                                      .title2
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: Colors.white,
-                                        fontSize: 16.0,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+          appBar: responsiveVisibility(
+            context: context,
+            phone: false,
+            tablet: false,
+            tabletLandscape: false,
+            desktop: false,
+          )
+              ? PreferredSize(
+                  preferredSize: Size.fromHeight(45.0),
+                  child: AppBar(
+                    backgroundColor: Color(0x95886BC7),
+                    automaticallyImplyLeading: false,
+                    leading: FlutterFlowIconButton(
+                      borderColor: Colors.transparent,
+                      borderRadius: 30.0,
+                      borderWidth: 1.0,
+                      buttonSize: 60.0,
+                      icon: Icon(
+                        Icons.arrow_back_rounded,
+                        color: Colors.white,
+                        size: 30.0,
                       ),
-                    ],
+                      onPressed: () async {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    actions: [],
+                    elevation: 6.0,
                   ),
-                ),
-                centerTitle: true,
-                expandedTitleScale: 1.0,
-              ),
-              elevation: 6.0,
-            ),
-          ),
+                )
+              : null,
           body: SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
@@ -220,9 +181,17 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               children: [
                                                 Text(
                                                   functions
-                                                      .countApiRecords(
-                                                          profileProdutosNovidadesPorVendedorResponse
-                                                              .jsonBody)
+                                                      .somaQuantidade(
+                                                          ProdutosNovidadesPorVendedorCall
+                                                              .qtd1(
+                                                            profileProdutosNovidadesPorVendedorResponse
+                                                                .jsonBody,
+                                                          ),
+                                                          ProdutosNovidadesPorVendedorCall
+                                                              .qtd2(
+                                                            profileProdutosNovidadesPorVendedorResponse
+                                                                .jsonBody,
+                                                          ))
                                                       .toString(),
                                                   style: FlutterFlowTheme.of(
                                                           context)
@@ -364,12 +333,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                               children: [
                                 Builder(
                                   builder: (context) {
-                                    final gridList =
+                                    final gridListProdutos =
                                         ProdutosNovidadesPorVendedorCall
-                                            .allFields(
-                                      listViewProdutosNovidadesPorVendedorResponse
-                                          .jsonBody,
-                                    ).toList();
+                                                .allFields(
+                                              listViewProdutosNovidadesPorVendedorResponse
+                                                  .jsonBody,
+                                            )?.toList() ??
+                                            [];
                                     return GridView.builder(
                                       padding: EdgeInsets.zero,
                                       gridDelegate:
@@ -381,18 +351,28 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                       ),
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
-                                      itemCount: gridList.length,
-                                      itemBuilder: (context, gridListIndex) {
-                                        final gridListItem =
-                                            gridList[gridListIndex];
-                                        return Image.network(
-                                          getJsonField(
-                                            gridListItem,
-                                            r'''$.ImagemRemota[0]''',
-                                          ),
-                                          width: 100.0,
-                                          height: 100.0,
-                                          fit: BoxFit.cover,
+                                      itemCount: gridListProdutos.length,
+                                      itemBuilder:
+                                          (context, gridListProdutosIndex) {
+                                        final gridListProdutosItem =
+                                            gridListProdutos[
+                                                gridListProdutosIndex];
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              child: CachedNetworkImage(
+                                                imageUrl: functions
+                                                    .imageCompress(getJsonField(
+                                                  gridListProdutosItem,
+                                                  r'''$.ImagemRemota[0]''',
+                                                ).toString())!,
+                                                width: double.infinity,
+                                                height: double.infinity,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ],
                                         );
                                       },
                                     );
