@@ -30,7 +30,15 @@ class FFAppState extends ChangeNotifier {
         }).toList() ??
         _Feed;
     _Like = prefs.getStringList('ff_Like') ?? _Like;
-    _prodMensagem = prefs.getStringList('ff_prodMensagem') ?? _prodMensagem;
+    _prodMsg = prefs.getStringList('ff_prodMsg')?.map((x) {
+          try {
+            return jsonDecode(x);
+          } catch (e) {
+            print("Can't decode persisted json. Error: $e.");
+            return {};
+          }
+        }).toList() ??
+        _prodMsg;
   }
 
   void update(VoidCallback callback) {
@@ -178,26 +186,30 @@ class FFAppState extends ChangeNotifier {
     prefs.setStringList('ff_Like', _Like);
   }
 
-  List<String> _prodMensagem = [];
-  List<String> get prodMensagem => _prodMensagem;
-  set prodMensagem(List<String> _value) {
-    _prodMensagem = _value;
-    prefs.setStringList('ff_prodMensagem', _value);
+  List<dynamic> _prodMsg = [];
+  List<dynamic> get prodMsg => _prodMsg;
+  set prodMsg(List<dynamic> _value) {
+    _prodMsg = _value;
+    prefs.setStringList(
+        'ff_prodMsg', _value.map((x) => jsonEncode(x)).toList());
   }
 
-  void addToProdMensagem(String _value) {
-    _prodMensagem.add(_value);
-    prefs.setStringList('ff_prodMensagem', _prodMensagem);
+  void addToProdMsg(dynamic _value) {
+    _prodMsg.add(_value);
+    prefs.setStringList(
+        'ff_prodMsg', _prodMsg.map((x) => jsonEncode(x)).toList());
   }
 
-  void removeFromProdMensagem(String _value) {
-    _prodMensagem.remove(_value);
-    prefs.setStringList('ff_prodMensagem', _prodMensagem);
+  void removeFromProdMsg(dynamic _value) {
+    _prodMsg.remove(_value);
+    prefs.setStringList(
+        'ff_prodMsg', _prodMsg.map((x) => jsonEncode(x)).toList());
   }
 
-  void removeAtIndexFromProdMensagem(int _index) {
-    _prodMensagem.removeAt(_index);
-    prefs.setStringList('ff_prodMensagem', _prodMensagem);
+  void removeAtIndexFromProdMsg(int _index) {
+    _prodMsg.removeAt(_index);
+    prefs.setStringList(
+        'ff_prodMsg', _prodMsg.map((x) => jsonEncode(x)).toList());
   }
 }
 

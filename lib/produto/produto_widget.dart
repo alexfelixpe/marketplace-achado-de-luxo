@@ -1,4 +1,3 @@
-import '/auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -370,52 +369,50 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
-              child: Container(
-                width: 160.0,
-                height: 50.0,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(25.0),
-                  shape: BoxShape.rectangle,
-                  border: Border.all(
-                    color: Color(0xFF9E9E9E),
-                    width: 1.0,
-                  ),
-                ),
-                child: FlutterFlowCountController(
-                  decrementIconBuilder: (enabled) => FaIcon(
-                    FontAwesomeIcons.minus,
-                    color: enabled ? Color(0xDD000000) : Color(0xFFEEEEEE),
-                    size: 20.0,
-                  ),
-                  incrementIconBuilder: (enabled) => FaIcon(
-                    FontAwesomeIcons.plus,
-                    color: enabled ? Colors.blue : Color(0xFFEEEEEE),
-                    size: 20.0,
-                  ),
-                  countBuilder: (count) => Text(
-                    count.toString(),
-                    style: GoogleFonts.getFont(
-                      'Roboto',
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.0,
+            if (false)
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+                child: Container(
+                  width: 160.0,
+                  height: 50.0,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(25.0),
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      color: Color(0xFF9E9E9E),
+                      width: 1.0,
                     ),
                   ),
-                  count: _model.countControllerValue ??= 1,
-                  updateCount: (count) =>
-                      setState(() => _model.countControllerValue = count),
-                  stepSize: 1,
-                  minimum: 1,
+                  child: FlutterFlowCountController(
+                    decrementIconBuilder: (enabled) => FaIcon(
+                      FontAwesomeIcons.minus,
+                      color: enabled ? Color(0xDD000000) : Color(0xFFEEEEEE),
+                      size: 20.0,
+                    ),
+                    incrementIconBuilder: (enabled) => FaIcon(
+                      FontAwesomeIcons.plus,
+                      color: enabled ? Colors.blue : Color(0xFFEEEEEE),
+                      size: 20.0,
+                    ),
+                    countBuilder: (count) => Text(
+                      count.toString(),
+                      style: GoogleFonts.getFont(
+                        'Roboto',
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    count: _model.countControllerValue ??= 1,
+                    updateCount: (count) =>
+                        setState(() => _model.countControllerValue = count),
+                    stepSize: 1,
+                    minimum: 1,
+                  ),
                 ),
               ),
-            ),
-            if (FFAppState().prodMensagem.contains(getJsonField(
-                  widget.produto,
-                  r'''$._id''',
-                )))
+            if (!FFAppState().prodMsg.contains(widget.produto))
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(30.0, 5.0, 30.0, 30.0),
                 child: FutureBuilder<ApiCallResponse>(
@@ -447,10 +444,10 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                             enviaMensagemUsersByIdResponse.jsonBody,
                           ).toString()}@s.whatsapp.net',
                           msg:
-                              'Olá, tudo bem? É aqui é o *Achado de Luxo* passando para informar que ${currentUserDisplayName} gostou do seu desapego *${getJsonField(
+                              'Olá, como vai? Somos do Achado de Luxo e gostaríamos de informar que alguém demonstrou interesse em um de seus desapegos: *${getJsonField(
                             widget.produto,
                             r'''$.Nome''',
-                          ).toString()}.* Entre em contato através do WhatsApp: ${FFAppState().userWhats}',
+                          ).toString()}.* Entre agora mesmo em contato através do WhatsApp:${FFAppState().userWhats}',
                         );
                         if ((_model.apiResulthdk?.succeeded ?? true)) {
                           await showDialog(
@@ -471,13 +468,7 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                             },
                           );
                           setState(() {
-                            FFAppState().prodMensagem = (getJsonField(
-                              widget.produto,
-                              r'''$._id''',
-                            ) as List)
-                                .map<String>((s) => s.toString())
-                                .toList()!
-                                .toList();
+                            FFAppState().addToProdMsg(widget.produto!);
                           });
                         } else {
                           await showDialog(
@@ -526,6 +517,19 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                       ),
                     );
                   },
+                ),
+              ),
+            if (FFAppState().prodMsg.contains(widget.produto))
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+                child: AutoSizeText(
+                  'Você já demonstrou interessse neste produto. Assim que possível o vendedor entrará em contato com você para para realizar a negociação.',
+                  textAlign: TextAlign.center,
+                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                        fontFamily: 'Poppins',
+                        color: FlutterFlowTheme.of(context).grayIcon,
+                        fontSize: 19.0,
+                      ),
                 ),
               ),
           ],

@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -136,123 +137,210 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         20.0, 20.0, 20.0, 0.0),
-                                                child: TextFormField(
-                                                  controller: _model
-                                                      .emailLoginController,
-                                                  onChanged: (_) =>
-                                                      EasyDebounce.debounce(
-                                                    '_model.emailLoginController',
-                                                    Duration(
-                                                        milliseconds: 2000),
-                                                    () => setState(() {}),
-                                                  ),
-                                                  obscureText: false,
-                                                  decoration: InputDecoration(
-                                                    labelStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .grayIcon,
-                                                        ),
-                                                    hintText: 'WhatsApp',
-                                                    hintStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color:
-                                                              Color(0xFF0F1113),
-                                                        ),
-                                                    enabledBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color: Colors.white,
-                                                        width: 1.0,
+                                                child: Autocomplete<String>(
+                                                  initialValue:
+                                                      TextEditingValue(),
+                                                  optionsBuilder:
+                                                      (textEditingValue) {
+                                                    if (textEditingValue.text ==
+                                                        '') {
+                                                      return const Iterable<
+                                                          String>.empty();
+                                                    }
+                                                    return ['Option 1']
+                                                        .where((option) {
+                                                      final lowercaseOption =
+                                                          option.toLowerCase();
+                                                      return lowercaseOption
+                                                          .contains(
+                                                              textEditingValue
+                                                                  .text
+                                                                  .toLowerCase());
+                                                    });
+                                                  },
+                                                  optionsViewBuilder: (context,
+                                                      onSelected, options) {
+                                                    return AutocompleteOptionsList(
+                                                      textFieldKey:
+                                                          _model.emailLoginKey,
+                                                      textController: _model
+                                                          .emailLoginController!,
+                                                      options: options.toList(),
+                                                      onSelected: onSelected,
+                                                      textStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText1,
+                                                      textHighlightStyle:
+                                                          TextStyle(),
+                                                      elevation: 4.0,
+                                                      optionBackgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryBackground,
+                                                      optionHighlightColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryBackground,
+                                                      maxHeight: 200.0,
+                                                    );
+                                                  },
+                                                  onSelected:
+                                                      (String selection) {
+                                                    setState(() => _model
+                                                            .emailLoginSelectedOption =
+                                                        selection);
+                                                    FocusScope.of(context)
+                                                        .unfocus();
+                                                  },
+                                                  fieldViewBuilder: (
+                                                    context,
+                                                    textEditingController,
+                                                    focusNode,
+                                                    onEditingComplete,
+                                                  ) {
+                                                    _model.emailLoginController =
+                                                        textEditingController;
+                                                    return TextFormField(
+                                                      key: _model.emailLoginKey,
+                                                      controller:
+                                                          textEditingController,
+                                                      focusNode: focusNode,
+                                                      onEditingComplete:
+                                                          onEditingComplete,
+                                                      onChanged: (_) =>
+                                                          EasyDebounce.debounce(
+                                                        '_model.emailLoginController',
+                                                        Duration(
+                                                            milliseconds: 2000),
+                                                        () => setState(() {}),
                                                       ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                    ),
-                                                    focusedBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0x00000000),
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                    ),
-                                                    errorBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0x00000000),
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                    ),
-                                                    focusedErrorBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0x00000000),
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                    ),
-                                                    filled: true,
-                                                    fillColor: Colors.white,
-                                                    contentPadding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                20.0,
-                                                                16.0,
-                                                                20.0,
-                                                                16.0),
-                                                    suffixIcon: _model
-                                                            .emailLoginController!
-                                                            .text
-                                                            .isNotEmpty
-                                                        ? InkWell(
-                                                            onTap: () async {
-                                                              _model
-                                                                  .emailLoginController
-                                                                  ?.clear();
-                                                              setState(() {});
-                                                            },
-                                                            child: Icon(
-                                                              Icons.clear,
-                                                              color: Color(
-                                                                  0xFF757575),
-                                                              size: 22.0,
-                                                            ),
-                                                          )
-                                                        : null,
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        color:
+                                                      autofocus: true,
+                                                      obscureText: false,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        labelStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .grayIcon,
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .grayIcon,
+                                                                ),
+                                                        hintText: 'WhatsApp',
+                                                        hintStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: Color(
+                                                                      0xFF0F1113),
+                                                                ),
+                                                        enabledBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: Colors.white,
+                                                            width: 1.0,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                        ),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: Color(
+                                                                0x00000000),
+                                                            width: 1.0,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                        ),
+                                                        errorBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: Color(
+                                                                0x00000000),
+                                                            width: 1.0,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                        ),
+                                                        focusedErrorBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: Color(
+                                                                0x00000000),
+                                                            width: 1.0,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                        ),
+                                                        filled: true,
+                                                        fillColor: Colors.white,
+                                                        contentPadding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    20.0,
+                                                                    16.0,
+                                                                    20.0,
+                                                                    16.0),
+                                                        suffixIcon: _model
+                                                                .emailLoginController!
+                                                                .text
+                                                                .isNotEmpty
+                                                            ? InkWell(
+                                                                onTap:
+                                                                    () async {
+                                                                  _model
+                                                                      .emailLoginController
+                                                                      ?.clear();
+                                                                  setState(
+                                                                      () {});
+                                                                },
+                                                                child: Icon(
+                                                                  Icons.clear,
+                                                                  color: Color(
+                                                                      0xFF757575),
+                                                                  size: 22.0,
+                                                                ),
+                                                              )
+                                                            : null,
                                                       ),
-                                                  keyboardType:
-                                                      TextInputType.phone,
-                                                  validator: _model
-                                                      .emailLoginControllerValidator
-                                                      .asValidator(context),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .grayIcon,
+                                                              ),
+                                                      keyboardType:
+                                                          TextInputType.phone,
+                                                      validator: _model
+                                                          .emailLoginControllerValidator
+                                                          .asValidator(context),
+                                                    );
+                                                  },
                                                 ),
                                               ),
                                               Padding(

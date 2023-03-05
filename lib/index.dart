@@ -8,3 +8,4 @@ export '/adicionar_produto/adicionar_produto_widget.dart'
 export '/explore/explore_widget.dart' show ExploreWidget;
 export '/cart/cart_widget.dart' show CartWidget;
 export '/categoria_page/categoria_page_widget.dart' show CategoriaPageWidget;
+export '/profile/profile_widget.dart' show ProfileWidget;

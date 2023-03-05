@@ -139,7 +139,7 @@ class UsersByIdCall {
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
     );
   }
@@ -155,6 +155,26 @@ class UsersByIdCall {
   static dynamic whatsApp(dynamic response) => getJsonField(
         response,
         r'''$.response.WhatsApp''',
+      );
+  static dynamic slug(dynamic response) => getJsonField(
+        response,
+        r'''$.response.Slug''',
+      );
+  static dynamic email(dynamic response) => getJsonField(
+        response,
+        r'''$.response.authentication.email.email''',
+      );
+  static dynamic nome(dynamic response) => getJsonField(
+        response,
+        r'''$.response.Nome''',
+      );
+  static dynamic response(dynamic response) => getJsonField(
+        response,
+        r'''$.response''',
+      );
+  static dynamic id(dynamic response) => getJsonField(
+        response,
+        r'''$.response._id''',
       );
 }
 
@@ -565,6 +585,12 @@ class ProdutosNovidadesCall {
   static dynamic allFields(dynamic response) => getJsonField(
         response,
         r'''$.response.results''',
+        true,
+      );
+  static dynamic id(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:]._id''',
+        true,
       );
 }
 
@@ -605,7 +631,7 @@ class ProdutosBuscaCall {
       );
 }
 
-class ProdutosNovidadesCopyCall {
+class ProdutosNovidadesPorVendedorCall {
   static Future<ApiCallResponse> call({
     String? sortField = 'created%20date',
     bool? descending = true,
@@ -614,7 +640,7 @@ class ProdutosNovidadesCopyCall {
         '%5B%7B%22key%22%3A%22is_marketplace%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%22true%22%7D%2C%7B%22key%22%3A%22Status%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%221638810592650x910538349165423400%22%7D%2C%7B%22key%22%3A%22Quantidade%22%2C%22constraint_type%22%3A%22greater%20than%22%2C%22value%22%3A%220%22%7D%2C%7B%22key%22%3A%22is_featured%22%2C%22constraint_type%22%3A%22equals%22%2C%22value%22%3A%22true%22%7D%5D',
   }) {
     return ApiManager.instance.makeApiCall(
-      callName: 'Produtos Novidades Copy',
+      callName: 'Produtos Novidades por Vendedor',
       apiUrl: 'https://achadodeluxo.com.br/api/1.1/obj/produto',
       callType: ApiCallType.GET,
       headers: {
@@ -636,6 +662,64 @@ class ProdutosNovidadesCopyCall {
   static dynamic allFields(dynamic response) => getJsonField(
         response,
         r'''$.response.results''',
+      );
+  static dynamic response(dynamic response) => getJsonField(
+        response,
+        r'''$.response''',
+      );
+  static dynamic nome(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].Nome''',
+      );
+  static dynamic quantidade(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].Quantidade''',
+      );
+  static dynamic price(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].Preco''',
+      );
+  static dynamic slug(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].Slug''',
+      );
+  static dynamic description(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].Descricao''',
+      );
+  static dynamic vendedor(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].Vendedor''',
+      );
+  static dynamic cor(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].Cor''',
+      );
+  static dynamic status(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].Status''',
+      );
+  static dynamic marca(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].Marca''',
+      );
+  static dynamic consdicao(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].Condicao''',
+      );
+  static dynamic vires(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].Visualizacoes''',
+        true,
+      );
+  static dynamic viewer(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].Visualizadores''',
+        true,
+      );
+  static dynamic imagem(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].ImagemRemota''',
       );
 }
 

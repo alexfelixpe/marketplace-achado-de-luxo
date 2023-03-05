@@ -2,14 +2,13 @@ import '/account/account_widget.dart';
 import '/adicionar_produto/adicionar_produto_widget.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/login/login_widget.dart';
 import '/main.dart';
 import '/produto/produto_widget.dart';
+import '/profile/profile_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -17,7 +16,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'feed_model.dart';
 export 'feed_model.dart';
@@ -34,7 +32,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
-  var hasToggleIconTriggered = false;
+
   final animationsMap = {
     'rowOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
@@ -78,19 +76,6 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
           delay: 0.ms,
           duration: 600.ms,
           begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-    'toggleIconOnActionTriggerAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: false,
-      effects: [
-        ScaleEffect(
-          curve: Curves.bounceOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 2.0,
           end: 1.0,
         ),
       ],
@@ -305,7 +290,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
               ),
               Expanded(
                 child: FutureBuilder<ApiCallResponse>(
-                  future: (_model.apiRequestCompleter1 ??=
+                  future: (_model.apiRequestCompleter ??=
                           Completer<ApiCallResponse>()
                             ..complete(ProdutosNovidadesCall.call()))
                       .future,
@@ -326,12 +311,13 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                     return Builder(
                       builder: (context) {
                         final produtos = ProdutosNovidadesCall.allFields(
-                          listViewProdutosNovidadesResponse.jsonBody,
-                        ).toList();
+                              listViewProdutosNovidadesResponse.jsonBody,
+                            )?.toList() ??
+                            [];
                         return RefreshIndicator(
                           onRefresh: () async {
-                            setState(() => _model.apiRequestCompleter1 = null);
-                            await _model.waitForApiRequestCompleter1();
+                            setState(() => _model.apiRequestCompleter = null);
+                            await _model.waitForApiRequestCompleter();
                           },
                           child: ListView.builder(
                             padding: EdgeInsets.zero,
@@ -381,52 +367,32 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                     PageTransition(
                                                       type: PageTransitionType
                                                           .fade,
-                                                      child:
-                                                          FlutterFlowExpandedImageView(
-                                                        image:
-                                                            CachedNetworkImage(
-                                                          imageUrl:
-                                                              '${'${functions.circleImage(UsersByIdCall.foto(
+                                                      duration: Duration(
+                                                          milliseconds: 300),
+                                                      reverseDuration: Duration(
+                                                          milliseconds: 300),
+                                                      child: ProfileWidget(
+                                                        user:
                                                             rowProfilePicUsersByIdResponse
                                                                 .jsonBody,
-                                                          ).toString())}'}',
-                                                          fit: BoxFit.contain,
-                                                        ),
-                                                        allowRotation: false,
-                                                        tag:
-                                                            '${'${functions.circleImage(UsersByIdCall.foto(
-                                                          rowProfilePicUsersByIdResponse
-                                                              .jsonBody,
-                                                        ).toString())}'}',
-                                                        useHeroAnimation: true,
                                                       ),
                                                     ),
                                                   );
                                                 },
-                                                child: Hero(
-                                                  tag:
-                                                      '${'${functions.circleImage(UsersByIdCall.foto(
-                                                    rowProfilePicUsersByIdResponse
-                                                        .jsonBody,
-                                                  ).toString())}'}',
-                                                  transitionOnUserGestures:
-                                                      true,
-                                                  child: Container(
-                                                    width: 35.0,
-                                                    height: 35.0,
-                                                    clipBehavior:
-                                                        Clip.antiAlias,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: CachedNetworkImage(
-                                                      imageUrl:
-                                                          '${'${functions.circleImage(UsersByIdCall.foto(
-                                                        rowProfilePicUsersByIdResponse
-                                                            .jsonBody,
-                                                      ).toString())}'}',
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                                child: Container(
+                                                  width: 35.0,
+                                                  height: 35.0,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl:
+                                                        '${'${functions.circleImage(UsersByIdCall.foto(
+                                                      rowProfilePicUsersByIdResponse
+                                                          .jsonBody,
+                                                    ).toString())}'}',
+                                                    fit: BoxFit.cover,
                                                   ),
                                                 ),
                                               ),
@@ -563,12 +529,9 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 5.0, 0.0, 5.0),
                                       child: FutureBuilder<ApiCallResponse>(
-                                        future: (_model.apiRequestCompleter2 ??=
-                                                Completer<ApiCallResponse>()
-                                                  ..complete(UsersByIdCall.call(
-                                                    id: FFAppState().userid,
-                                                  )))
-                                            .future,
+                                        future: UsersByIdCall.call(
+                                          id: FFAppState().userid,
+                                        ),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
                                           if (!snapshot.hasData) {
@@ -592,121 +555,22 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              InkWell(
-                                                onTap: () async {
-                                                  if (animationsMap[
-                                                          'toggleIconOnActionTriggerAnimation'] !=
-                                                      null) {
-                                                    setState(() =>
-                                                        hasToggleIconTriggered =
-                                                            true);
-                                                    SchedulerBinding.instance
-                                                        .addPostFrameCallback((_) async =>
-                                                            await animationsMap[
-                                                                    'toggleIconOnActionTriggerAnimation']!
-                                                                .controller
-                                                                .forward(
-                                                                    from: 0.0));
-                                                  }
-                                                  if (FFAppState()
-                                                      .Like
-                                                      .contains(getJsonField(
-                                                        produtosItem,
-                                                        r'''$._id''',
-                                                      ))) {
-                                                    FFAppState().update(() {
-                                                      FFAppState()
-                                                          .removeFromLike(
-                                                              getJsonField(
-                                                        produtosItem,
-                                                        r'''$._id''',
-                                                      ).toString());
-                                                    });
-                                                    await DislikeCall.call(
-                                                      produtoId: getJsonField(
-                                                        produtosItem,
-                                                        r'''$._id''',
-                                                      ).toString(),
-                                                      userId:
-                                                          FFAppState().userid,
-                                                    );
-                                                  } else {
-                                                    FFAppState().update(() {
-                                                      FFAppState().addToLike(
-                                                          getJsonField(
-                                                        produtosItem,
-                                                        r'''$._id''',
-                                                      ).toString());
-                                                    });
-                                                    await DoLikeCall.call(
-                                                      produtoId: getJsonField(
-                                                        produtosItem,
-                                                        r'''$._id''',
-                                                      ).toString(),
-                                                      userId:
-                                                          FFAppState().userid,
-                                                    );
-                                                  }
-
-                                                  setState(() => _model
-                                                          .apiRequestCompleter2 =
-                                                      null);
-                                                },
-                                                child: Stack(
-                                                  children: [
-                                                    ToggleIcon(
-                                                      onPressed: () async {
-                                                        setState(
-                                                          () => FFAppState()
-                                                                  .Like
-                                                                  .contains(
-                                                                      getJsonField(
-                                                                    produtosItem,
-                                                                    r'''$._id''',
-                                                                  ))
-                                                              ? FFAppState()
-                                                                  .Like
-                                                                  .remove(
-                                                                      getJsonField(
-                                                                    produtosItem,
-                                                                    r'''$._id''',
-                                                                  ))
-                                                              : FFAppState()
-                                                                  .Like
-                                                                  .add(
-                                                                      getJsonField(
-                                                                    produtosItem,
-                                                                    r'''$._id''',
-                                                                  )),
-                                                        );
-                                                      },
-                                                      value: FFAppState()
-                                                          .Like
-                                                          .contains(
-                                                              getJsonField(
-                                                            produtosItem,
-                                                            r'''$._id''',
-                                                          )),
-                                                      onIcon: Icon(
-                                                        Icons.favorite,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .alternate,
-                                                        size: 30.0,
-                                                      ),
-                                                      offIcon: Icon(
-                                                        Icons.favorite_border,
-                                                        color: Colors.black,
-                                                        size: 30.0,
-                                                      ),
-                                                    ).animateOnActionTrigger(
-                                                        animationsMap[
-                                                            'toggleIconOnActionTriggerAnimation']!,
-                                                        hasBeenTriggered:
-                                                            hasToggleIconTriggered),
-                                                  ],
+                                              FlutterFlowIconButton(
+                                                borderColor: Colors.transparent,
+                                                borderRadius: 30.0,
+                                                borderWidth: 1.0,
+                                                buttonSize: 60.0,
+                                                icon: Icon(
+                                                  Icons.favorite_border,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  size: 30.0,
                                                 ),
+                                                onPressed: () {
+                                                  print(
+                                                      'IconButton pressed ...');
+                                                },
                                               ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional

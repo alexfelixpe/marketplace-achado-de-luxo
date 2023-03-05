@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -13,7 +14,9 @@ class LoginModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for emailLogin widget.
+  final emailLoginKey = GlobalKey();
   TextEditingController? emailLoginController;
+  String? emailLoginSelectedOption;
   String? Function(BuildContext, String?)? emailLoginControllerValidator;
   // State field(s) for passwordLobin widget.
   TextEditingController? passwordLobinController;
@@ -47,7 +50,6 @@ class LoginModel extends FlutterFlowModel {
   }
 
   void dispose() {
-    emailLoginController?.dispose();
     passwordLobinController?.dispose();
     nomeSignupController?.dispose();
     emaWhatSappSignUpController?.dispose();
