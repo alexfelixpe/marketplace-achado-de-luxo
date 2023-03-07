@@ -437,7 +437,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.min,
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
                                                 children: [
                                                   Expanded(
                                                     child: Align(
