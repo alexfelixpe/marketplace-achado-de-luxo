@@ -122,10 +122,14 @@ class _ChatWidgetState extends State<ChatWidget> {
                           Expanded(
                             child: Builder(
                               builder: (context) {
-                                final chatMsgChilds = getJsonField(
-                                  columnListaDeMensagensResponse.jsonBody,
-                                  r'''$.response.chatlist[:]''',
-                                ).toList();
+                                final chatMsgChilds =
+                                    ChatGroup.listaDeMensagensCall
+                                            .chatList(
+                                              columnListaDeMensagensResponse
+                                                  .jsonBody,
+                                            )
+                                            ?.toList() ??
+                                        [];
                                 return ListView.builder(
                                   padding: EdgeInsets.zero,
                                   reverse: true,

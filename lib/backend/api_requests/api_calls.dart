@@ -260,26 +260,36 @@ class ListaDeMensagensCall {
   dynamic msg(dynamic response) => getJsonField(
         response,
         r'''$.response.chatlist[:].Mensagem''',
+        true,
       );
   dynamic to(dynamic response) => getJsonField(
         response,
         r'''$.response.chatlist[:].To''',
+        true,
       );
   dynamic id(dynamic response) => getJsonField(
         response,
         r'''$.response.chatlist[:]._id''',
+        true,
       );
   dynamic chat(dynamic response) => getJsonField(
         response,
         r'''$.response.chatlist[:].Chat''',
+        true,
       );
   dynamic from(dynamic response) => getJsonField(
         response,
         r'''$.response.chatlist[:].From''',
+        true,
       );
   dynamic response(dynamic response) => getJsonField(
         response,
         r'''$.response''',
+      );
+  dynamic chatList(dynamic response) => getJsonField(
+        response,
+        r'''$.response.chatlist[:]''',
+        true,
       );
 }
 
