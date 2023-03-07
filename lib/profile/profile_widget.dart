@@ -234,7 +234,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                              CrossAxisAlignment.stretch,
                                           children: [
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
