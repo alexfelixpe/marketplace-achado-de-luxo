@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/produto/produto_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/random_data_util.dart' as random_data;
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -209,9 +210,21 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               BorderRadius.circular(60.0),
                                           child: Image.network(
                                             getJsonField(
-                                              widget.user,
-                                              r'''$.response.Foto''',
-                                            ),
+                                                      widget.user,
+                                                      r'''$.response.Foto''',
+                                                    ) ==
+                                                    null
+                                                ? getJsonField(
+                                                    widget.user,
+                                                    r'''$.response.Foto''',
+                                                  )
+                                                : valueOrDefault<String>(
+                                                    random_data.randomImageUrl(
+                                                      200,
+                                                      200,
+                                                    ),
+                                                    'image',
+                                                  ),
                                             width: 80.0,
                                             height: 80.0,
                                             fit: BoxFit.cover,
