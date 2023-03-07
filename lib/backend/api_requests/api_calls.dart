@@ -209,7 +209,7 @@ class ListaDeChatsCall {
       },
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
     );
   }
@@ -217,10 +217,20 @@ class ListaDeChatsCall {
   dynamic cliente(dynamic response) => getJsonField(
         response,
         r'''$.response.chatlist[:].Cliente''',
+        true,
       );
   dynamic vendedor(dynamic response) => getJsonField(
         response,
         r'''$.response.chatlist[:].Vendedor''',
+        true,
+      );
+  dynamic id(dynamic response) => getJsonField(
+        response,
+        r'''$.response.chatlist[:]._id''',
+      );
+  dynamic chatList(dynamic response) => getJsonField(
+        response,
+        r'''$.response.chatlist''',
       );
 }
 
@@ -246,6 +256,37 @@ class ListaDeMensagensCall {
       cache: false,
     );
   }
+
+  dynamic msg(dynamic response) => getJsonField(
+        response,
+        r'''$.response.chatlist[:].Mensagem''',
+        true,
+      );
+  dynamic to(dynamic response) => getJsonField(
+        response,
+        r'''$.response.chatlist[:].To''',
+        true,
+      );
+  dynamic id(dynamic response) => getJsonField(
+        response,
+        r'''$.response.chatlist[:]._id''',
+        true,
+      );
+  dynamic chat(dynamic response) => getJsonField(
+        response,
+        r'''$.response.chatlist[:].Chat''',
+        true,
+      );
+  dynamic from(dynamic response) => getJsonField(
+        response,
+        r'''$.response.chatlist[:].From''',
+        true,
+      );
+  dynamic response(dynamic response) => getJsonField(
+        response,
+        r'''$.response''',
+        true,
+      );
 }
 
 /// End Chat Group Code

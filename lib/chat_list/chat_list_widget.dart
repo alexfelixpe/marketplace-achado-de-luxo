@@ -83,8 +83,11 @@ class _ChatListWidgetState extends State<ChatListWidget> {
               final listViewListaDeChatsResponse = snapshot.data!;
               return Builder(
                 builder: (context) {
-                  final chatList =
-                      listViewListaDeChatsResponse.jsonBody.toList();
+                  final chatList = ChatGroup.listaDeChatsCall
+                      .chatList(
+                        listViewListaDeChatsResponse.jsonBody,
+                      )
+                      .toList();
                   return ListView.builder(
                     padding: EdgeInsets.zero,
                     scrollDirection: Axis.vertical,
@@ -92,10 +95,11 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                     itemBuilder: (context, chatListIndex) {
                       final chatListItem = chatList[chatListIndex];
                       return Text(
-                        getJsonField(
-                          chatListItem,
-                          r'''$.response._id''',
-                        ).toString(),
+                        ChatGroup.listaDeChatsCall
+                            .id(
+                              listViewListaDeChatsResponse.jsonBody,
+                            )
+                            .toString(),
                         style: FlutterFlowTheme.of(context).bodyText1,
                       );
                     },

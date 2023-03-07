@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -11,10 +12,10 @@ export 'chat_model.dart';
 class ChatWidget extends StatefulWidget {
   const ChatWidget({
     Key? key,
-    this.vendedor,
+    this.vendedorID,
   }) : super(key: key);
 
-  final dynamic vendedor;
+  final String? vendedorID;
 
   @override
   _ChatWidgetState createState() => _ChatWidgetState();
@@ -30,7 +31,7 @@ class _ChatWidgetState extends State<ChatWidget> {
     super.initState();
     _model = createModel(context, () => ChatModel());
 
-    _model.textController ??= TextEditingController();
+    _model.inputMsgController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -67,7 +68,7 @@ class _ChatWidgetState extends State<ChatWidget> {
         title: Stack(
           children: [
             Text(
-              'Group Chat',
+              'Chat',
               style: FlutterFlowTheme.of(context).bodyText1.override(
                     fontFamily: 'Lexend Deca',
                     color: Colors.black,
@@ -90,20 +91,20 @@ class _ChatWidgetState extends State<ChatWidget> {
                 width: double.infinity,
                 height: double.infinity,
                 decoration: BoxDecoration(
-                  color: Color(0x1E886BC7),
+                  color: FlutterFlowTheme.of(context).white,
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
                       child: FutureBuilder<ApiCallResponse>(
-                        future: ChatGroup.listaDeMensagensCall.call(
-                          vendedorID: getJsonField(
-                            widget.vendedor,
-                            r'''$.response._id''',
-                          ).toString(),
-                          clienteID: FFAppState().userid,
-                        ),
+                        future: (_model.apiRequestCompleter ??= Completer<
+                                ApiCallResponse>()
+                              ..complete(ChatGroup.listaDeMensagensCall.call(
+                                vendedorID: widget.vendedorID,
+                                clienteID: FFAppState().userid,
+                              )))
+                            .future,
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
@@ -120,17 +121,66 @@ class _ChatWidgetState extends State<ChatWidget> {
                           }
                           final listViewListaDeMensagensResponse =
                               snapshot.data!;
-                          return ListView(
-                            padding: EdgeInsets.zero,
-                            reverse: true,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            children: [
-                              Text(
-                                'Hello World',
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                              ),
-                            ],
+                          return Builder(
+                            builder: (context) {
+                              final chatMsg = getJsonField(
+                                listViewListaDeMensagensResponse.jsonBody,
+                                r'''$.response.chatlist''',
+                              ).toList();
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                reverse: true,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: chatMsg.length,
+                                itemBuilder: (context, chatMsgIndex) {
+                                  final chatMsgItem = chatMsg[chatMsgIndex];
+                                  return Align(
+                                    alignment: AlignmentDirectional(-0.95, 0.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          getJsonField(
+                                            chatMsgItem,
+                                            r'''$.chatlist.Mensagem''',
+                                          ).toString(),
+                                          textAlign: TextAlign.start,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                        Align(
+                                          alignment:
+                                              AlignmentDirectional(0.9, 0.0),
+                                          child: Text(
+                                            getJsonField(
+                                              chatMsgItem,
+                                              r'''$.response.chatlist[:].Mensagem''',
+                                            ).toString(),
+                                            textAlign: TextAlign.end,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
                           );
                         },
                       ),
@@ -140,7 +190,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                       children: [
                         Expanded(
                           child: TextFormField(
-                            controller: _model.textController,
+                            controller: _model.inputMsgController,
                             autofocus: true,
                             obscureText: false,
                             decoration: InputDecoration(
@@ -192,7 +242,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                   FlutterFlowTheme.of(context).primaryBtnText,
                             ),
                             style: FlutterFlowTheme.of(context).bodyText1,
-                            validator: _model.textControllerValidator
+                            validator: _model.inputMsgControllerValidator
                                 .asValidator(context),
                           ),
                         ),
@@ -203,12 +253,34 @@ class _ChatWidgetState extends State<ChatWidget> {
                           buttonSize: 60.0,
                           icon: Icon(
                             Icons.send,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: FlutterFlowTheme.of(context).tertiary400,
                             size: 30.0,
                           ),
-                          onPressed: () {
-                            print('IconButton pressed ...');
-                          },
+                          onPressed: /* NOT RECOMMENDED */ _model
+                                      .inputMsgController.text ==
+                                  'true'
+                              ? null
+                              : () async {
+                                  _model.apiResult960 =
+                                      await ChatGroup.enviarChatCall.call(
+                                    to: widget.vendedorID,
+                                    from: FFAppState().userid,
+                                    mensagem: _model.inputMsgController.text,
+                                    vendedorID: widget.vendedorID,
+                                    clienteID: FFAppState().userid,
+                                  );
+                                  if ((_model.apiResult960?.succeeded ??
+                                      true)) {
+                                    setState(() =>
+                                        _model.apiRequestCompleter = null);
+                                    await _model.waitForApiRequestCompleter();
+                                    setState(() {
+                                      _model.inputMsgController?.clear();
+                                    });
+                                  }
+
+                                  setState(() {});
+                                },
                         ),
                       ],
                     ),

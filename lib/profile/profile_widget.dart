@@ -1,9 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
+import '/chat/chat_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/main.dart';
 import '/produto/produto_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
@@ -582,9 +582,14 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                     Duration(
                                                                         milliseconds:
                                                                             300),
-                                                                child: NavBarPage(
-                                                                    initialPage:
-                                                                        'ChatList'),
+                                                                child:
+                                                                    ChatWidget(
+                                                                  vendedorID:
+                                                                      getJsonField(
+                                                                    widget.user,
+                                                                    r'''$.response._id''',
+                                                                  ).toString(),
+                                                                ),
                                                               ),
                                                             );
                                                           },
