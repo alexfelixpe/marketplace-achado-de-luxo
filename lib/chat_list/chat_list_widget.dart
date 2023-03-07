@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 import 'chat_list_model.dart';
 export 'chat_list_model.dart';
@@ -61,54 +60,16 @@ class _ChatListWidgetState extends State<ChatListWidget> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 0.0, 0.0),
-          child: RefreshIndicator(
-            onRefresh: () async {
-              setState(() => _model.pagingController?.refresh());
-              await _model.waitForOnePage();
-            },
-            child: PagedListView<ApiPagingParams, dynamic>(
-              pagingController: () {
-                if (_model.pagingController != null) {
-                  return _model.pagingController!;
-                }
-
-                _model.pagingController = PagingController(
-                  firstPageKey: ApiPagingParams(
-                    nextPageNumber: 0,
-                    numItems: 0,
-                    lastResponse: null,
-                  ),
-                );
-                _model.pagingController!
-                    .addPageRequestListener((nextPageMarker) {
-                  ChatGroup.listaDeChatsCall
-                      .call(
+          child: FutureBuilder<ApiCallResponse>(
+            future: (_model.apiRequestCompleter ??= Completer<ApiCallResponse>()
+                  ..complete(ChatGroup.listaDeChatsCall.call(
                     userID: FFAppState().userid,
-                  )
-                      .then((listViewListaDeChatsResponse) {
-                    final pageItems =
-                        listViewListaDeChatsResponse.jsonBody.toList() as List;
-                    final newNumItems =
-                        nextPageMarker.numItems + pageItems.length;
-                    _model.pagingController!.appendPage(
-                      pageItems,
-                      (pageItems.length > 0)
-                          ? ApiPagingParams(
-                              nextPageNumber: nextPageMarker.nextPageNumber + 1,
-                              numItems: newNumItems,
-                              lastResponse: listViewListaDeChatsResponse,
-                            )
-                          : null,
-                    );
-                  });
-                });
-                return _model.pagingController!;
-              }(),
-              padding: EdgeInsets.zero,
-              scrollDirection: Axis.vertical,
-              builderDelegate: PagedChildBuilderDelegate<dynamic>(
-                // Customize what your widget looks like when it's loading the first page.
-                firstPageProgressIndicatorBuilder: (_) => Center(
+                  )))
+                .future,
+            builder: (context, snapshot) {
+              // Customize what your widget looks like when it's loading.
+              if (!snapshot.hasData) {
+                return Center(
                   child: SizedBox(
                     width: 50.0,
                     height: 50.0,
@@ -116,21 +77,38 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                       color: FlutterFlowTheme.of(context).primaryColor,
                     ),
                   ),
-                ),
-
-                itemBuilder: (context, _, chatListIndex) {
-                  final chatListItem =
-                      _model.pagingController!.itemList![chatListIndex];
-                  return Text(
-                    getJsonField(
-                      chatListItem,
-                      r'''$.response._id''',
-                    ).toString(),
-                    style: FlutterFlowTheme.of(context).bodyText1,
+                );
+              }
+              final listViewListaDeChatsResponse = snapshot.data!;
+              return Builder(
+                builder: (context) {
+                  final chatList =
+                      listViewListaDeChatsResponse.jsonBody.toList();
+                  return RefreshIndicator(
+                    onRefresh: () async {
+                      setState(() => _model.apiRequestCompleter = null);
+                      await _model.waitForApiRequestCompleter();
+                    },
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      reverse: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: chatList.length,
+                      itemBuilder: (context, chatListIndex) {
+                        final chatListItem = chatList[chatListIndex];
+                        return Text(
+                          getJsonField(
+                            chatListItem,
+                            r'''$.response._id''',
+                          ).toString(),
+                          style: FlutterFlowTheme.of(context).bodyText1,
+                        );
+                      },
+                    ),
                   );
                 },
-              ),
-            ),
+              );
+            },
           ),
         ),
       ),
