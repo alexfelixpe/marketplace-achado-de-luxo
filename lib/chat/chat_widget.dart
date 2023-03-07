@@ -161,7 +161,10 @@ class _ChatWidgetState extends State<ChatWidget> {
                                             alignment:
                                                 AlignmentDirectional(0.9, 0.0),
                                             child: Text(
-                                              chatMsgItem.toString(),
+                                              getJsonField(
+                                                chatMsgItem,
+                                                r'''$.Mensagem''',
+                                              ).toString(),
                                               textAlign: TextAlign.end,
                                               style: FlutterFlowTheme.of(
                                                       context)
