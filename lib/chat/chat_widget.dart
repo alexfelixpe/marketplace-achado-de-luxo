@@ -269,6 +269,8 @@ class _ChatWidgetState extends State<ChatWidget> {
                               borderRadius: 30.0,
                               borderWidth: 1.0,
                               buttonSize: 60.0,
+                              disabledColor:
+                                  FlutterFlowTheme.of(context).grayIcon,
                               icon: Icon(
                                 Icons.send,
                                 color: FlutterFlowTheme.of(context).tertiary400,
