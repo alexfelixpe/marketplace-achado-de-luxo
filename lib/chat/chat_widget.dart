@@ -158,7 +158,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                         ),
                                         if (getJsonField(
                                               chatMsgChildsItem,
-                                              r'''$.response.chatlist[:].From''',
+                                              r'''$.From''',
                                             ) ==
                                             FFAppState().userid)
                                           Align(
