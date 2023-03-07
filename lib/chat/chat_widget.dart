@@ -144,7 +144,10 @@ class _ChatWidgetState extends State<ChatWidget> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          chatMsgChildsItem.toString(),
+                                          getJsonField(
+                                            chatMsgChildsItem,
+                                            r'''$.Mensagem''',
+                                          ).toString(),
                                           textAlign: TextAlign.start,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
