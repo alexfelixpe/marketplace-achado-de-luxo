@@ -143,19 +143,24 @@ class _ChatWidgetState extends State<ChatWidget> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          getJsonField(
-                                            chatMsgChildsItem,
-                                            r'''$.Mensagem''',
-                                          ).toString(),
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Poppins',
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
+                                        if (getJsonField(
+                                              chatMsgChildsItem,
+                                              r'''$.From''',
+                                            ) !=
+                                            FFAppState().userid)
+                                          Text(
+                                            getJsonField(
+                                              chatMsgChildsItem,
+                                              r'''$.Mensagem''',
+                                            ).toString(),
+                                            textAlign: TextAlign.start,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
                                         if (getJsonField(
                                               chatMsgChildsItem,
                                               r'''$.From''',
