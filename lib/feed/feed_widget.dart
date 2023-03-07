@@ -211,7 +211,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                         ),
                       ),
                       FlutterFlowIconButton(
-                        borderColor: Color(0x4C886BC7),
+                        borderColor: FlutterFlowTheme.of(context).noColor,
                         borderRadius: 10.0,
                         borderWidth: 2.0,
                         buttonSize: 40.0,
@@ -236,7 +236,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                         padding:
                             EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
                         child: FlutterFlowIconButton(
-                          borderColor: Color(0x4C886BC7),
+                          borderColor: FlutterFlowTheme.of(context).noColor,
                           borderRadius: 10.0,
                           borderWidth: 2.0,
                           buttonSize: 40.0,
@@ -262,7 +262,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                         padding:
                             EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
                         child: FlutterFlowIconButton(
-                          borderColor: Color(0x4C886BC7),
+                          borderColor: FlutterFlowTheme.of(context).noColor,
                           borderRadius: 10.0,
                           borderWidth: 2.0,
                           buttonSize: 40.0,
@@ -279,6 +279,32 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                 duration: Duration(milliseconds: 200),
                                 reverseDuration: Duration(milliseconds: 200),
                                 child: AccountWidget(),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+                        child: FlutterFlowIconButton(
+                          borderColor: FlutterFlowTheme.of(context).noColor,
+                          borderRadius: 10.0,
+                          borderWidth: 2.0,
+                          buttonSize: 40.0,
+                          icon: Icon(
+                            Icons.chat_bubble,
+                            color: Color(0xFF886BC7),
+                            size: 20.0,
+                          ),
+                          onPressed: () async {
+                            await Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.fade,
+                                duration: Duration(milliseconds: 200),
+                                reverseDuration: Duration(milliseconds: 200),
+                                child: NavBarPage(initialPage: 'ChatList'),
                               ),
                             );
                           },
