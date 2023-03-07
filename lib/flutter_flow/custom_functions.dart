@@ -7,6 +7,8 @@ import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'lat_lng.dart';
 import 'place.dart';
+import '../backend/backend.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../auth/auth_util.dart';
 
 String? imageCompress(String? url) {
@@ -47,9 +49,4 @@ int somaQuantidade(
 ) {
   num resultado = qtd1 + qtd2;
   return resultado.toInt();
-}
-
-int? countRecords(dynamic jsonData) {
-  final data = json.decode(jsonData)['data'];
-  return data is List ? data.length : 0;
 }

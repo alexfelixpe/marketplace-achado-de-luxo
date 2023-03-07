@@ -46,6 +46,8 @@ class _MyAppState extends State<MyApp> {
   MarketplaceFirebaseUser? initialUser;
   bool displaySplashImage = true;
 
+  final authUserSub = authenticatedUserStream.listen((_) {});
+
   @override
   void initState() {
     super.initState();
@@ -56,6 +58,13 @@ class _MyAppState extends State<MyApp> {
       Duration(seconds: 1),
       () => setState(() => displaySplashImage = false),
     );
+  }
+
+  @override
+  void dispose() {
+    authUserSub.cancel();
+
+    super.dispose();
   }
 
   void setLocale(String language) {
@@ -130,6 +139,7 @@ class _NavBarPageState extends State<NavBarPage> {
     final tabs = {
       'Feed': FeedWidget(),
       'Explore': ExploreWidget(),
+      'ChatList': ChatListWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
     return Scaffold(
@@ -194,6 +204,21 @@ class _NavBarPageState extends State<NavBarPage> {
                         : Color(0x00000000),
                     fontSize: 11.0,
                   ),
+                ),
+              ],
+            ),
+          ),
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  currentIndex == 2
+                      ? Icons.chat_bubble_rounded
+                      : Icons.chat_bubble_outline,
+                  color:
+                      currentIndex == 2 ? Color(0x00000000) : Color(0x00000000),
+                  size: 24.0,
                 ),
               ],
             ),

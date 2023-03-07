@@ -47,6 +47,209 @@ class EnviarMensagemCall {
 
 /// End MegaApi Group Code
 
+/// Start FollowUnfollow Group Code
+
+class FollowUnfollowGroup {
+  static String baseUrl = 'https://achadodeluxo.com.br/api/1.1/wf/';
+  static Map<String, String> headers = {
+    'Authorization': 'Bearer 4d01049ceef6c90c1b68270781d35e20',
+  };
+  static FollowCall followCall = FollowCall();
+  static FollowersCall followersCall = FollowersCall();
+  static FollowersCountCall followersCountCall = FollowersCountCall();
+}
+
+class FollowCall {
+  Future<ApiCallResponse> call({
+    String? vendedorID = '',
+    String? seguidorID = '',
+  }) {
+    final body = '''
+{
+  "vendedorID": "${vendedorID}",
+  "seguidorID": "${seguidorID}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Follow',
+      apiUrl: '${FollowUnfollowGroup.baseUrl}/follow',
+      callType: ApiCallType.POST,
+      headers: {
+        ...FollowUnfollowGroup.headers,
+      },
+      params: {},
+      body: body,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: true,
+      cache: false,
+    );
+  }
+}
+
+class FollowersCall {
+  Future<ApiCallResponse> call({
+    String? vendedorID = '',
+    String? clienteID = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Followers',
+      apiUrl: '${FollowUnfollowGroup.baseUrl}/followers',
+      callType: ApiCallType.GET,
+      headers: {
+        ...FollowUnfollowGroup.headers,
+      },
+      params: {
+        'clienteID': clienteID,
+        'vendedorID': vendedorID,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: true,
+      cache: false,
+    );
+  }
+
+  dynamic seguidor(dynamic response) => getJsonField(
+        response,
+        r'''$.response.seguidor''',
+      );
+}
+
+class FollowersCountCall {
+  Future<ApiCallResponse> call({
+    String? vendedorID = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Followers Count',
+      apiUrl: '${FollowUnfollowGroup.baseUrl}/followers_count',
+      callType: ApiCallType.GET,
+      headers: {
+        ...FollowUnfollowGroup.headers,
+      },
+      params: {
+        'vendedorID': vendedorID,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: true,
+      cache: true,
+    );
+  }
+
+  dynamic qtdSeguidores(dynamic response) => getJsonField(
+        response,
+        r'''$.response.seguidores''',
+      );
+}
+
+/// End FollowUnfollow Group Code
+
+/// Start Chat Group Code
+
+class ChatGroup {
+  static String baseUrl = 'https://achadodeluxo.com.br/api/1.1/wf';
+  static Map<String, String> headers = {
+    'Authorization': 'Bearer 4d01049ceef6c90c1b68270781d35e20',
+  };
+  static EnviarChatCall enviarChatCall = EnviarChatCall();
+  static ListaDeChatsCall listaDeChatsCall = ListaDeChatsCall();
+  static ListaDeMensagensCall listaDeMensagensCall = ListaDeMensagensCall();
+}
+
+class EnviarChatCall {
+  Future<ApiCallResponse> call({
+    String? vendedorID = '',
+    String? clienteID = '',
+    String? mensagem = '',
+    String? imagem = '',
+    String? from = '',
+    String? to = '',
+  }) {
+    final body = '''
+{
+"vendedorID":"${vendedorID}",
+"clienteID":"${clienteID}",
+"mensagem":"${mensagem}",
+"imagem":"${imagem}",
+"from":"${from}",
+"to":"${to}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Enviar Chat',
+      apiUrl: '${ChatGroup.baseUrl}/chat',
+      callType: ApiCallType.POST,
+      headers: {
+        ...ChatGroup.headers,
+      },
+      params: {},
+      body: body,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class ListaDeChatsCall {
+  Future<ApiCallResponse> call({
+    String? userID = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Lista de Chats',
+      apiUrl: '${ChatGroup.baseUrl}/chat_list',
+      callType: ApiCallType.GET,
+      headers: {
+        ...ChatGroup.headers,
+      },
+      params: {
+        'userID': userID,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic cliente(dynamic response) => getJsonField(
+        response,
+        r'''$.response.chatlist[:].Cliente''',
+      );
+  dynamic vendedor(dynamic response) => getJsonField(
+        response,
+        r'''$.response.chatlist[:].Vendedor''',
+      );
+}
+
+class ListaDeMensagensCall {
+  Future<ApiCallResponse> call({
+    String? vendedorID = '',
+    String? clienteID = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Lista de Mensagens',
+      apiUrl: '${ChatGroup.baseUrl}/chat_list_msg',
+      callType: ApiCallType.GET,
+      headers: {
+        ...ChatGroup.headers,
+      },
+      params: {
+        'vendedorID': vendedorID,
+        'clienteID': clienteID,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+/// End Chat Group Code
+
 class AuthCall {
   static Future<ApiCallResponse> call({
     String? user = '11964591802',
@@ -248,7 +451,7 @@ class CategoriasCall {
       },
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
     );
   }
@@ -337,7 +540,7 @@ class CarrinhoCall {
       },
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
     );
   }
@@ -358,7 +561,7 @@ class GeneroCall {
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
     );
   }
@@ -387,7 +590,7 @@ class TamanhoCall {
       },
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
     );
   }
@@ -416,7 +619,7 @@ class CorCall {
       },
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
     );
   }
@@ -445,7 +648,7 @@ class MarcasCall {
       },
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
     );
   }
@@ -620,7 +823,7 @@ class ProdutosBuscaCall {
       },
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
     );
   }

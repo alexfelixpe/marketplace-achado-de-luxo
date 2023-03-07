@@ -238,8 +238,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                                 .override(
                                                                   fontFamily:
                                                                       'Poppins',
-                                                                  color: Color(
-                                                                      0xFF0F1113),
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .grayIcon,
                                                                 ),
                                                         enabledBorder:
                                                             OutlineInputBorder(
@@ -332,7 +333,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                                     'Poppins',
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .grayIcon,
+                                                                    .black600,
                                                               ),
                                                       keyboardType:
                                                           TextInputType.phone,

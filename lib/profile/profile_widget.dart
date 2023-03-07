@@ -3,10 +3,13 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/main.dart';
+import '/produto/produto_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'profile_model.dart';
@@ -75,37 +78,63 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBtnText,
-          appBar: responsiveVisibility(
-            context: context,
-            phone: false,
-            tablet: false,
-            tabletLandscape: false,
-            desktop: false,
-          )
-              ? PreferredSize(
-                  preferredSize: Size.fromHeight(45.0),
-                  child: AppBar(
-                    backgroundColor: Color(0x95886BC7),
-                    automaticallyImplyLeading: false,
-                    leading: FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 30.0,
-                      borderWidth: 1.0,
-                      buttonSize: 60.0,
-                      icon: Icon(
-                        Icons.arrow_back_rounded,
-                        color: Colors.white,
-                        size: 30.0,
-                      ),
-                      onPressed: () async {
-                        Navigator.pop(context);
-                      },
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(45.0),
+            child: AppBar(
+              backgroundColor: FlutterFlowTheme.of(context).primaryBtnText,
+              automaticallyImplyLeading: false,
+              leading: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  FlutterFlowIconButton(
+                    borderColor: Colors.transparent,
+                    borderRadius: 30.0,
+                    borderWidth: 1.0,
+                    buttonSize: 60.0,
+                    fillColor: Color(0x00886BC7),
+                    icon: Icon(
+                      Icons.arrow_back_outlined,
+                      color: FlutterFlowTheme.of(context).primaryColor,
+                      size: 30.0,
                     ),
-                    actions: [],
-                    elevation: 6.0,
+                    onPressed: () async {
+                      Navigator.pop(context);
+                    },
                   ),
-                )
-              : null,
+                  Text(
+                    getJsonField(
+                      widget.user,
+                      r'''$.response.Slug''',
+                    ).toString(),
+                    style: FlutterFlowTheme.of(context).bodyText1,
+                  ),
+                ],
+              ),
+              actions: [],
+              flexibleSpace: FlexibleSpaceBar(
+                title: Align(
+                  alignment: AlignmentDirectional(1.0, 0.0),
+                  child: FlutterFlowIconButton(
+                    borderColor: Colors.transparent,
+                    borderRadius: 30.0,
+                    borderWidth: 1.0,
+                    buttonSize: 60.0,
+                    icon: FaIcon(
+                      FontAwesomeIcons.solidBell,
+                      color: FlutterFlowTheme.of(context).primaryColor,
+                      size: 30.0,
+                    ),
+                    onPressed: () {
+                      print('IconButton pressed ...');
+                    },
+                  ),
+                ),
+                centerTitle: true,
+                expandedTitleScale: 1.0,
+              ),
+              elevation: 0.0,
+            ),
+          ),
           body: SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
@@ -113,181 +142,579 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 5.0,
-                            color: Color(0x230F1113),
-                            offset: Offset(0.0, 2.0),
-                          )
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 8.0, 16.0, 16.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Container(
-                                  width: 80.0,
-                                  height: 80.0,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        FlutterFlowTheme.of(context).lineColor,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        2.0, 2.0, 2.0, 2.0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(60.0),
-                                      child: Image.network(
-                                        'https://${getJsonField(
-                                          widget.user,
-                                          r'''$.response.Foto''',
-                                        ).toString()}',
-                                        width: 80.0,
-                                        height: 80.0,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 0.0, 0.0, 8.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    5.0, 5.0, 5.0, 5.0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  functions
-                                                      .countRecords(
-                                                          profileProdutosNovidadesPorVendedorResponse
-                                                              .jsonBody)
-                                                      .toString(),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        fontSize: 18.0,
-                                                      ),
-                                                ),
-                                                Text(
-                                                  'Desapegos',
-                                                  textAlign: TextAlign.center,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(-0.75, 0.0),
-                                        child: FFButtonWidget(
-                                          onPressed: () {
-                                            print('Button pressed ...');
-                                          },
-                                          text: 'Seguir',
-                                          options: FFButtonOptions(
-                                            width: 130.0,
-                                            height: 30.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .subtitle2
-                                                    .override(
-                                                      fontFamily: 'Poppins',
-                                                      color: Colors.white,
-                                                    ),
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  height: 32.0,
-                                  constraints: BoxConstraints(
-                                    maxHeight: 32.0,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryColor,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        blurRadius: 4.0,
-                                        color: Color(0x32171717),
-                                        offset: Offset(0.0, 2.0),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(30.0),
-                                  ),
-                                ),
-                              ],
+                    FutureBuilder<ApiCallResponse>(
+                      future: (_model.apiRequestCompleter1 ??= Completer<
+                              ApiCallResponse>()
+                            ..complete(FollowUnfollowGroup.followersCall.call(
+                              vendedorID: getJsonField(
+                                widget.user,
+                                r'''$.response._id''',
+                              ).toString(),
+                              clienteID: FFAppState().userid,
+                            )))
+                          .future,
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50.0,
+                              height: 50.0,
+                              child: CircularProgressIndicator(
+                                color:
+                                    FlutterFlowTheme.of(context).primaryColor,
+                              ),
                             ),
+                          );
+                        }
+                        final containerFollowersResponse = snapshot.data!;
+                        return Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 5.0,
+                                color: Color(0x230F1113),
+                                offset: Offset(0.0, 2.0),
+                              )
+                            ],
                           ),
-                          Row(
+                          child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    20.0, 0.0, 0.0, 0.0),
-                                child: Text(
-                                  getJsonField(
-                                    widget.user,
-                                    r'''$.response.Nome''',
-                                  ).toString(),
-                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                    5.0, 5.0, 5.0, 5.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 80.0,
+                                      height: 80.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .lineColor,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            2.0, 2.0, 2.0, 2.0),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(60.0),
+                                          child: Image.network(
+                                            getJsonField(
+                                              widget.user,
+                                              r'''$.response.Foto''',
+                                            ),
+                                            width: 80.0,
+                                            height: 80.0,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10.0, 10.0, 10.0, 10.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          5.0, 5.0, 5.0, 5.0),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Text(
+                                                        functions
+                                                            .somaQuantidade(
+                                                                ProdutosNovidadesPorVendedorCall
+                                                                    .qtd1(
+                                                                  profileProdutosNovidadesPorVendedorResponse
+                                                                      .jsonBody,
+                                                                ),
+                                                                ProdutosNovidadesPorVendedorCall
+                                                                    .qtd2(
+                                                                  profileProdutosNovidadesPorVendedorResponse
+                                                                      .jsonBody,
+                                                                ))
+                                                            .toString(),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        maxLines: 1,
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyText1
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Poppins',
+                                                              fontSize: 18.0,
+                                                            ),
+                                                      ),
+                                                      Text(
+                                                        'Desapegos',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          5.0, 5.0, 5.0, 5.0),
+                                                  child: FutureBuilder<
+                                                      ApiCallResponse>(
+                                                    future: FollowUnfollowGroup
+                                                        .followersCountCall
+                                                        .call(
+                                                      vendedorID: getJsonField(
+                                                        widget.user,
+                                                        r'''$.response._id''',
+                                                      ).toString(),
+                                                    ),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryColor,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      final columnFollowersCountResponse =
+                                                          snapshot.data!;
+                                                      return Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Text(
+                                                            FollowUnfollowGroup
+                                                                .followersCountCall
+                                                                .qtdSeguidores(
+                                                                  columnFollowersCountResponse
+                                                                      .jsonBody,
+                                                                )
+                                                                .toString(),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            maxLines: 1,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  fontSize:
+                                                                      18.0,
+                                                                ),
+                                                          ),
+                                                          Text(
+                                                            'Seguidores',
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1,
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          5.0, 5.0, 5.0, 5.0),
+                                                  child: FutureBuilder<
+                                                      ApiCallResponse>(
+                                                    future: FollowUnfollowGroup
+                                                        .followersCountCall
+                                                        .call(
+                                                      vendedorID: getJsonField(
+                                                        widget.user,
+                                                        r'''$.response._id''',
+                                                      ).toString(),
+                                                    ),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryColor,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      final columnFollowersCountResponse =
+                                                          snapshot.data!;
+                                                      return Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Text(
+                                                            FollowUnfollowGroup
+                                                                .followersCountCall
+                                                                .qtdSeguidores(
+                                                                  columnFollowersCountResponse
+                                                                      .jsonBody,
+                                                                )
+                                                                .toString(),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            maxLines: 1,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  fontSize:
+                                                                      18.0,
+                                                                ),
+                                                          ),
+                                                          Text(
+                                                            'Seguindo',
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1,
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(5.0, 5.0, 5.0, 5.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    child: Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              -0.75, 0.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    10.0,
+                                                                    10.0,
+                                                                    10.0,
+                                                                    10.0),
+                                                        child: FFButtonWidget(
+                                                          onPressed: () async {
+                                                            _model.apiResultw9i =
+                                                                await FollowUnfollowGroup
+                                                                    .followCall
+                                                                    .call(
+                                                              vendedorID:
+                                                                  getJsonField(
+                                                                widget.user,
+                                                                r'''$.response._id''',
+                                                              ).toString(),
+                                                              seguidorID:
+                                                                  FFAppState()
+                                                                      .userid,
+                                                            );
+                                                            if (FollowUnfollowGroup
+                                                                .followersCall
+                                                                .seguidor(
+                                                              containerFollowersResponse
+                                                                  .jsonBody,
+                                                            )) {
+                                                              setState(() =>
+                                                                  _model.apiRequestCompleter1 =
+                                                                      null);
+                                                              await _model
+                                                                  .waitForApiRequestCompleter1();
+                                                              setState(() {});
+                                                            } else {
+                                                              setState(() =>
+                                                                  _model.apiRequestCompleter1 =
+                                                                      null);
+                                                              await _model
+                                                                  .waitForApiRequestCompleter1();
+                                                              setState(() {});
+                                                            }
+
+                                                            setState(() {});
+                                                          },
+                                                          text: FollowUnfollowGroup
+                                                                  .followersCall
+                                                                  .seguidor(
+                                                            containerFollowersResponse
+                                                                .jsonBody,
+                                                          )
+                                                              ? 'Seguindo'
+                                                              : 'Seguir',
+                                                          options:
+                                                              FFButtonOptions(
+                                                            width: 130.0,
+                                                            height: 30.0,
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            iconPadding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            color: FollowUnfollowGroup
+                                                                    .followersCall
+                                                                    .seguidor(
+                                                              containerFollowersResponse
+                                                                  .jsonBody,
+                                                            )
+                                                                ? FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .white
+                                                                : FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                            textStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .subtitle2
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      color: FollowUnfollowGroup
+                                                                              .followersCall
+                                                                              .seguidor(
+                                                                        containerFollowersResponse
+                                                                            .jsonBody,
+                                                                      )
+                                                                          ? FlutterFlowTheme.of(context)
+                                                                              .primaryColor
+                                                                          : FlutterFlowTheme.of(context)
+                                                                              .white,
+                                                                    ),
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: Colors
+                                                                  .transparent,
+                                                              width: 1.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              -0.75, 0.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    10.0,
+                                                                    10.0,
+                                                                    10.0,
+                                                                    10.0),
+                                                        child: FFButtonWidget(
+                                                          onPressed: () async {
+                                                            await Navigator
+                                                                .push(
+                                                              context,
+                                                              PageTransition(
+                                                                type:
+                                                                    PageTransitionType
+                                                                        .fade,
+                                                                duration: Duration(
+                                                                    milliseconds:
+                                                                        300),
+                                                                reverseDuration:
+                                                                    Duration(
+                                                                        milliseconds:
+                                                                            300),
+                                                                child: NavBarPage(
+                                                                    initialPage:
+                                                                        'ChatList'),
+                                                              ),
+                                                            );
+                                                          },
+                                                          text: 'Mensagem',
+                                                          options:
+                                                              FFButtonOptions(
+                                                            width: 130.0,
+                                                            height: 30.0,
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            iconPadding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryColor,
+                                                            textStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .subtitle2
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: Colors
+                                                                  .transparent,
+                                                              width: 1.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 32.0,
+                                      constraints: BoxConstraints(
+                                        maxHeight: 32.0,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryColor,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 4.0,
+                                            color: Color(0x32171717),
+                                            offset: Offset(0.0, 2.0),
+                                          )
+                                        ],
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                      ),
+                                    ),
+                                  ],
                                 ),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20.0, 0.0, 0.0, 0.0),
+                                        child: Text(
+                                          getJsonField(
+                                            widget.user,
+                                            r'''$.response.Nome''',
+                                          ).toString(),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20.0, 0.0, 0.0, 0.0),
+                                        child: Text(
+                                          'Aqui é a bio da loja e terá até duas linhas de altura. \nTá certo isto?',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
+                        );
+                      },
                     ),
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
                       child: FutureBuilder<ApiCallResponse>(
-                        future: (_model.apiRequestCompleter ??= Completer<
+                        future: (_model.apiRequestCompleter2 ??= Completer<
                                 ApiCallResponse>()
                               ..complete(ProdutosNovidadesPorVendedorCall.call(
                                 constraints:
@@ -315,8 +742,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                               snapshot.data!;
                           return RefreshIndicator(
                             onRefresh: () async {
-                              setState(() => _model.apiRequestCompleter = null);
-                              await _model.waitForApiRequestCompleter();
+                              setState(
+                                  () => _model.apiRequestCompleter2 = null);
+                              await _model.waitForApiRequestCompleter2();
                             },
                             child: ListView(
                               padding: EdgeInsets.zero,
@@ -353,15 +781,35 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Expanded(
-                                              child: CachedNetworkImage(
-                                                imageUrl: functions
-                                                    .imageCompress(getJsonField(
-                                                  gridListProdutosItem,
-                                                  r'''$.ImagemRemota[0]''',
-                                                ).toString())!,
-                                                width: double.infinity,
-                                                height: double.infinity,
-                                                fit: BoxFit.cover,
+                                              child: InkWell(
+                                                onTap: () async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    PageTransition(
+                                                      type: PageTransitionType
+                                                          .fade,
+                                                      duration: Duration(
+                                                          milliseconds: 300),
+                                                      reverseDuration: Duration(
+                                                          milliseconds: 300),
+                                                      child: ProdutoWidget(
+                                                        produto:
+                                                            gridListProdutosItem,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                                child: CachedNetworkImage(
+                                                  imageUrl:
+                                                      functions.imageCompress(
+                                                          getJsonField(
+                                                    gridListProdutosItem,
+                                                    r'''$.ImagemRemota[0]''',
+                                                  ).toString())!,
+                                                  width: double.infinity,
+                                                  height: double.infinity,
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
                                           ],

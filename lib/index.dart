@@ -9,3 +9,5 @@ export '/explore/explore_widget.dart' show ExploreWidget;
 export '/cart/cart_widget.dart' show CartWidget;
 export '/categoria_page/categoria_page_widget.dart' show CategoriaPageWidget;
 export '/profile/profile_widget.dart' show ProfileWidget;
+export '/chat_list/chat_list_widget.dart' show ChatListWidget;
+export '/chat/chat_widget.dart' show ChatWidget;

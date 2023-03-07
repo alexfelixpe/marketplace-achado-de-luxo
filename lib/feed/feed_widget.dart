@@ -354,60 +354,83 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                         }
                                         final rowProfilePicUsersByIdResponse =
                                             snapshot.data!;
-                                        return Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(2.0, 2.0, 2.0, 2.0),
-                                              child: InkWell(
-                                                onTap: () async {
-                                                  await Navigator.push(
-                                                    context,
-                                                    PageTransition(
-                                                      type: PageTransitionType
-                                                          .fade,
-                                                      duration: Duration(
-                                                          milliseconds: 300),
-                                                      reverseDuration: Duration(
-                                                          milliseconds: 300),
-                                                      child: ProfileWidget(
-                                                        user:
-                                                            rowProfilePicUsersByIdResponse
-                                                                .jsonBody,
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                                child: Container(
-                                                  width: 35.0,
-                                                  height: 35.0,
-                                                  clipBehavior: Clip.antiAlias,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: CachedNetworkImage(
-                                                    imageUrl:
-                                                        '${'${functions.circleImage(UsersByIdCall.foto(
+                                        return InkWell(
+                                          onTap: () async {
+                                            await Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                type: PageTransitionType.fade,
+                                                duration:
+                                                    Duration(milliseconds: 300),
+                                                reverseDuration:
+                                                    Duration(milliseconds: 300),
+                                                child: ProfileWidget(
+                                                  user:
                                                       rowProfilePicUsersByIdResponse
                                                           .jsonBody,
-                                                    ).toString())}'}',
-                                                    fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        2.0, 2.0, 2.0, 2.0),
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    await Navigator.push(
+                                                      context,
+                                                      PageTransition(
+                                                        type: PageTransitionType
+                                                            .fade,
+                                                        duration: Duration(
+                                                            milliseconds: 300),
+                                                        reverseDuration:
+                                                            Duration(
+                                                                milliseconds:
+                                                                    300),
+                                                        child: ProfileWidget(
+                                                          user:
+                                                              rowProfilePicUsersByIdResponse
+                                                                  .jsonBody,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                  child: Container(
+                                                    width: 35.0,
+                                                    height: 35.0,
+                                                    clipBehavior:
+                                                        Clip.antiAlias,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: CachedNetworkImage(
+                                                      imageUrl:
+                                                          '${'${functions.circleImage(UsersByIdCall.foto(
+                                                        rowProfilePicUsersByIdResponse
+                                                            .jsonBody,
+                                                      ).toString())}'}',
+                                                      fit: BoxFit.cover,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                            Text(
-                                              getJsonField(
-                                                rowProfilePicUsersByIdResponse
-                                                    .jsonBody,
-                                                r'''$.response.Slug''',
-                                              ).toString(),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyText1,
-                                            ),
-                                          ],
+                                              Text(
+                                                getJsonField(
+                                                  rowProfilePicUsersByIdResponse
+                                                      .jsonBody,
+                                                  r'''$.response.Slug''',
+                                                ).toString(),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1,
+                                              ),
+                                            ],
+                                          ),
                                         ).animateOnPageLoad(animationsMap[
                                             'rowOnPageLoadAnimation']!);
                                       },
