@@ -438,7 +438,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                 mainAxisSize: MainAxisSize.min,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
-                                                        .spaceEvenly,
+                                                        .spaceBetween,
                                                 children: [
                                                   Expanded(
                                                     child: Align(
@@ -501,7 +501,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                               : 'Seguir',
                                                           options:
                                                               FFButtonOptions(
-                                                            width: 130.0,
+                                                            width:
+                                                                double.infinity,
                                                             height: 30.0,
                                                             padding:
                                                                 EdgeInsetsDirectional
@@ -605,7 +606,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                           text: 'Mensagem',
                                                           options:
                                                               FFButtonOptions(
-                                                            width: 130.0,
+                                                            width:
+                                                                double.infinity,
                                                             height: 30.0,
                                                             padding:
                                                                 EdgeInsetsDirectional
