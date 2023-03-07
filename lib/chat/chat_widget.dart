@@ -276,9 +276,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                 color: FlutterFlowTheme.of(context).tertiary400,
                                 size: 30.0,
                               ),
-                              onPressed: /* NOT RECOMMENDED */ _model
-                                          .inputMsgController.text ==
-                                      'true'
+                              onPressed: _model.inputMsgController.text == ''
                                   ? null
                                   : () async {
                                       _model.apiResult960 =
