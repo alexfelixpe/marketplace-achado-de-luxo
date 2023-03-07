@@ -1,7 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -58,14 +57,16 @@ class _ChatListWidgetState extends State<ChatListWidget> {
         elevation: 4.0,
       ),
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 0.0, 0.0),
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+          ),
           child: FutureBuilder<ApiCallResponse>(
-            future: (_model.apiRequestCompleter ??= Completer<ApiCallResponse>()
-                  ..complete(ChatGroup.listaDeChatsCall.call(
-                    userID: FFAppState().userid,
-                  )))
-                .future,
+            future: ChatGroup.listaDeChatsCall.call(
+              userID: FFAppState().userid,
+            ),
             builder: (context, snapshot) {
               // Customize what your widget looks like when it's loading.
               if (!snapshot.hasData) {
@@ -84,27 +85,20 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                 builder: (context) {
                   final chatList =
                       listViewListaDeChatsResponse.jsonBody.toList();
-                  return RefreshIndicator(
-                    onRefresh: () async {
-                      setState(() => _model.apiRequestCompleter = null);
-                      await _model.waitForApiRequestCompleter();
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    scrollDirection: Axis.vertical,
+                    itemCount: chatList.length,
+                    itemBuilder: (context, chatListIndex) {
+                      final chatListItem = chatList[chatListIndex];
+                      return Text(
+                        getJsonField(
+                          chatListItem,
+                          r'''$.response._id''',
+                        ).toString(),
+                        style: FlutterFlowTheme.of(context).bodyText1,
+                      );
                     },
-                    child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      reverse: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: chatList.length,
-                      itemBuilder: (context, chatListIndex) {
-                        final chatListItem = chatList[chatListIndex];
-                        return Text(
-                          getJsonField(
-                            chatListItem,
-                            r'''$.response._id''',
-                          ).toString(),
-                          style: FlutterFlowTheme.of(context).bodyText1,
-                        );
-                      },
-                    ),
                   );
                 },
               );
