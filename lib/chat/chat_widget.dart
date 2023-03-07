@@ -202,107 +202,106 @@ class _ChatWidgetState extends State<ChatWidget> {
                               },
                             ),
                           ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: TextFormField(
-                                controller: _model.inputMsgController,
-                                autofocus: true,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  hintText: 'Mensagem...',
-                                  hintStyle:
-                                      FlutterFlowTheme.of(context).bodyText2,
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1.0,
+                        Form(
+                          key: _model.formKey,
+                          autovalidateMode: AutovalidateMode.always,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _model.inputMsgController,
+                                  autofocus: true,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    hintText: 'Mensagem...',
+                                    hintStyle:
+                                        FlutterFlowTheme.of(context).bodyText2,
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
                                     ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBtnText,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
                                     ),
+                                    errorBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedErrorBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    filled: true,
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .primaryBtnText,
                                   ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBtnText,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  errorBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  focusedErrorBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .primaryBtnText,
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                  validator: _model.inputMsgControllerValidator
+                                      .asValidator(context),
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                                validator: _model.inputMsgControllerValidator
-                                    .asValidator(context),
                               ),
-                            ),
-                            FlutterFlowIconButton(
-                              borderColor: Colors.transparent,
-                              borderRadius: 30.0,
-                              borderWidth: 1.0,
-                              buttonSize: 60.0,
-                              disabledColor:
-                                  FlutterFlowTheme.of(context).grayIcon,
-                              icon: Icon(
-                                Icons.send,
-                                color: FlutterFlowTheme.of(context).tertiary400,
-                                size: 30.0,
-                              ),
-                              onPressed: _model.inputMsgController.text == ''
-                                  ? null
-                                  : () async {
-                                      _model.apiResult960 =
-                                          await ChatGroup.enviarChatCall.call(
-                                        to: widget.vendedorID,
-                                        from: FFAppState().userid,
-                                        mensagem:
-                                            _model.inputMsgController.text,
-                                        vendedorID: widget.vendedorID,
-                                        clienteID: FFAppState().userid,
-                                      );
-                                      if ((_model.apiResult960?.succeeded ??
-                                          true)) {
-                                        setState(() =>
-                                            _model.apiRequestCompleter = null);
-                                        await _model
-                                            .waitForApiRequestCompleter();
-                                        setState(() {
-                                          _model.inputMsgController?.clear();
-                                        });
-                                      }
+                              FlutterFlowIconButton(
+                                borderColor: Colors.transparent,
+                                borderRadius: 30.0,
+                                borderWidth: 1.0,
+                                buttonSize: 60.0,
+                                icon: Icon(
+                                  Icons.send,
+                                  color:
+                                      FlutterFlowTheme.of(context).tertiary400,
+                                  size: 30.0,
+                                ),
+                                onPressed: () async {
+                                  _model.apiResult960 =
+                                      await ChatGroup.enviarChatCall.call(
+                                    to: widget.vendedorID,
+                                    from: FFAppState().userid,
+                                    mensagem: _model.inputMsgController.text,
+                                    vendedorID: widget.vendedorID,
+                                    clienteID: FFAppState().userid,
+                                  );
+                                  if ((_model.apiResult960?.succeeded ??
+                                      true)) {
+                                    setState(() =>
+                                        _model.apiRequestCompleter = null);
+                                    await _model.waitForApiRequestCompleter();
+                                    setState(() {
+                                      _model.inputMsgController?.clear();
+                                    });
+                                  }
 
-                                      setState(() {});
-                                    },
-                            ),
-                          ],
+                                  setState(() {});
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     );

@@ -10,16 +10,27 @@ import 'package:provider/provider.dart';
 class ChatModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final formKey = GlobalKey<FormState>();
   // State field(s) for inputMsg widget.
   TextEditingController? inputMsgController;
   String? Function(BuildContext, String?)? inputMsgControllerValidator;
+  String? _inputMsgControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
+
   // Stores action output result for [Backend Call - API (Enviar Chat)] action in IconButton widget.
   ApiCallResponse? apiResult960;
   Completer<ApiCallResponse>? apiRequestCompleter;
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    inputMsgControllerValidator = _inputMsgControllerValidator;
+  }
 
   void dispose() {
     inputMsgController?.dispose();
