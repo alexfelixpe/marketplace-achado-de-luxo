@@ -125,7 +125,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                             builder: (context) {
                               final chatMsg = getJsonField(
                                 listViewListaDeMensagensResponse.jsonBody,
-                                r'''$.response.chatlist''',
+                                r'''$.response.chatlist[:].Mensagem''',
                               ).toList();
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
@@ -143,10 +143,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          getJsonField(
-                                            chatMsgItem,
-                                            r'''$.chatlist.Mensagem''',
-                                          ).toString(),
+                                          chatMsgItem.toString(),
                                           textAlign: TextAlign.start,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
@@ -155,26 +152,29 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                         ),
-                                        Align(
-                                          alignment:
-                                              AlignmentDirectional(0.9, 0.0),
-                                          child: Text(
-                                            getJsonField(
+                                        if (getJsonField(
                                               chatMsgItem,
-                                              r'''$.response.chatlist[:].Mensagem''',
-                                            ).toString(),
-                                            textAlign: TextAlign.end,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryColor,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
+                                              r'''$.response.chatlist[:].From''',
+                                            ) ==
+                                            FFAppState().userid)
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(0.9, 0.0),
+                                            child: Text(
+                                              chatMsgItem.toString(),
+                                              textAlign: TextAlign.end,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                            ),
                                           ),
-                                        ),
                                       ],
                                     ),
                                   );
