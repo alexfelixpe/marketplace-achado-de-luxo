@@ -93,210 +93,216 @@ class _ChatWidgetState extends State<ChatWidget> {
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).white,
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      child: FutureBuilder<ApiCallResponse>(
-                        future: (_model.apiRequestCompleter ??= Completer<
-                                ApiCallResponse>()
-                              ..complete(ChatGroup.listaDeMensagensCall.call(
-                                vendedorID: widget.vendedorID,
-                                clienteID: FFAppState().userid,
-                              )))
-                            .future,
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: CircularProgressIndicator(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryColor,
-                                ),
-                              ),
-                            );
-                          }
-                          final listViewListaDeMensagensResponse =
-                              snapshot.data!;
-                          return Builder(
-                            builder: (context) {
-                              final chatMsgChilds = getJsonField(
-                                listViewListaDeMensagensResponse.jsonBody,
-                                r'''$.response.chatlist[:]''',
-                              ).toList();
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                reverse: true,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: chatMsgChilds.length,
-                                itemBuilder: (context, chatMsgChildsIndex) {
-                                  final chatMsgChildsItem =
-                                      chatMsgChilds[chatMsgChildsIndex];
-                                  return Align(
-                                    alignment: AlignmentDirectional(-0.95, 0.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        if (getJsonField(
-                                              chatMsgChildsItem,
-                                              r'''$.From''',
-                                            ) !=
-                                            FFAppState().userid)
-                                          Text(
-                                            getJsonField(
-                                              chatMsgChildsItem,
-                                              r'''$.Mensagem''',
-                                            ).toString(),
-                                            textAlign: TextAlign.start,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                          ),
-                                        if (getJsonField(
-                                              chatMsgChildsItem,
-                                              r'''$.From''',
-                                            ) ==
-                                            FFAppState().userid)
-                                          Align(
-                                            alignment:
-                                                AlignmentDirectional(0.9, 0.0),
-                                            child: Text(
+                child: FutureBuilder<ApiCallResponse>(
+                  future: (_model.apiRequestCompleter ??=
+                          Completer<ApiCallResponse>()
+                            ..complete(ChatGroup.listaDeMensagensCall.call(
+                              vendedorID: widget.vendedorID,
+                              clienteID: FFAppState().userid,
+                            )))
+                      .future,
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50.0,
+                          height: 50.0,
+                          child: CircularProgressIndicator(
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                          ),
+                        ),
+                      );
+                    }
+                    final columnListaDeMensagensResponse = snapshot.data!;
+                    return Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        if (columnListaDeMensagensResponse.jsonBody != null)
+                          Expanded(
+                            child: Builder(
+                              builder: (context) {
+                                final chatMsgChilds = getJsonField(
+                                  columnListaDeMensagensResponse.jsonBody,
+                                  r'''$.response.chatlist[:]''',
+                                ).toList();
+                                return ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  reverse: true,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: chatMsgChilds.length,
+                                  itemBuilder: (context, chatMsgChildsIndex) {
+                                    final chatMsgChildsItem =
+                                        chatMsgChilds[chatMsgChildsIndex];
+                                    return Align(
+                                      alignment:
+                                          AlignmentDirectional(-0.95, 0.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          if (getJsonField(
+                                                chatMsgChildsItem,
+                                                r'''$.From''',
+                                              ) !=
+                                              FFAppState().userid)
+                                            Text(
                                               getJsonField(
                                                 chatMsgChildsItem,
                                                 r'''$.Mensagem''',
                                               ).toString(),
-                                              textAlign: TextAlign.end,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Poppins',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryColor,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
+                                              textAlign: TextAlign.start,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
                                             ),
-                                          ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: _model.inputMsgController,
-                            autofocus: true,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              hintText: 'Mensagem...',
-                              hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0x00000000),
-                                  width: 1.0,
-                                ),
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(4.0),
-                                  topRight: Radius.circular(4.0),
-                                ),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBtnText,
-                                  width: 1.0,
-                                ),
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(4.0),
-                                  topRight: Radius.circular(4.0),
-                                ),
-                              ),
-                              errorBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0x00000000),
-                                  width: 1.0,
-                                ),
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(4.0),
-                                  topRight: Radius.circular(4.0),
-                                ),
-                              ),
-                              focusedErrorBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0x00000000),
-                                  width: 1.0,
-                                ),
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(4.0),
-                                  topRight: Radius.circular(4.0),
-                                ),
-                              ),
-                              filled: true,
-                              fillColor:
-                                  FlutterFlowTheme.of(context).primaryBtnText,
+                                          if (getJsonField(
+                                                chatMsgChildsItem,
+                                                r'''$.From''',
+                                              ) ==
+                                              FFAppState().userid)
+                                            Align(
+                                              alignment: AlignmentDirectional(
+                                                  0.9, 0.0),
+                                              child: Text(
+                                                getJsonField(
+                                                  chatMsgChildsItem,
+                                                  r'''$.Mensagem''',
+                                                ).toString(),
+                                                textAlign: TextAlign.end,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryColor,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
                             ),
-                            style: FlutterFlowTheme.of(context).bodyText1,
-                            validator: _model.inputMsgControllerValidator
-                                .asValidator(context),
                           ),
-                        ),
-                        FlutterFlowIconButton(
-                          borderColor: Colors.transparent,
-                          borderRadius: 30.0,
-                          borderWidth: 1.0,
-                          buttonSize: 60.0,
-                          icon: Icon(
-                            Icons.send,
-                            color: FlutterFlowTheme.of(context).tertiary400,
-                            size: 30.0,
-                          ),
-                          onPressed: /* NOT RECOMMENDED */ _model
-                                      .inputMsgController.text ==
-                                  'true'
-                              ? null
-                              : () async {
-                                  _model.apiResult960 =
-                                      await ChatGroup.enviarChatCall.call(
-                                    to: widget.vendedorID,
-                                    from: FFAppState().userid,
-                                    mensagem: _model.inputMsgController.text,
-                                    vendedorID: widget.vendedorID,
-                                    clienteID: FFAppState().userid,
-                                  );
-                                  if ((_model.apiResult960?.succeeded ??
-                                      true)) {
-                                    setState(() =>
-                                        _model.apiRequestCompleter = null);
-                                    await _model.waitForApiRequestCompleter();
-                                    setState(() {
-                                      _model.inputMsgController?.clear();
-                                    });
-                                  }
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                controller: _model.inputMsgController,
+                                autofocus: true,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  hintText: 'Mensagem...',
+                                  hintStyle:
+                                      FlutterFlowTheme.of(context).bodyText2,
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBtnText,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  errorBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  focusedErrorBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  filled: true,
+                                  fillColor: FlutterFlowTheme.of(context)
+                                      .primaryBtnText,
+                                ),
+                                style: FlutterFlowTheme.of(context).bodyText1,
+                                validator: _model.inputMsgControllerValidator
+                                    .asValidator(context),
+                              ),
+                            ),
+                            FlutterFlowIconButton(
+                              borderColor: Colors.transparent,
+                              borderRadius: 30.0,
+                              borderWidth: 1.0,
+                              buttonSize: 60.0,
+                              icon: Icon(
+                                Icons.send,
+                                color: FlutterFlowTheme.of(context).tertiary400,
+                                size: 30.0,
+                              ),
+                              onPressed: /* NOT RECOMMENDED */ _model
+                                          .inputMsgController.text ==
+                                      'true'
+                                  ? null
+                                  : () async {
+                                      _model.apiResult960 =
+                                          await ChatGroup.enviarChatCall.call(
+                                        to: widget.vendedorID,
+                                        from: FFAppState().userid,
+                                        mensagem:
+                                            _model.inputMsgController.text,
+                                        vendedorID: widget.vendedorID,
+                                        clienteID: FFAppState().userid,
+                                      );
+                                      if ((_model.apiResult960?.succeeded ??
+                                          true)) {
+                                        setState(() =>
+                                            _model.apiRequestCompleter = null);
+                                        await _model
+                                            .waitForApiRequestCompleter();
+                                        setState(() {
+                                          _model.inputMsgController?.clear();
+                                        });
+                                      }
 
-                                  setState(() {});
-                                },
+                                      setState(() {});
+                                    },
+                            ),
+                          ],
                         ),
                       ],
-                    ),
-                  ],
+                    );
+                  },
                 ),
               ),
             ),
