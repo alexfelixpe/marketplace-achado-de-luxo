@@ -238,6 +238,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           children: [
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
