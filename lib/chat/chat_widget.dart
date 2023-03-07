@@ -125,7 +125,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                             builder: (context) {
                               final chatMsg = getJsonField(
                                 listViewListaDeMensagensResponse.jsonBody,
-                                r'''$.response.chatlist[:].Mensagem''',
+                                r'''$.response.chatlist[:]''',
                               ).toList();
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
