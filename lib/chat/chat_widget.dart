@@ -123,7 +123,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                               snapshot.data!;
                           return Builder(
                             builder: (context) {
-                              final chatMsg = getJsonField(
+                              final chatMsgChilds = getJsonField(
                                 listViewListaDeMensagensResponse.jsonBody,
                                 r'''$.response.chatlist[:]''',
                               ).toList();
@@ -132,9 +132,10 @@ class _ChatWidgetState extends State<ChatWidget> {
                                 reverse: true,
                                 shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
-                                itemCount: chatMsg.length,
-                                itemBuilder: (context, chatMsgIndex) {
-                                  final chatMsgItem = chatMsg[chatMsgIndex];
+                                itemCount: chatMsgChilds.length,
+                                itemBuilder: (context, chatMsgChildsIndex) {
+                                  final chatMsgChildsItem =
+                                      chatMsgChilds[chatMsgChildsIndex];
                                   return Align(
                                     alignment: AlignmentDirectional(-0.95, 0.0),
                                     child: Column(
@@ -143,7 +144,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          chatMsgItem.toString(),
+                                          chatMsgChildsItem.toString(),
                                           textAlign: TextAlign.start,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
@@ -153,7 +154,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                               ),
                                         ),
                                         if (getJsonField(
-                                              chatMsgItem,
+                                              chatMsgChildsItem,
                                               r'''$.response.chatlist[:].From''',
                                             ) ==
                                             FFAppState().userid)
@@ -162,7 +163,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                 AlignmentDirectional(0.9, 0.0),
                                             child: Text(
                                               getJsonField(
-                                                chatMsgItem,
+                                                chatMsgChildsItem,
                                                 r'''$.Mensagem''',
                                               ).toString(),
                                               textAlign: TextAlign.end,
