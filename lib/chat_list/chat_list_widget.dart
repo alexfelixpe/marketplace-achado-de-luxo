@@ -1,7 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'chat_list_model.dart';
@@ -81,56 +83,29 @@ class _ChatListWidgetState extends State<ChatListWidget> {
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
               ),
-              child: FutureBuilder<ApiCallResponse>(
-                future: ChatGroup.listaDeChatsCall.call(
-                  userID: FFAppState().userid,
-                ),
-                builder: (context, snapshot) {
-                  // Customize what your widget looks like when it's loading.
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: SizedBox(
-                        width: 50.0,
-                        height: 50.0,
-                        child: CircularProgressIndicator(
-                          color: FlutterFlowTheme.of(context).primaryColor,
-                        ),
-                      ),
-                    );
-                  }
-                  final listViewListaDeChatsResponse = snapshot.data!;
-                  return Builder(
-                    builder: (context) {
-                      final chatList = getJsonField(
-                        listViewListaDeChatsResponse.jsonBody,
-                        r'''$.response.chatlist''',
-                      ).toList();
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        scrollDirection: Axis.vertical,
-                        itemCount: chatList.length,
-                        itemBuilder: (context, chatListIndex) {
-                          final chatListItem = chatList[chatListIndex];
-                          return Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                getJsonField(
-                                  chatListItem,
-                                  r'''$.Vendedor''',
-                                ).toString(),
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                              ),
-                              Text(
-                                getJsonField(
-                                  chatListItem,
-                                  r'''$.Cliente''',
-                                ).toString(),
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                              ),
-                            ],
-                          );
-                        },
+              child: Builder(
+                builder: (context) {
+                  final chatList = getJsonField(
+                    containerListaDeChatsResponse.jsonBody,
+                    r'''$.response.chatlist''',
+                  ).toList();
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    scrollDirection: Axis.vertical,
+                    itemCount: chatList.length,
+                    itemBuilder: (context, chatListIndex) {
+                      final chatListItem = chatList[chatListIndex];
+                      return Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          AutoSizeText(
+                            getJsonField(
+                              chatListItem,
+                              r'''$.response.chatlist[:].Vendedor''',
+                            ).toString(),
+                            style: FlutterFlowTheme.of(context).bodyText1,
+                          ),
+                        ],
                       );
                     },
                   );
