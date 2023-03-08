@@ -25,6 +25,8 @@ class FeedModel extends FlutterFlowModel {
   // Stores action output result for [Backend Call - API (DoLike)] action in IconButton widget.
   ApiCallResponse? apiResulttpe;
   Completer<ApiCallResponse>? apiRequestCompleter2;
+  // Stores action output result for [Backend Call - API (Dislike)] action in IconButton widget.
+  ApiCallResponse? apiResulttpe1;
 
   /// Initialization and disposal methods.
 

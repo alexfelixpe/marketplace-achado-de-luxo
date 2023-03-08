@@ -616,13 +616,13 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                 buttonSize: 50.0,
                                                 icon: Icon(
                                                   Icons.favorite,
-                                                  color: UsersByIdCall.likes(
-                                                    rowLikesUsersByIdResponse
-                                                        .jsonBody,
-                                                  ).contains(getJsonField(
-                                                    produtosItem,
-                                                    r'''$.response._id''',
-                                                  ))
+                                                  color: FFAppState()
+                                                          .likedProds
+                                                          .contains(
+                                                              getJsonField(
+                                                            produtosItem,
+                                                            r'''$.response._id''',
+                                                          ))
                                                       ? FlutterFlowTheme.of(
                                                               context)
                                                           .customColor3
@@ -632,22 +632,67 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                   size: 30.0,
                                                 ),
                                                 onPressed: () async {
-                                                  _model.apiResulttpe =
-                                                      await DoLikeCall.call(
-                                                    produtoId: getJsonField(
-                                                      produtosItem,
-                                                      r'''$.response._id''',
-                                                    ).toString(),
-                                                    userId: FFAppState().userid,
-                                                  );
-                                                  if ((_model.apiResulttpe
-                                                          ?.succeeded ??
-                                                      true)) {
-                                                    setState(() => _model
-                                                            .apiRequestCompleter2 =
-                                                        null);
-                                                    await _model
-                                                        .waitForApiRequestCompleter2();
+                                                  if (FFAppState()
+                                                      .likedProds
+                                                      .contains(getJsonField(
+                                                        produtosItem,
+                                                        r'''$.response._id''',
+                                                      ))) {
+                                                    _model.apiResulttpe =
+                                                        await DoLikeCall.call(
+                                                      produtoId: getJsonField(
+                                                        produtosItem,
+                                                        r'''$.response._id''',
+                                                      ).toString(),
+                                                      userId:
+                                                          FFAppState().userid,
+                                                    );
+                                                    if ((_model.apiResulttpe
+                                                            ?.succeeded ??
+                                                        true)) {
+                                                      setState(() => _model
+                                                              .apiRequestCompleter2 =
+                                                          null);
+                                                      await _model
+                                                          .waitForApiRequestCompleter2();
+                                                      setState(() {
+                                                        FFAppState()
+                                                            .addToLikedProds(
+                                                                getJsonField(
+                                                          (_model.apiResulttpe
+                                                                  ?.jsonBody ??
+                                                              ''),
+                                                          r'''$.response.produto''',
+                                                        ).toString());
+                                                      });
+                                                    }
+                                                  } else {
+                                                    _model.apiResulttpe1 =
+                                                        await DislikeCall.call(
+                                                      produtoId: getJsonField(
+                                                        produtosItem,
+                                                        r'''$.response._id''',
+                                                      ).toString(),
+                                                      userId:
+                                                          FFAppState().userid,
+                                                    );
+                                                    if ((_model.apiResulttpe
+                                                            ?.succeeded ??
+                                                        true)) {
+                                                      setState(() => _model
+                                                              .apiRequestCompleter2 =
+                                                          null);
+                                                      await _model
+                                                          .waitForApiRequestCompleter2();
+                                                      setState(() {
+                                                        FFAppState()
+                                                            .removeFromLikedProds(
+                                                                getJsonField(
+                                                          produtosItem,
+                                                          r'''$.response._id''',
+                                                        ).toString());
+                                                      });
+                                                    }
                                                   }
 
                                                   setState(() {});
