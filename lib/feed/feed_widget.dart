@@ -632,7 +632,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                   size: 30.0,
                                                 ),
                                                 onPressed: () async {
-                                                  if (FFAppState()
+                                                  if (!FFAppState()
                                                       .likedProds
                                                       .contains(getJsonField(
                                                         produtosItem,
