@@ -316,7 +316,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
               ),
               Expanded(
                 child: FutureBuilder<ApiCallResponse>(
-                  future: (_model.apiRequestCompleter ??=
+                  future: (_model.apiRequestCompleter1 ??=
                           Completer<ApiCallResponse>()
                             ..complete(ProdutosNovidadesCall.call()))
                       .future,
@@ -342,8 +342,8 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                             [];
                         return RefreshIndicator(
                           onRefresh: () async {
-                            setState(() => _model.apiRequestCompleter = null);
-                            await _model.waitForApiRequestCompleter();
+                            setState(() => _model.apiRequestCompleter1 = null);
+                            await _model.waitForApiRequestCompleter1();
                           },
                           child: ListView.builder(
                             padding: EdgeInsets.zero,
@@ -578,9 +578,12 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 5.0, 0.0, 5.0),
                                       child: FutureBuilder<ApiCallResponse>(
-                                        future: UsersByIdCall.call(
-                                          id: FFAppState().userid,
-                                        ),
+                                        future: (_model.apiRequestCompleter2 ??=
+                                                Completer<ApiCallResponse>()
+                                                  ..complete(UsersByIdCall.call(
+                                                    id: FFAppState().userid,
+                                                  )))
+                                            .future,
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
                                           if (!snapshot.hasData) {
@@ -605,7 +608,9 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               FlutterFlowIconButton(
-                                                borderColor: Colors.transparent,
+                                                borderColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .noColor,
                                                 borderRadius: 30.0,
                                                 borderWidth: 1.0,
                                                 buttonSize: 50.0,
@@ -623,12 +628,29 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                           .customColor3
                                                       : FlutterFlowTheme.of(
                                                               context)
-                                                          .noColor,
+                                                          .secondaryText,
                                                   size: 30.0,
                                                 ),
-                                                onPressed: () {
-                                                  print(
-                                                      'IconButton pressed ...');
+                                                onPressed: () async {
+                                                  _model.apiResulttpe =
+                                                      await DoLikeCall.call(
+                                                    produtoId: getJsonField(
+                                                      produtosItem,
+                                                      r'''$.response._id''',
+                                                    ).toString(),
+                                                    userId: FFAppState().userid,
+                                                  );
+                                                  if ((_model.apiResulttpe
+                                                          ?.succeeded ??
+                                                      true)) {
+                                                    setState(() => _model
+                                                            .apiRequestCompleter2 =
+                                                        null);
+                                                    await _model
+                                                        .waitForApiRequestCompleter2();
+                                                  }
+
+                                                  setState(() {});
                                                 },
                                               ),
                                               Padding(

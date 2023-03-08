@@ -21,7 +21,10 @@ import 'package:provider/provider.dart';
 class FeedModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
-  Completer<ApiCallResponse>? apiRequestCompleter;
+  Completer<ApiCallResponse>? apiRequestCompleter1;
+  // Stores action output result for [Backend Call - API (DoLike)] action in IconButton widget.
+  ApiCallResponse? apiResulttpe;
+  Completer<ApiCallResponse>? apiRequestCompleter2;
 
   /// Initialization and disposal methods.
 
@@ -31,7 +34,7 @@ class FeedModel extends FlutterFlowModel {
 
   /// Additional helper methods are added here.
 
-  Future waitForApiRequestCompleter({
+  Future waitForApiRequestCompleter1({
     double minWait = 0,
     double maxWait = double.infinity,
   }) async {
@@ -39,7 +42,22 @@ class FeedModel extends FlutterFlowModel {
     while (true) {
       await Future.delayed(Duration(milliseconds: 50));
       final timeElapsed = stopwatch.elapsedMilliseconds;
-      final requestComplete = apiRequestCompleter?.isCompleted ?? false;
+      final requestComplete = apiRequestCompleter1?.isCompleted ?? false;
+      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
+        break;
+      }
+    }
+  }
+
+  Future waitForApiRequestCompleter2({
+    double minWait = 0,
+    double maxWait = double.infinity,
+  }) async {
+    final stopwatch = Stopwatch()..start();
+    while (true) {
+      await Future.delayed(Duration(milliseconds: 50));
+      final timeElapsed = stopwatch.elapsedMilliseconds;
+      final requestComplete = apiRequestCompleter2?.isCompleted ?? false;
       if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
         break;
       }

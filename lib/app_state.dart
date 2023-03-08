@@ -29,7 +29,6 @@ class FFAppState extends ChangeNotifier {
           }
         }).toList() ??
         _Feed;
-    _Like = prefs.getStringList('ff_Like') ?? _Like;
     _prodMsg = prefs.getStringList('ff_prodMsg')?.map((x) {
           try {
             return jsonDecode(x);
@@ -39,6 +38,7 @@ class FFAppState extends ChangeNotifier {
           }
         }).toList() ??
         _prodMsg;
+    _likedProds = prefs.getStringList('ff_likedProds') ?? _likedProds;
   }
 
   void update(VoidCallback callback) {
@@ -164,28 +164,6 @@ class FFAppState extends ChangeNotifier {
     _prodImg1 = _value;
   }
 
-  List<String> _Like = [];
-  List<String> get Like => _Like;
-  set Like(List<String> _value) {
-    _Like = _value;
-    prefs.setStringList('ff_Like', _value);
-  }
-
-  void addToLike(String _value) {
-    _Like.add(_value);
-    prefs.setStringList('ff_Like', _Like);
-  }
-
-  void removeFromLike(String _value) {
-    _Like.remove(_value);
-    prefs.setStringList('ff_Like', _Like);
-  }
-
-  void removeAtIndexFromLike(int _index) {
-    _Like.removeAt(_index);
-    prefs.setStringList('ff_Like', _Like);
-  }
-
   List<dynamic> _prodMsg = [];
   List<dynamic> get prodMsg => _prodMsg;
   set prodMsg(List<dynamic> _value) {
@@ -210,6 +188,28 @@ class FFAppState extends ChangeNotifier {
     _prodMsg.removeAt(_index);
     prefs.setStringList(
         'ff_prodMsg', _prodMsg.map((x) => jsonEncode(x)).toList());
+  }
+
+  List<String> _likedProds = [];
+  List<String> get likedProds => _likedProds;
+  set likedProds(List<String> _value) {
+    _likedProds = _value;
+    prefs.setStringList('ff_likedProds', _value);
+  }
+
+  void addToLikedProds(String _value) {
+    _likedProds.add(_value);
+    prefs.setStringList('ff_likedProds', _likedProds);
+  }
+
+  void removeFromLikedProds(String _value) {
+    _likedProds.remove(_value);
+    prefs.setStringList('ff_likedProds', _likedProds);
+  }
+
+  void removeAtIndexFromLikedProds(int _index) {
+    _likedProds.removeAt(_index);
+    prefs.setStringList('ff_likedProds', _likedProds);
   }
 }
 
