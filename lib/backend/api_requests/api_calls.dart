@@ -501,6 +501,11 @@ class DoLikeCall {
       cache: false,
     );
   }
+
+  static dynamic produto(dynamic response) => getJsonField(
+        response,
+        r'''$.response.produto''',
+      );
 }
 
 class DislikeCall {
@@ -529,6 +534,11 @@ class DislikeCall {
       cache: false,
     );
   }
+
+  static dynamic produto(dynamic response) => getJsonField(
+        response,
+        r'''$.response.produto''',
+      );
 }
 
 class CategoriasCall {

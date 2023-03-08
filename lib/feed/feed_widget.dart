@@ -647,9 +647,12 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                       userId:
                                                           FFAppState().userid,
                                                     );
-                                                    if ((_model.apiResulttpe
-                                                            ?.succeeded ??
-                                                        true)) {
+                                                    if (DoLikeCall.produto(
+                                                          (_model.apiResulttpe
+                                                                  ?.jsonBody ??
+                                                              ''),
+                                                        ) !=
+                                                        null) {
                                                       setState(() => _model
                                                               .apiRequestCompleter2 =
                                                           null);
@@ -665,6 +668,27 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                           r'''$.response.produto''',
                                                         ).toString());
                                                       });
+                                                    } else {
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (alertDialogContext) {
+                                                          return AlertDialog(
+                                                            title: Text('Erro'),
+                                                            content:
+                                                                Text('Erro'),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext),
+                                                                child:
+                                                                    Text('Ok'),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      );
                                                     }
                                                   } else {
                                                     _model.apiResulttpe1 =
@@ -676,9 +700,12 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                       userId:
                                                           FFAppState().userid,
                                                     );
-                                                    if ((_model.apiResulttpe
-                                                            ?.succeeded ??
-                                                        true)) {
+                                                    if (DislikeCall.produto(
+                                                          (_model.apiResulttpe1
+                                                                  ?.jsonBody ??
+                                                              ''),
+                                                        ) !=
+                                                        null) {
                                                       setState(() => _model
                                                               .apiRequestCompleter2 =
                                                           null);
@@ -692,6 +719,27 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                           r'''$.response._id''',
                                                         ).toString());
                                                       });
+                                                    } else {
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (alertDialogContext) {
+                                                          return AlertDialog(
+                                                            title: Text('Erro'),
+                                                            content:
+                                                                Text('Erro'),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext),
+                                                                child:
+                                                                    Text('Ok'),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      );
                                                     }
                                                   }
 
