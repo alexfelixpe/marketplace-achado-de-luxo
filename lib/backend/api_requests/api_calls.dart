@@ -153,8 +153,11 @@ class ChatGroup {
     'Authorization': 'Bearer 4d01049ceef6c90c1b68270781d35e20',
   };
   static EnviarChatCall enviarChatCall = EnviarChatCall();
-  static ListaDeChatsCall listaDeChatsCall = ListaDeChatsCall();
+  static ListaDeChatsVendedorCall listaDeChatsVendedorCall =
+      ListaDeChatsVendedorCall();
   static ListaDeMensagensCall listaDeMensagensCall = ListaDeMensagensCall();
+  static ListaDeChatsClienteCall listaDeChatsClienteCall =
+      ListaDeChatsClienteCall();
 }
 
 class EnviarChatCall {
@@ -193,13 +196,13 @@ class EnviarChatCall {
   }
 }
 
-class ListaDeChatsCall {
+class ListaDeChatsVendedorCall {
   Future<ApiCallResponse> call({
     String? userID = '',
   }) {
     return ApiManager.instance.makeApiCall(
-      callName: 'Lista de Chats',
-      apiUrl: '${ChatGroup.baseUrl}/chat_list',
+      callName: 'Lista de Chats Vendedor',
+      apiUrl: '${ChatGroup.baseUrl}/chat_list_vendedor',
       callType: ApiCallType.GET,
       headers: {
         ...ChatGroup.headers,
@@ -227,10 +230,12 @@ class ListaDeChatsCall {
   dynamic id(dynamic response) => getJsonField(
         response,
         r'''$.response.chatlist[:]._id''',
+        true,
       );
   dynamic chatList(dynamic response) => getJsonField(
         response,
         r'''$.response.chatlist''',
+        true,
       );
 }
 
@@ -289,6 +294,49 @@ class ListaDeMensagensCall {
   dynamic chatList(dynamic response) => getJsonField(
         response,
         r'''$.response.chatlist[:]''',
+        true,
+      );
+}
+
+class ListaDeChatsClienteCall {
+  Future<ApiCallResponse> call({
+    String? userID = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Lista de Chats Cliente',
+      apiUrl: '${ChatGroup.baseUrl}/chat_list_cliente',
+      callType: ApiCallType.GET,
+      headers: {
+        ...ChatGroup.headers,
+      },
+      params: {
+        'userID': userID,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: true,
+      cache: false,
+    );
+  }
+
+  dynamic cliente(dynamic response) => getJsonField(
+        response,
+        r'''$.response.chatlist[:].Cliente''',
+        true,
+      );
+  dynamic vendedor(dynamic response) => getJsonField(
+        response,
+        r'''$.response.chatlist[:].Vendedor''',
+        true,
+      );
+  dynamic id(dynamic response) => getJsonField(
+        response,
+        r'''$.response.chatlist[:]._id''',
+        true,
+      );
+  dynamic chatList(dynamic response) => getJsonField(
+        response,
+        r'''$.response.chatlist''',
         true,
       );
 }
