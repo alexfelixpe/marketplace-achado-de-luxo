@@ -444,10 +444,6 @@ class UsersByIdCall {
         response,
         r'''$.response.Foto''',
       );
-  static dynamic allFields(dynamic response) => getJsonField(
-        response,
-        r'''$.response.WhatsApp''',
-      );
   static dynamic whatsApp(dynamic response) => getJsonField(
         response,
         r'''$.response.WhatsApp''',
@@ -471,6 +467,11 @@ class UsersByIdCall {
   static dynamic id(dynamic response) => getJsonField(
         response,
         r'''$.response._id''',
+      );
+  static dynamic likes(dynamic response) => getJsonField(
+        response,
+        r'''$.response.LikesProdutos''',
+        true,
       );
 }
 

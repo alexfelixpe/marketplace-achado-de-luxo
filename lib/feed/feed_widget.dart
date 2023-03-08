@@ -608,12 +608,22 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                 borderColor: Colors.transparent,
                                                 borderRadius: 30.0,
                                                 borderWidth: 1.0,
-                                                buttonSize: 60.0,
+                                                buttonSize: 50.0,
                                                 icon: Icon(
-                                                  Icons.favorite_border,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
+                                                  Icons.favorite,
+                                                  color: UsersByIdCall.likes(
+                                                    rowLikesUsersByIdResponse
+                                                        .jsonBody,
+                                                  ).contains(getJsonField(
+                                                    produtosItem,
+                                                    r'''$.response._id''',
+                                                  ))
+                                                      ? FlutterFlowTheme.of(
+                                                              context)
+                                                          .customColor3
+                                                      : FlutterFlowTheme.of(
+                                                              context)
+                                                          .noColor,
                                                   size: 30.0,
                                                 ),
                                                 onPressed: () {

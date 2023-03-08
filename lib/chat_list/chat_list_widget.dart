@@ -172,6 +172,10 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                                     child: ChatWidget(
                                                       vendedorID: getJsonField(
                                                         chatListItem,
+                                                        r'''$.Vendedor''',
+                                                      ).toString(),
+                                                      clienteID: getJsonField(
+                                                        chatListItem,
                                                         r'''$.Cliente''',
                                                       ).toString(),
                                                     ),
@@ -319,6 +323,8 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                                         chatListItem,
                                                         r'''$.Vendedor''',
                                                       ).toString(),
+                                                      clienteID:
+                                                          FFAppState().userid,
                                                     ),
                                                   ),
                                                 );

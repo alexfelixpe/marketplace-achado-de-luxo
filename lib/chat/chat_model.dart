@@ -16,7 +16,7 @@ class ChatModel extends FlutterFlowModel {
   String? Function(BuildContext, String?)? inputMsgControllerValidator;
   String? _inputMsgControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
-      return 'Campo obrigatório';
+      return 'Field is required';
     }
 
     return null;

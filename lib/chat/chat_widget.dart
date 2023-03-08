@@ -13,9 +13,11 @@ class ChatWidget extends StatefulWidget {
   const ChatWidget({
     Key? key,
     this.vendedorID,
+    this.clienteID,
   }) : super(key: key);
 
   final String? vendedorID;
+  final String? clienteID;
 
   @override
   _ChatWidgetState createState() => _ChatWidgetState();
@@ -98,7 +100,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                           Completer<ApiCallResponse>()
                             ..complete(ChatGroup.listaDeMensagensCall.call(
                               vendedorID: widget.vendedorID,
-                              clienteID: FFAppState().userid,
+                              clienteID: widget.clienteID,
                             )))
                       .future,
                   builder: (context, snapshot) {
@@ -285,7 +287,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                     from: FFAppState().userid,
                                     mensagem: _model.inputMsgController.text,
                                     vendedorID: widget.vendedorID,
-                                    clienteID: FFAppState().userid,
+                                    clienteID: widget.clienteID,
                                   );
                                   if ((_model.apiResult960?.succeeded ??
                                       true)) {
