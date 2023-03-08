@@ -95,17 +95,41 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                     itemCount: chatList.length,
                     itemBuilder: (context, chatListIndex) {
                       final chatListItem = chatList[chatListIndex];
-                      return Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          AutoSizeText(
-                            getJsonField(
-                              chatListItem,
-                              r'''$.response.chatlist[:].Vendedor''',
-                            ).toString(),
-                            style: FlutterFlowTheme.of(context).bodyText1,
-                          ),
-                        ],
+                      return FutureBuilder<ApiCallResponse>(
+                        future: UsersByIdCall.call(
+                          id: getJsonField(
+                            chatListItem,
+                            r'''$.Cliente''',
+                          ).toString(),
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: CircularProgressIndicator(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                ),
+                              ),
+                            );
+                          }
+                          final rowUsersByIdResponse = snapshot.data!;
+                          return Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              AutoSizeText(
+                                getJsonField(
+                                  rowUsersByIdResponse.jsonBody,
+                                  r'''$.response.Nome''',
+                                ).toString(),
+                                style: FlutterFlowTheme.of(context).bodyText1,
+                              ),
+                            ],
+                          );
+                        },
                       );
                     },
                   );
