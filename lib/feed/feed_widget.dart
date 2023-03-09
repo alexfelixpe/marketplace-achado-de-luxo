@@ -697,11 +697,6 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                         null);
                                                     await _model
                                                         .waitForApiRequestCompleter2();
-                                                    setState(() => _model
-                                                            .apiRequestCompleter2 =
-                                                        null);
-                                                    await _model
-                                                        .waitForApiRequestCompleter2();
                                                     await showDialog(
                                                       context: context,
                                                       builder:
@@ -738,7 +733,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                   ).toString()}${getJsonField(
                                                         produtosItem,
                                                         r'''$.Like''',
-                                                      ) > 1 ? 'curtidas' : 'curtida'}',
+                                                      ) > 1 ? ' curtidas' : ' curtida'}',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyText1
