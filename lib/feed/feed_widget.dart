@@ -293,7 +293,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                           borderWidth: 2.0,
                           buttonSize: 40.0,
                           icon: Icon(
-                            Icons.chat_bubble,
+                            Icons.chat,
                             color: Color(0xFF886BC7),
                             size: 20.0,
                           ),
@@ -735,7 +735,10 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                   '${getJsonField(
                                                     produtosItem,
                                                     r'''$.Like''',
-                                                  ).toString()} Curtida(s)',
+                                                  ).toString()}${getJsonField(
+                                                        produtosItem,
+                                                        r'''$.Like''',
+                                                      ) > 1 ? 'curtidas' : 'curtida'}',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyText1
