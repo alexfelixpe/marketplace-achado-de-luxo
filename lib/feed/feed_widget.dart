@@ -336,10 +336,10 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                     final listViewProdutosNovidadesResponse = snapshot.data!;
                     return Builder(
                       builder: (context) {
-                        final produtos = getJsonField(
-                          listViewProdutosNovidadesResponse.jsonBody,
-                          r'''$''',
-                        ).toList();
+                        final produtos = ProdutosNovidadesCall.allFields(
+                              listViewProdutosNovidadesResponse.jsonBody,
+                            )?.toList() ??
+                            [];
                         return RefreshIndicator(
                           onRefresh: () async {
                             setState(() => _model.apiRequestCompleter1 = null);
@@ -647,49 +647,41 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                       userId:
                                                           FFAppState().userid,
                                                     );
-                                                    if (DoLikeCall.produto(
-                                                          (_model.apiResulttpe
-                                                                  ?.jsonBody ??
-                                                              ''),
-                                                        ) !=
-                                                        null) {
-                                                      setState(() => _model
-                                                              .apiRequestCompleter2 =
-                                                          null);
-                                                      await _model
-                                                          .waitForApiRequestCompleter2();
-                                                      setState(() {
-                                                        FFAppState()
-                                                            .addToLikedProds(
-                                                                getJsonField(
-                                                          (_model.apiResulttpe
-                                                                  ?.jsonBody ??
-                                                              ''),
-                                                          r'''$.response.produto''',
-                                                        ).toString());
-                                                      });
-                                                    } else {
-                                                      await showDialog(
-                                                        context: context,
-                                                        builder:
-                                                            (alertDialogContext) {
-                                                          return AlertDialog(
-                                                            title: Text('Erro'),
-                                                            content: Text(
-                                                                'Erro Like'),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext),
-                                                                child:
-                                                                    Text('Ok'),
-                                                              ),
-                                                            ],
-                                                          );
-                                                        },
-                                                      );
-                                                    }
+                                                    setState(() => _model
+                                                            .apiRequestCompleter2 =
+                                                        null);
+                                                    await _model
+                                                        .waitForApiRequestCompleter2();
+                                                    setState(() {
+                                                      FFAppState()
+                                                          .addToLikedProds(
+                                                              getJsonField(
+                                                        (_model.apiResulttpe
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.response.produto''',
+                                                      ).toString());
+                                                    });
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title:
+                                                              Text('Mensagem'),
+                                                          content:
+                                                              Text('DoLike'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
                                                   } else {
                                                     _model.apiResulttpe1 =
                                                         await DislikeCall.call(
@@ -700,47 +692,36 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                       userId:
                                                           FFAppState().userid,
                                                     );
-                                                    if (DislikeCall.produto(
-                                                          (_model.apiResulttpe1
-                                                                  ?.jsonBody ??
-                                                              ''),
-                                                        ) !=
-                                                        null) {
-                                                      setState(() => _model
-                                                              .apiRequestCompleter2 =
-                                                          null);
-                                                      await _model
-                                                          .waitForApiRequestCompleter2();
-                                                      setState(() {
-                                                        FFAppState()
-                                                            .removeFromLikedProds(
-                                                                getJsonField(
-                                                          produtosItem,
-                                                          r'''$.response._id''',
-                                                        ).toString());
-                                                      });
-                                                    } else {
-                                                      await showDialog(
-                                                        context: context,
-                                                        builder:
-                                                            (alertDialogContext) {
-                                                          return AlertDialog(
-                                                            title: Text('Erro'),
-                                                            content: Text(
-                                                                'Erro Dislike'),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext),
-                                                                child:
-                                                                    Text('Ok'),
-                                                              ),
-                                                            ],
-                                                          );
-                                                        },
-                                                      );
-                                                    }
+                                                    setState(() => _model
+                                                            .apiRequestCompleter2 =
+                                                        null);
+                                                    await _model
+                                                        .waitForApiRequestCompleter2();
+                                                    setState(() => _model
+                                                            .apiRequestCompleter2 =
+                                                        null);
+                                                    await _model
+                                                        .waitForApiRequestCompleter2();
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title:
+                                                              Text('Mensagem'),
+                                                          content:
+                                                              Text('DisLike'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
                                                   }
 
                                                   setState(() {});
