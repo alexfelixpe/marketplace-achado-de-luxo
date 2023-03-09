@@ -336,10 +336,10 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                     final listViewProdutosNovidadesResponse = snapshot.data!;
                     return Builder(
                       builder: (context) {
-                        final produtos = ProdutosNovidadesCall.allFields(
-                              listViewProdutosNovidadesResponse.jsonBody,
-                            )?.toList() ??
-                            [];
+                        final produtos = getJsonField(
+                          listViewProdutosNovidadesResponse.jsonBody,
+                          r'''$''',
+                        ).toList();
                         return RefreshIndicator(
                           onRefresh: () async {
                             setState(() => _model.apiRequestCompleter1 = null);
@@ -636,7 +636,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                       .likedProds
                                                       .contains(getJsonField(
                                                         produtosItem,
-                                                        r'''$._id''',
+                                                        r'''$.response._id''',
                                                       ))) {
                                                     _model.apiResulttpe =
                                                         await DoLikeCall.call(
@@ -675,8 +675,8 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                             (alertDialogContext) {
                                                           return AlertDialog(
                                                             title: Text('Erro'),
-                                                            content:
-                                                                Text('Erro'),
+                                                            content: Text(
+                                                                'Erro Like'),
                                                             actions: [
                                                               TextButton(
                                                                 onPressed: () =>
@@ -726,8 +726,8 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                             (alertDialogContext) {
                                                           return AlertDialog(
                                                             title: Text('Erro'),
-                                                            content:
-                                                                Text('Erro'),
+                                                            content: Text(
+                                                                'Erro Dislike'),
                                                             actions: [
                                                               TextButton(
                                                                 onPressed: () =>
