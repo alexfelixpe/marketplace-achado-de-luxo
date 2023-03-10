@@ -1,4 +1,3 @@
-import '/backend/api_requests/api_calls.dart';
 import '/components/categoria_widget.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -82,7 +81,7 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
               Align(
                 alignment: AlignmentDirectional(0.0, -1.0),
                 child: Image.network(
-                  FFAppState().prodImg1,
+                  'https://images.unsplash.com/photo-1632932197818-6b131c21a961?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjIyfHx1c2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
                   width: double.infinity,
                   height: 500.0,
                   fit: BoxFit.cover,
@@ -602,78 +601,6 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                         return;
                       }
                     }
-
-                    _model.apiImageUploadResult =
-                        await ImgbbGroup.imageUploadCall.call();
-                    if ((_model.apiImageUploadResult?.succeeded ?? true)) {
-                      setState(() {
-                        FFAppState().prodImg1 =
-                            ImgbbGroup.imageUploadCall.uImageUrl(
-                          (_model.apiImageUploadResult?.jsonBody ?? ''),
-                        );
-                      });
-                      await showDialog(
-                        context: context,
-                        builder: (alertDialogContext) {
-                          return AlertDialog(
-                            title: Text('Mensagem'),
-                            content: Text(ImgbbGroup.imageUploadCall
-                                .uImageUrl(
-                                  (_model.apiImageUploadResult?.jsonBody ?? ''),
-                                )
-                                .toString()),
-                            actions: [
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(alertDialogContext),
-                                child: Text('Ok'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                      ScaffoldMessenger.of(context).clearSnackBars();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            ImgbbGroup.imageUploadCall
-                                .uImageUrl(
-                                  (_model.apiImageUploadResult?.jsonBody ?? ''),
-                                )
-                                .toString(),
-                            style: TextStyle(
-                              color: FlutterFlowTheme.of(context).primaryText,
-                            ),
-                          ),
-                          duration: Duration(milliseconds: 4000),
-                          backgroundColor:
-                              FlutterFlowTheme.of(context).tertiary400,
-                        ),
-                      );
-                    } else {
-                      await showDialog(
-                        context: context,
-                        builder: (alertDialogContext) {
-                          return AlertDialog(
-                            title: Text('Mensagem'),
-                            content: Text(ImgbbGroup.imageUploadCall
-                                .uImageUrl(
-                                  (_model.apiImageUploadResult?.jsonBody ?? ''),
-                                )
-                                .toString()),
-                            actions: [
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(alertDialogContext),
-                                child: Text('Ok'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    }
-
-                    setState(() {});
                   },
                 ),
               ),
