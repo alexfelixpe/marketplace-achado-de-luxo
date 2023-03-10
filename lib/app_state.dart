@@ -158,12 +158,6 @@ class FFAppState extends ChangeNotifier {
     _prodQtd = _value;
   }
 
-  String _prodImg1 = '';
-  String get prodImg1 => _prodImg1;
-  set prodImg1(String _value) {
-    _prodImg1 = _value;
-  }
-
   List<dynamic> _prodMsg = [];
   List<dynamic> get prodMsg => _prodMsg;
   set prodMsg(List<dynamic> _value) {
@@ -210,6 +204,12 @@ class FFAppState extends ChangeNotifier {
   void removeAtIndexFromLikedProds(int _index) {
     _likedProds.removeAt(_index);
     prefs.setStringList('ff_likedProds', _likedProds);
+  }
+
+  String _prodImg1 = '';
+  String get prodImg1 => _prodImg1;
+  set prodImg1(String _value) {
+    _prodImg1 = _value;
   }
 }
 

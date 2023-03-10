@@ -1,6 +1,7 @@
 import '/account/account_widget.dart';
 import '/adicionar_produto/adicionar_produto_widget.dart';
 import '/backend/api_requests/api_calls.dart';
+import '/chat/chat_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';

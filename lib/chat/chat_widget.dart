@@ -2,8 +2,10 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/instant_timer.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'chat_model.dart';
@@ -32,6 +34,18 @@ class _ChatWidgetState extends State<ChatWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ChatModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.refresh = InstantTimer.periodic(
+        duration: Duration(milliseconds: 5000),
+        callback: (timer) async {
+          setState(() => _model.apiRequestCompleter = null);
+          await _model.waitForApiRequestCompleter();
+        },
+        startImmediately: true,
+      );
+    });
 
     _model.inputMsgController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -154,20 +168,25 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                 r'''$.From''',
                                               ) !=
                                               FFAppState().userid)
-                                            Text(
-                                              getJsonField(
-                                                chatMsgChildsItem,
-                                                r'''$.Mensagem''',
-                                              ).toString(),
-                                              textAlign: TextAlign.start,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      10.0, 0.0, 0.0, 0.0),
+                                              child: Text(
+                                                getJsonField(
+                                                  chatMsgChildsItem,
+                                                  r'''$.Mensagem''',
+                                                ).toString(),
+                                                textAlign: TextAlign.start,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                              ),
                                             ),
                                           if (getJsonField(
                                                 chatMsgChildsItem,
@@ -177,23 +196,29 @@ class _ChatWidgetState extends State<ChatWidget> {
                                             Align(
                                               alignment: AlignmentDirectional(
                                                   0.9, 0.0),
-                                              child: Text(
-                                                getJsonField(
-                                                  chatMsgChildsItem,
-                                                  r'''$.Mensagem''',
-                                                ).toString(),
-                                                textAlign: TextAlign.end,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryColor,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 10.0, 0.0),
+                                                child: Text(
+                                                  getJsonField(
+                                                    chatMsgChildsItem,
+                                                    r'''$.Mensagem''',
+                                                  ).toString(),
+                                                  textAlign: TextAlign.end,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                ),
                                               ),
                                             ),
                                         ],

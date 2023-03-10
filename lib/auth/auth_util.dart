@@ -5,9 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 
-import '../backend/backend.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:stream_transform/stream_transform.dart';
 import 'firebase_user_provider.dart';
 
 export 'anonymous_auth.dart';
@@ -25,9 +22,6 @@ Future<User?> signInOrCreateAccount(
 ) async {
   try {
     final userCredential = await signInFunc();
-    if (userCredential?.user != null) {
-      await maybeCreateUser(userCredential!.user!);
-    }
     return userCredential?.user;
   } on FirebaseAuthException catch (e) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -80,32 +74,19 @@ Future resetPassword(
 Future sendEmailVerification() async =>
     currentUser?.user?.sendEmailVerification();
 
-String get currentUserEmail =>
-    currentUserDocument?.email ?? currentUser?.user?.email ?? '';
+String get currentUserEmail => currentUser?.user?.email ?? '';
 
 String get currentUserUid => currentUser?.user?.uid ?? '';
 
-String get currentUserDisplayName =>
-    currentUserDocument?.displayName ?? currentUser?.user?.displayName ?? '';
+String get currentUserDisplayName => currentUser?.user?.displayName ?? '';
 
-String get currentUserPhoto =>
-    currentUserDocument?.photoUrl ?? currentUser?.user?.photoURL ?? '';
+String get currentUserPhoto => currentUser?.user?.photoURL ?? '';
 
-String get currentPhoneNumber =>
-    currentUserDocument?.phoneNumber ?? currentUser?.user?.phoneNumber ?? '';
+String get currentPhoneNumber => currentUser?.user?.phoneNumber ?? '';
 
 String get currentJwtToken => _currentJwtToken ?? '';
 
-bool get currentUserEmailVerified {
-  // Reloads the user when checking in order to get the most up to date
-  // email verified status.
-  if (currentUser?.user != null && !currentUser!.user!.emailVerified) {
-    currentUser!.user!
-        .reload()
-        .then((_) => currentUser!.user = FirebaseAuth.instance.currentUser);
-  }
-  return currentUser?.user?.emailVerified ?? false;
-}
+bool get currentUserEmailVerified => currentUser?.user?.emailVerified ?? false;
 
 /// Create a Stream that listens to the current user's JWT Token, since Firebase
 /// generates a new token every hour.
@@ -186,34 +167,4 @@ Future verifySmsCode({
       'PHONE',
     );
   }
-}
-
-DocumentReference? get currentUserReference => currentUser?.user != null
-    ? UsersRecord.collection.doc(currentUser!.user!.uid)
-    : null;
-
-UsersRecord? currentUserDocument;
-final authenticatedUserStream = FirebaseAuth.instance
-    .authStateChanges()
-    .map<String>((user) => user?.uid ?? '')
-    .switchMap(
-      (uid) => uid.isEmpty
-          ? Stream.value(null)
-          : UsersRecord.getDocument(UsersRecord.collection.doc(uid))
-              .handleError((_) {}),
-    )
-    .map((user) => currentUserDocument = user)
-    .asBroadcastStream();
-
-class AuthUserStreamWidget extends StatelessWidget {
-  const AuthUserStreamWidget({Key? key, required this.builder})
-      : super(key: key);
-
-  final WidgetBuilder builder;
-
-  @override
-  Widget build(BuildContext context) => StreamBuilder(
-        stream: authenticatedUserStream,
-        builder: (context, _) => builder(context),
-      );
 }

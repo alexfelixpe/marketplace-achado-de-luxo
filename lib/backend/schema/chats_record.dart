@@ -29,6 +29,22 @@ abstract class ChatsRecord implements Built<ChatsRecord, ChatsRecordBuilder> {
   @BuiltValueField(wireName: 'last_message_seen_by')
   BuiltList<DocumentReference>? get lastMessageSeenBy;
 
+  String? get email;
+
+  @BuiltValueField(wireName: 'display_name')
+  String? get displayName;
+
+  @BuiltValueField(wireName: 'photo_url')
+  String? get photoUrl;
+
+  String? get uid;
+
+  @BuiltValueField(wireName: 'created_time')
+  DateTime? get createdTime;
+
+  @BuiltValueField(wireName: 'phone_number')
+  String? get phoneNumber;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -36,7 +52,12 @@ abstract class ChatsRecord implements Built<ChatsRecord, ChatsRecordBuilder> {
   static void _initializeBuilder(ChatsRecordBuilder builder) => builder
     ..users = ListBuilder()
     ..lastMessage = ''
-    ..lastMessageSeenBy = ListBuilder();
+    ..lastMessageSeenBy = ListBuilder()
+    ..email = ''
+    ..displayName = ''
+    ..photoUrl = ''
+    ..uid = ''
+    ..phoneNumber = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('chats');
@@ -65,6 +86,12 @@ Map<String, dynamic> createChatsRecordData({
   String? lastMessage,
   DateTime? lastMessageTime,
   DocumentReference? lastMessageSentBy,
+  String? email,
+  String? displayName,
+  String? photoUrl,
+  String? uid,
+  DateTime? createdTime,
+  String? phoneNumber,
 }) {
   final firestoreData = serializers.toFirestore(
     ChatsRecord.serializer,
@@ -76,7 +103,13 @@ Map<String, dynamic> createChatsRecordData({
         ..lastMessage = lastMessage
         ..lastMessageTime = lastMessageTime
         ..lastMessageSentBy = lastMessageSentBy
-        ..lastMessageSeenBy = null,
+        ..lastMessageSeenBy = null
+        ..email = email
+        ..displayName = displayName
+        ..photoUrl = photoUrl
+        ..uid = uid
+        ..createdTime = createdTime
+        ..phoneNumber = phoneNumber,
     ),
   );
 

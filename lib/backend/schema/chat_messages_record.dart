@@ -21,13 +21,34 @@ abstract class ChatMessagesRecord
 
   DateTime? get timestamp;
 
+  String? get email;
+
+  @BuiltValueField(wireName: 'display_name')
+  String? get displayName;
+
+  @BuiltValueField(wireName: 'photo_url')
+  String? get photoUrl;
+
+  String? get uid;
+
+  @BuiltValueField(wireName: 'created_time')
+  DateTime? get createdTime;
+
+  @BuiltValueField(wireName: 'phone_number')
+  String? get phoneNumber;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(ChatMessagesRecordBuilder builder) => builder
     ..text = ''
-    ..image = '';
+    ..image = ''
+    ..email = ''
+    ..displayName = ''
+    ..photoUrl = ''
+    ..uid = ''
+    ..phoneNumber = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('chat_messages');
@@ -57,6 +78,12 @@ Map<String, dynamic> createChatMessagesRecordData({
   String? text,
   String? image,
   DateTime? timestamp,
+  String? email,
+  String? displayName,
+  String? photoUrl,
+  String? uid,
+  DateTime? createdTime,
+  String? phoneNumber,
 }) {
   final firestoreData = serializers.toFirestore(
     ChatMessagesRecord.serializer,
@@ -66,7 +93,13 @@ Map<String, dynamic> createChatMessagesRecordData({
         ..chat = chat
         ..text = text
         ..image = image
-        ..timestamp = timestamp,
+        ..timestamp = timestamp
+        ..email = email
+        ..displayName = displayName
+        ..photoUrl = photoUrl
+        ..uid = uid
+        ..createdTime = createdTime
+        ..phoneNumber = phoneNumber,
     ),
   );
 

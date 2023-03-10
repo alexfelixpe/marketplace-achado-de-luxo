@@ -183,11 +183,6 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                   <FFUploadedFile>[];
                                               var downloadUrls = <String>[];
                                               try {
-                                                showUploadMessage(
-                                                  context,
-                                                  'Enviando...',
-                                                  showLoading: true,
-                                                );
                                                 selectedUploadedFiles =
                                                     selectedMedia
                                                         .map((m) =>
@@ -219,8 +214,6 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                         .map((u) => u!)
                                                         .toList();
                                               } finally {
-                                                ScaffoldMessenger.of(context)
-                                                    .hideCurrentSnackBar();
                                                 _model.isMediaUploading1 =
                                                     false;
                                               }
@@ -236,12 +229,8 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                   _model.uploadedFileUrl1 =
                                                       downloadUrls.first;
                                                 });
-                                                showUploadMessage(
-                                                    context, 'Sucesso!');
                                               } else {
                                                 setState(() {});
-                                                showUploadMessage(context,
-                                                    'Falha ao enviar mídia.');
                                                 return;
                                               }
                                             }
@@ -322,11 +311,6 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                   <FFUploadedFile>[];
                                               var downloadUrls = <String>[];
                                               try {
-                                                showUploadMessage(
-                                                  context,
-                                                  'Enviando...',
-                                                  showLoading: true,
-                                                );
                                                 selectedUploadedFiles =
                                                     selectedMedia
                                                         .map((m) =>
@@ -358,8 +342,6 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                         .map((u) => u!)
                                                         .toList();
                                               } finally {
-                                                ScaffoldMessenger.of(context)
-                                                    .hideCurrentSnackBar();
                                                 _model.isMediaUploading2 =
                                                     false;
                                               }
@@ -375,12 +357,8 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                   _model.uploadedFileUrl2 =
                                                       downloadUrls.first;
                                                 });
-                                                showUploadMessage(
-                                                    context, 'Sucesso!');
                                               } else {
                                                 setState(() {});
-                                                showUploadMessage(context,
-                                                    'Falha ao enviar mídia.');
                                                 return;
                                               }
                                             }
@@ -693,7 +671,6 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                         vendedorId: FFAppState().userid,
                         condicao: FFAppState().prodCondicao,
                         cor: FFAppState().prodCor,
-                        imagem1: FFAppState().prodImg1,
                         imagem2: _model.uploadedFileUrl1,
                         imagem3: _model.uploadedFileUrl2,
                         imagem4: _model.uploadedFileUrl3,

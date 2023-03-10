@@ -77,6 +77,48 @@ class _$ChatsRecordSerializer implements StructuredSerializer<ChatsRecord> {
                   DocumentReference, const [const FullType.nullable(Object)])
             ])));
     }
+    value = object.email;
+    if (value != null) {
+      result
+        ..add('email')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.displayName;
+    if (value != null) {
+      result
+        ..add('display_name')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.photoUrl;
+    if (value != null) {
+      result
+        ..add('photo_url')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.uid;
+    if (value != null) {
+      result
+        ..add('uid')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.createdTime;
+    if (value != null) {
+      result
+        ..add('created_time')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(DateTime)));
+    }
+    value = object.phoneNumber;
+    if (value != null) {
+      result
+        ..add('phone_number')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -139,6 +181,30 @@ class _$ChatsRecordSerializer implements StructuredSerializer<ChatsRecord> {
                     DocumentReference, const [const FullType.nullable(Object)])
               ]))! as BuiltList<Object?>);
           break;
+        case 'email':
+          result.email = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'display_name':
+          result.displayName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'photo_url':
+          result.photoUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'uid':
+          result.uid = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'created_time':
+          result.createdTime = serializers.deserialize(value,
+              specifiedType: const FullType(DateTime)) as DateTime?;
+          break;
+        case 'phone_number':
+          result.phoneNumber = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -168,6 +234,18 @@ class _$ChatsRecord extends ChatsRecord {
   @override
   final BuiltList<DocumentReference<Object?>>? lastMessageSeenBy;
   @override
+  final String? email;
+  @override
+  final String? displayName;
+  @override
+  final String? photoUrl;
+  @override
+  final String? uid;
+  @override
+  final DateTime? createdTime;
+  @override
+  final String? phoneNumber;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$ChatsRecord([void Function(ChatsRecordBuilder)? updates]) =>
@@ -181,6 +259,12 @@ class _$ChatsRecord extends ChatsRecord {
       this.lastMessageTime,
       this.lastMessageSentBy,
       this.lastMessageSeenBy,
+      this.email,
+      this.displayName,
+      this.photoUrl,
+      this.uid,
+      this.createdTime,
+      this.phoneNumber,
       this.ffRef})
       : super._();
 
@@ -202,6 +286,12 @@ class _$ChatsRecord extends ChatsRecord {
         lastMessageTime == other.lastMessageTime &&
         lastMessageSentBy == other.lastMessageSentBy &&
         lastMessageSeenBy == other.lastMessageSeenBy &&
+        email == other.email &&
+        displayName == other.displayName &&
+        photoUrl == other.photoUrl &&
+        uid == other.uid &&
+        createdTime == other.createdTime &&
+        phoneNumber == other.phoneNumber &&
         ffRef == other.ffRef;
   }
 
@@ -212,12 +302,26 @@ class _$ChatsRecord extends ChatsRecord {
             $jc(
                 $jc(
                     $jc(
-                        $jc($jc($jc(0, users.hashCode), userA.hashCode),
-                            userB.hashCode),
-                        lastMessage.hashCode),
-                    lastMessageTime.hashCode),
-                lastMessageSentBy.hashCode),
-            lastMessageSeenBy.hashCode),
+                        $jc(
+                            $jc(
+                                $jc(
+                                    $jc(
+                                        $jc(
+                                            $jc(
+                                                $jc(
+                                                    $jc($jc(0, users.hashCode),
+                                                        userA.hashCode),
+                                                    userB.hashCode),
+                                                lastMessage.hashCode),
+                                            lastMessageTime.hashCode),
+                                        lastMessageSentBy.hashCode),
+                                    lastMessageSeenBy.hashCode),
+                                email.hashCode),
+                            displayName.hashCode),
+                        photoUrl.hashCode),
+                    uid.hashCode),
+                createdTime.hashCode),
+            phoneNumber.hashCode),
         ffRef.hashCode));
   }
 
@@ -231,6 +335,12 @@ class _$ChatsRecord extends ChatsRecord {
           ..add('lastMessageTime', lastMessageTime)
           ..add('lastMessageSentBy', lastMessageSentBy)
           ..add('lastMessageSeenBy', lastMessageSeenBy)
+          ..add('email', email)
+          ..add('displayName', displayName)
+          ..add('photoUrl', photoUrl)
+          ..add('uid', uid)
+          ..add('createdTime', createdTime)
+          ..add('phoneNumber', phoneNumber)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -276,6 +386,30 @@ class ChatsRecordBuilder implements Builder<ChatsRecord, ChatsRecordBuilder> {
           ListBuilder<DocumentReference<Object?>>? lastMessageSeenBy) =>
       _$this._lastMessageSeenBy = lastMessageSeenBy;
 
+  String? _email;
+  String? get email => _$this._email;
+  set email(String? email) => _$this._email = email;
+
+  String? _displayName;
+  String? get displayName => _$this._displayName;
+  set displayName(String? displayName) => _$this._displayName = displayName;
+
+  String? _photoUrl;
+  String? get photoUrl => _$this._photoUrl;
+  set photoUrl(String? photoUrl) => _$this._photoUrl = photoUrl;
+
+  String? _uid;
+  String? get uid => _$this._uid;
+  set uid(String? uid) => _$this._uid = uid;
+
+  DateTime? _createdTime;
+  DateTime? get createdTime => _$this._createdTime;
+  set createdTime(DateTime? createdTime) => _$this._createdTime = createdTime;
+
+  String? _phoneNumber;
+  String? get phoneNumber => _$this._phoneNumber;
+  set phoneNumber(String? phoneNumber) => _$this._phoneNumber = phoneNumber;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -294,6 +428,12 @@ class ChatsRecordBuilder implements Builder<ChatsRecord, ChatsRecordBuilder> {
       _lastMessageTime = $v.lastMessageTime;
       _lastMessageSentBy = $v.lastMessageSentBy;
       _lastMessageSeenBy = $v.lastMessageSeenBy?.toBuilder();
+      _email = $v.email;
+      _displayName = $v.displayName;
+      _photoUrl = $v.photoUrl;
+      _uid = $v.uid;
+      _createdTime = $v.createdTime;
+      _phoneNumber = $v.phoneNumber;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -326,6 +466,12 @@ class ChatsRecordBuilder implements Builder<ChatsRecord, ChatsRecordBuilder> {
               lastMessageTime: lastMessageTime,
               lastMessageSentBy: lastMessageSentBy,
               lastMessageSeenBy: _lastMessageSeenBy?.build(),
+              email: email,
+              displayName: displayName,
+              photoUrl: photoUrl,
+              uid: uid,
+              createdTime: createdTime,
+              phoneNumber: phoneNumber,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

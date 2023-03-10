@@ -1,6 +1,5 @@
 import '/backend/firebase_storage/storage.dart';
 import '/components/categoria_widget.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -12,7 +11,6 @@ import '/main.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -26,28 +24,11 @@ class AdicionarProdutoWidget extends StatefulWidget {
   _AdicionarProdutoWidgetState createState() => _AdicionarProdutoWidgetState();
 }
 
-class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget>
-    with TickerProviderStateMixin {
+class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
   late AdicionarProdutoModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
-
-  final animationsMap = {
-    'iconButtonOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 320.ms),
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 320.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-      ],
-    ),
-  };
 
   @override
   void initState() {
@@ -72,13 +53,6 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget>
     _model.nomedoprodutoController ??= TextEditingController();
     _model.descricaoController ??= TextEditingController();
     _model.precoController ??= TextEditingController(text: '0.00');
-    setupAnimations(
-      animationsMap.values.where((anim) =>
-          anim.trigger == AnimationTrigger.onActionTrigger ||
-          !anim.applyInitialState),
-      this,
-    );
-
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -495,7 +469,7 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget>
                                                     double.parse(_model
                                                         .precoController.text);
                                                 FFAppState().prodImg1 =
-                                                    _model.uploadedFileUrl;
+                                                    FFAppState().prodImg1;
                                               });
                                               FFAppState().update(() {
                                                 FFAppState().prodQtd = _model
@@ -556,23 +530,47 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget>
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0.04, -0.57),
+                alignment: AlignmentDirectional(0.92, -0.99),
                 child: FlutterFlowIconButton(
-                  borderColor: FlutterFlowTheme.of(context).secondaryText,
-                  borderRadius: 100.0,
+                  borderColor: Colors.transparent,
+                  borderRadius: 30.0,
                   borderWidth: 1.0,
-                  buttonSize: 200.0,
+                  buttonSize: 60.0,
                   fillColor: Color(0x5557636C),
                   icon: Icon(
+                    Icons.close_rounded,
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    size: 30.0,
+                  ),
+                  onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.fade,
+                        duration: Duration(milliseconds: 300),
+                        reverseDuration: Duration(milliseconds: 300),
+                        child: NavBarPage(initialPage: 'Feed'),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(-0.11, -0.57),
+                child: FlutterFlowIconButton(
+                  borderColor: Colors.transparent,
+                  borderRadius: 30.0,
+                  borderWidth: 1.0,
+                  buttonSize: 200.0,
+                  icon: Icon(
                     Icons.photo_camera,
-                    color: FlutterFlowTheme.of(context).customColor4,
-                    size: 150.0,
+                    color: Color(0xB9262D34),
+                    size: 200.0,
                   ),
                   onPressed: () async {
                     final selectedMedia =
                         await selectMediaWithSourceBottomSheet(
                       context: context,
-                      imageQuality: 68,
                       allowPhoto: true,
                     );
                     if (selectedMedia != null &&
@@ -624,33 +622,6 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget>
                         return;
                       }
                     }
-                  },
-                ).animateOnPageLoad(
-                    animationsMap['iconButtonOnPageLoadAnimation']!),
-              ),
-              Align(
-                alignment: AlignmentDirectional(0.92, -0.99),
-                child: FlutterFlowIconButton(
-                  borderColor: Colors.transparent,
-                  borderRadius: 30.0,
-                  borderWidth: 1.0,
-                  buttonSize: 60.0,
-                  fillColor: Color(0x5557636C),
-                  icon: Icon(
-                    Icons.close_rounded,
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    size: 30.0,
-                  ),
-                  onPressed: () async {
-                    await Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.fade,
-                        duration: Duration(milliseconds: 300),
-                        reverseDuration: Duration(milliseconds: 300),
-                        child: NavBarPage(initialPage: 'Feed'),
-                      ),
-                    );
                   },
                 ),
               ),

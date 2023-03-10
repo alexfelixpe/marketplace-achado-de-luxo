@@ -1,6 +1,7 @@
 import '/account/account_widget.dart';
 import '/adicionar_produto/adicionar_produto_widget.dart';
 import '/backend/api_requests/api_calls.dart';
+import '/chat/chat_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -54,7 +55,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
         ),
       ],
     ),
-    'imageOnPageLoadAnimation1': AnimationInfo(
+    'imageOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
         VisibilityEffect(duration: 1.ms),
@@ -67,16 +68,43 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
         ),
       ],
     ),
-    'imageOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
+    'iconButtonOnActionTriggerAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
       effects: [
-        VisibilityEffect(duration: 1.ms),
-        FadeEffect(
-          curve: Curves.easeIn,
-          delay: 0.ms,
+        ScaleEffect(
+          curve: Curves.bounceOut,
+          delay: 370.ms,
+          duration: 280.ms,
+          begin: 1.0,
+          end: 1.5,
+        ),
+        BlurEffect(
+          curve: Curves.easeInOut,
+          delay: 650.ms,
           duration: 600.ms,
           begin: 0.0,
-          end: 1.0,
+          end: 4.0,
+        ),
+      ],
+    ),
+    'iconButtonOnActionTriggerAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        ScaleEffect(
+          curve: Curves.bounceOut,
+          delay: 370.ms,
+          duration: 280.ms,
+          begin: 1.0,
+          end: 1.5,
+        ),
+        BlurEffect(
+          curve: Curves.easeInOut,
+          delay: 650.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 4.0,
         ),
       ],
     ),
@@ -347,7 +375,6 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                           },
                           child: ListView.builder(
                             padding: EdgeInsets.zero,
-                            shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             itemCount: produtos.length,
                             itemBuilder: (context, produtosIndex) {
@@ -461,117 +488,54 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                             'rowOnPageLoadAnimation']!);
                                       },
                                     ),
-                                    Row(
+                                    Column(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Expanded(
-                                          child: Stack(
-                                            children: [
-                                              if (getJsonField(
-                                                    produtosItem,
-                                                    r'''$.ImagemFirebase[0]''',
-                                                  ) !=
-                                                  null)
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          2.0, 2.0, 2.0, 2.0),
-                                                  child: InkWell(
-                                                    onTap: () async {
-                                                      await Navigator.push(
-                                                        context,
-                                                        PageTransition(
-                                                          type:
-                                                              PageTransitionType
-                                                                  .fade,
-                                                          duration: Duration(
-                                                              milliseconds:
-                                                                  300),
-                                                          reverseDuration:
-                                                              Duration(
-                                                                  milliseconds:
-                                                                      300),
-                                                          child: ProdutoWidget(
-                                                            produto:
-                                                                produtosItem,
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                    child: CachedNetworkImage(
-                                                      imageUrl: getJsonField(
-                                                        produtosItem,
-                                                        r'''$.ImagemFirebase[0]''',
+                                        if (getJsonField(
+                                              produtosItem,
+                                              r'''$.ImagemRemota[0]''',
+                                            ) !=
+                                            null)
+                                          Align(
+                                            alignment: AlignmentDirectional(
+                                                -88.83, 112.8),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(2.0, 2.0, 2.0, 2.0),
+                                              child: InkWell(
+                                                onTap: () async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    PageTransition(
+                                                      type: PageTransitionType
+                                                          .fade,
+                                                      duration: Duration(
+                                                          milliseconds: 300),
+                                                      reverseDuration: Duration(
+                                                          milliseconds: 300),
+                                                      child: ProdutoWidget(
+                                                        produto: produtosItem,
                                                       ),
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              1.0,
-                                                      fit: BoxFit.cover,
                                                     ),
-                                                  ).animateOnPageLoad(animationsMap[
-                                                      'imageOnPageLoadAnimation1']!),
-                                                ),
-                                              if (getJsonField(
+                                                  );
+                                                },
+                                                child: CachedNetworkImage(
+                                                  imageUrl:
+                                                      functions.imageCompress(
+                                                          getJsonField(
                                                     produtosItem,
                                                     r'''$.ImagemRemota[0]''',
-                                                  ) !=
-                                                  null)
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          -88.83, 112.8),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(2.0, 2.0,
-                                                                2.0, 2.0),
-                                                    child: InkWell(
-                                                      onTap: () async {
-                                                        await Navigator.push(
-                                                          context,
-                                                          PageTransition(
-                                                            type:
-                                                                PageTransitionType
-                                                                    .fade,
-                                                            duration: Duration(
-                                                                milliseconds:
-                                                                    300),
-                                                            reverseDuration:
-                                                                Duration(
-                                                                    milliseconds:
-                                                                        300),
-                                                            child:
-                                                                ProdutoWidget(
-                                                              produto:
-                                                                  produtosItem,
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                      child: CachedNetworkImage(
-                                                        imageUrl: functions
-                                                            .imageCompress(
-                                                                getJsonField(
-                                                          produtosItem,
-                                                          r'''$.ImagemRemota[0]''',
-                                                        ).toString())!,
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            1.0,
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ).animateOnPageLoad(
-                                                        animationsMap[
-                                                            'imageOnPageLoadAnimation2']!),
-                                                  ),
+                                                  ).toString())!,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      1.0,
+                                                  fit: BoxFit.cover,
                                                 ),
-                                            ],
+                                              ).animateOnPageLoad(animationsMap[
+                                                  'imageOnPageLoadAnimation']!),
+                                            ),
                                           ),
-                                        ),
                                       ],
                                     ),
                                     Padding(
@@ -607,120 +571,174 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              FlutterFlowIconButton(
-                                                borderColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .noColor,
-                                                borderRadius: 30.0,
-                                                borderWidth: 1.0,
-                                                buttonSize: 50.0,
-                                                icon: Icon(
-                                                  Icons.favorite,
-                                                  color: FFAppState()
-                                                          .likedProds
-                                                          .contains(
-                                                              getJsonField(
-                                                            produtosItem,
-                                                            r'''$._id''',
-                                                          ))
-                                                      ? FlutterFlowTheme.of(
-                                                              context)
-                                                          .customColor3
-                                                      : FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondaryText,
-                                                  size: 30.0,
+                                              Container(
+                                                width: 100.0,
+                                                height: 50.0,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
                                                 ),
-                                                onPressed: () async {
-                                                  if (!FFAppState()
-                                                      .likedProds
-                                                      .contains(getJsonField(
-                                                        produtosItem,
-                                                        r'''$._id''',
-                                                      ))) {
-                                                    _model.apiResulttpe =
-                                                        await DoLikeCall.call(
-                                                      produtoId: getJsonField(
-                                                        produtosItem,
-                                                        r'''$._id''',
-                                                      ).toString(),
-                                                      userId:
-                                                          FFAppState().userid,
-                                                    );
-                                                    setState(() => _model
-                                                            .apiRequestCompleter2 =
-                                                        null);
-                                                    await _model
-                                                        .waitForApiRequestCompleter2();
-                                                    setState(() {
-                                                      FFAppState()
-                                                          .addToLikedProds(
-                                                              getJsonField(
-                                                        (_model.apiResulttpe
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                        r'''$.response.produto''',
-                                                      ).toString());
-                                                    });
-                                                    await showDialog(
-                                                      context: context,
-                                                      builder:
-                                                          (alertDialogContext) {
-                                                        return AlertDialog(
-                                                          title:
-                                                              Text('Mensagem'),
-                                                          content:
-                                                              Text('DoLike'),
-                                                          actions: [
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                      alertDialogContext),
-                                                              child: Text('Ok'),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      },
-                                                    );
-                                                  } else {
-                                                    _model.apiResulttpe1 =
-                                                        await DislikeCall.call(
-                                                      produtoId: getJsonField(
-                                                        produtosItem,
-                                                        r'''$._id''',
-                                                      ).toString(),
-                                                      userId:
-                                                          FFAppState().userid,
-                                                    );
-                                                    setState(() => _model
-                                                            .apiRequestCompleter2 =
-                                                        null);
-                                                    await _model
-                                                        .waitForApiRequestCompleter2();
-                                                    await showDialog(
-                                                      context: context,
-                                                      builder:
-                                                          (alertDialogContext) {
-                                                        return AlertDialog(
-                                                          title:
-                                                              Text('Mensagem'),
-                                                          content:
-                                                              Text('DisLike'),
-                                                          actions: [
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                      alertDialogContext),
-                                                              child: Text('Ok'),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      },
-                                                    );
-                                                  }
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    FlutterFlowIconButton(
+                                                      borderColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .noColor,
+                                                      borderRadius: 30.0,
+                                                      borderWidth: 1.0,
+                                                      buttonSize: 50.0,
+                                                      icon: Icon(
+                                                        Icons.favorite,
+                                                        color: FFAppState()
+                                                                .likedProds
+                                                                .contains(
+                                                                    getJsonField(
+                                                                  produtosItem,
+                                                                  r'''$._id''',
+                                                                ))
+                                                            ? FlutterFlowTheme
+                                                                    .of(context)
+                                                                .customColor3
+                                                            : FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
+                                                        size: 30.0,
+                                                      ),
+                                                      onPressed: () async {
+                                                        if (!FFAppState()
+                                                            .likedProds
+                                                            .contains(
+                                                                getJsonField(
+                                                              produtosItem,
+                                                              r'''$._id''',
+                                                            ))) {
+                                                          _model.apiResulttpe =
+                                                              await DoLikeCall
+                                                                  .call(
+                                                            produtoId:
+                                                                getJsonField(
+                                                              produtosItem,
+                                                              r'''$._id''',
+                                                            ).toString(),
+                                                            userId: FFAppState()
+                                                                .userid,
+                                                          );
+                                                          setState(() => _model
+                                                                  .apiRequestCompleter1 =
+                                                              null);
+                                                          await _model
+                                                              .waitForApiRequestCompleter1();
+                                                          setState(() => _model
+                                                                  .apiRequestCompleter2 =
+                                                              null);
+                                                          await _model
+                                                              .waitForApiRequestCompleter2();
+                                                          setState(() {
+                                                            FFAppState()
+                                                                .addToLikedProds(
+                                                                    getJsonField(
+                                                              produtosItem,
+                                                              r'''$._id''',
+                                                            ).toString());
+                                                          });
+                                                        } else {
+                                                          _model.apiResulttpe1 =
+                                                              await DislikeCall
+                                                                  .call(
+                                                            produtoId:
+                                                                getJsonField(
+                                                              produtosItem,
+                                                              r'''$._id''',
+                                                            ).toString(),
+                                                            userId: FFAppState()
+                                                                .userid,
+                                                          );
+                                                          setState(() => _model
+                                                                  .apiRequestCompleter1 =
+                                                              null);
+                                                          await _model
+                                                              .waitForApiRequestCompleter1();
+                                                          setState(() => _model
+                                                                  .apiRequestCompleter2 =
+                                                              null);
+                                                          await _model
+                                                              .waitForApiRequestCompleter2();
+                                                          setState(() {
+                                                            FFAppState()
+                                                                .removeFromLikedProds(
+                                                                    getJsonField(
+                                                              produtosItem,
+                                                              r'''$._id''',
+                                                            ).toString());
+                                                          });
+                                                        }
 
-                                                  setState(() {});
-                                                },
+                                                        setState(() {});
+                                                      },
+                                                    ).animateOnActionTrigger(
+                                                      animationsMap[
+                                                          'iconButtonOnActionTriggerAnimation1']!,
+                                                    ),
+                                                    FlutterFlowIconButton(
+                                                      borderColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .noColor,
+                                                      borderRadius: 30.0,
+                                                      borderWidth: 1.0,
+                                                      buttonSize: 50.0,
+                                                      icon: Icon(
+                                                        Icons
+                                                            .chat_bubble_outline_outlined,
+                                                        color: FFAppState()
+                                                                .likedProds
+                                                                .contains(
+                                                                    getJsonField(
+                                                                  produtosItem,
+                                                                  r'''$._id''',
+                                                                ))
+                                                            ? FlutterFlowTheme
+                                                                    .of(context)
+                                                                .customColor3
+                                                            : FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
+                                                        size: 30.0,
+                                                      ),
+                                                      onPressed: () async {
+                                                        await Navigator.push(
+                                                          context,
+                                                          PageTransition(
+                                                            type:
+                                                                PageTransitionType
+                                                                    .fade,
+                                                            duration: Duration(
+                                                                milliseconds:
+                                                                    300),
+                                                            reverseDuration:
+                                                                Duration(
+                                                                    milliseconds:
+                                                                        300),
+                                                            child: ChatWidget(
+                                                              vendedorID:
+                                                                  getJsonField(
+                                                                produtosItem,
+                                                                r'''$.response.results[:].Vendedor''',
+                                                              ).toString(),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    ).animateOnActionTrigger(
+                                                      animationsMap[
+                                                          'iconButtonOnActionTriggerAnimation2']!,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
@@ -739,7 +757,9 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                       .bodyText1
                                                       .override(
                                                         fontFamily: 'Poppins',
-                                                        fontSize: 12.0,
+                                                        fontSize: 14.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                       ),
                                                 ),
                                               ),

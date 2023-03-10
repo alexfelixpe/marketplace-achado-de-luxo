@@ -899,6 +899,10 @@ class ProdutosNovidadesCall {
         r'''$.response.results[:]._id''',
         true,
       );
+  static dynamic vendedor(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].Vendedor''',
+      );
 }
 
 class ProdutosBuscaCall {
