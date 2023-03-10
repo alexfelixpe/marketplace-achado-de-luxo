@@ -1,5 +1,4 @@
 import '/backend/api_requests/api_calls.dart';
-import '/backend/firebase_storage/storage.dart';
 import '/components/genero_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -17,23 +16,27 @@ class ImagensModel extends FlutterFlowModel {
   bool isMediaUploading1 = false;
   FFUploadedFile uploadedLocalFile1 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl1 = '';
 
+  // Stores action output result for [Backend Call - API (ImageUpload)] action in IconButton widget.
+  ApiCallResponse? apiImageUploadResult2;
   bool isMediaUploading2 = false;
   FFUploadedFile uploadedLocalFile2 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl2 = '';
 
+  // Stores action output result for [Backend Call - API (ImageUpload)] action in IconButton widget.
+  ApiCallResponse? apiImageUploadResult3;
   bool isMediaUploading3 = false;
   FFUploadedFile uploadedLocalFile3 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl3 = '';
 
+  // Stores action output result for [Backend Call - API (ImageUpload)] action in IconButton widget.
+  ApiCallResponse? apiImageUploadResult4;
   bool isMediaUploading4 = false;
   FFUploadedFile uploadedLocalFile4 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl4 = '';
 
+  // Stores action output result for [Backend Call - API (ImageUpload)] action in IconButton widget.
+  ApiCallResponse? apiImageUploadResult5;
   // Stores action output result for [Backend Call - API (CriarProduto)] action in Button widget.
   ApiCallResponse? produtoCadastrado;
   // Stores action output result for [Backend Call - API (Produtos By Id)] action in Button widget.

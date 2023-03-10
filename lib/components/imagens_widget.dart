@@ -1,5 +1,4 @@
 import '/backend/api_requests/api_calls.dart';
-import '/backend/firebase_storage/storage.dart';
 import '/components/genero_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -145,7 +144,19 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                   child: Stack(
                                     children: [
                                       Image.network(
-                                        _model.uploadedFileUrl1,
+                                        ImgbbGroup.imageUploadCall.uImageUrl(
+                                                  (_model.apiImageUploadResult2
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                ) !=
+                                                null
+                                            ? ImgbbGroup.imageUploadCall
+                                                .uImageUrl(
+                                                (_model.apiImageUploadResult2
+                                                        ?.jsonBody ??
+                                                    ''),
+                                              )
+                                            : 'https://picsum.photos/seed/285/600',
                                         width: 100.0,
                                         height: 100.0,
                                         fit: BoxFit.cover,
@@ -169,7 +180,6 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                             final selectedMedia =
                                                 await selectMediaWithSourceBottomSheet(
                                               context: context,
-                                              imageQuality: 100,
                                               allowPhoto: true,
                                             );
                                             if (selectedMedia != null &&
@@ -181,7 +191,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                   .isMediaUploading1 = true);
                                               var selectedUploadedFiles =
                                                   <FFUploadedFile>[];
-                                              var downloadUrls = <String>[];
+
                                               try {
                                                 selectedUploadedFiles =
                                                     selectedMedia
@@ -200,40 +210,85 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                                   ?.width,
                                                             ))
                                                         .toList();
-
-                                                downloadUrls =
-                                                    (await Future.wait(
-                                                  selectedMedia.map(
-                                                    (m) async =>
-                                                        await uploadData(
-                                                            m.storagePath,
-                                                            m.bytes),
-                                                  ),
-                                                ))
-                                                        .where((u) => u != null)
-                                                        .map((u) => u!)
-                                                        .toList();
                                               } finally {
                                                 _model.isMediaUploading1 =
                                                     false;
                                               }
                                               if (selectedUploadedFiles
-                                                          .length ==
-                                                      selectedMedia.length &&
-                                                  downloadUrls.length ==
-                                                      selectedMedia.length) {
+                                                      .length ==
+                                                  selectedMedia.length) {
                                                 setState(() {
                                                   _model.uploadedLocalFile1 =
                                                       selectedUploadedFiles
                                                           .first;
-                                                  _model.uploadedFileUrl1 =
-                                                      downloadUrls.first;
                                                 });
                                               } else {
                                                 setState(() {});
                                                 return;
                                               }
                                             }
+
+                                            _model.apiImageUploadResult2 =
+                                                await ImgbbGroup.imageUploadCall
+                                                    .call(
+                                              image: _model.uploadedLocalFile1,
+                                            );
+                                            if ((_model.apiImageUploadResult2
+                                                    ?.succeeded ??
+                                                true)) {
+                                              setState(() {
+                                                FFAppState().prodImg2 =
+                                                    ImgbbGroup.imageUploadCall
+                                                        .uImageUrl(
+                                                  (_model.apiImageUploadResult2
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                );
+                                              });
+                                              ScaffoldMessenger.of(context)
+                                                  .clearSnackBars();
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'Imagem enviada com sucesso!',
+                                                    style: TextStyle(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                    ),
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds: 4000),
+                                                  backgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .tertiary400,
+                                                ),
+                                              );
+                                            } else {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title: Text('Erro'),
+                                                    content: Text(
+                                                        'Função temporariamente indisponível. Tente em alguns instantes.'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext),
+                                                        child: Text('Ok'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            }
+
+                                            setState(() {});
                                           },
                                         ),
                                       ),
@@ -273,7 +328,19 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                   child: Stack(
                                     children: [
                                       Image.network(
-                                        _model.uploadedFileUrl2,
+                                        ImgbbGroup.imageUploadCall.uImageUrl(
+                                                  (_model.apiImageUploadResult3
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                ) !=
+                                                null
+                                            ? ImgbbGroup.imageUploadCall
+                                                .uImageUrl(
+                                                (_model.apiImageUploadResult2
+                                                        ?.jsonBody ??
+                                                    ''),
+                                              )
+                                            : 'https://picsum.photos/seed/285/600',
                                         width: 100.0,
                                         height: 100.0,
                                         fit: BoxFit.cover,
@@ -297,7 +364,6 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                             final selectedMedia =
                                                 await selectMediaWithSourceBottomSheet(
                                               context: context,
-                                              imageQuality: 100,
                                               allowPhoto: true,
                                             );
                                             if (selectedMedia != null &&
@@ -309,7 +375,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                   .isMediaUploading2 = true);
                                               var selectedUploadedFiles =
                                                   <FFUploadedFile>[];
-                                              var downloadUrls = <String>[];
+
                                               try {
                                                 selectedUploadedFiles =
                                                     selectedMedia
@@ -328,40 +394,85 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                                   ?.width,
                                                             ))
                                                         .toList();
-
-                                                downloadUrls =
-                                                    (await Future.wait(
-                                                  selectedMedia.map(
-                                                    (m) async =>
-                                                        await uploadData(
-                                                            m.storagePath,
-                                                            m.bytes),
-                                                  ),
-                                                ))
-                                                        .where((u) => u != null)
-                                                        .map((u) => u!)
-                                                        .toList();
                                               } finally {
                                                 _model.isMediaUploading2 =
                                                     false;
                                               }
                                               if (selectedUploadedFiles
-                                                          .length ==
-                                                      selectedMedia.length &&
-                                                  downloadUrls.length ==
-                                                      selectedMedia.length) {
+                                                      .length ==
+                                                  selectedMedia.length) {
                                                 setState(() {
                                                   _model.uploadedLocalFile2 =
                                                       selectedUploadedFiles
                                                           .first;
-                                                  _model.uploadedFileUrl2 =
-                                                      downloadUrls.first;
                                                 });
                                               } else {
                                                 setState(() {});
                                                 return;
                                               }
                                             }
+
+                                            _model.apiImageUploadResult3 =
+                                                await ImgbbGroup.imageUploadCall
+                                                    .call(
+                                              image: _model.uploadedLocalFile2,
+                                            );
+                                            if ((_model.apiImageUploadResult3
+                                                    ?.succeeded ??
+                                                true)) {
+                                              setState(() {
+                                                FFAppState().prodImg3 =
+                                                    ImgbbGroup.imageUploadCall
+                                                        .uImageUrl(
+                                                  (_model.apiImageUploadResult3
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                );
+                                              });
+                                              ScaffoldMessenger.of(context)
+                                                  .clearSnackBars();
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'Imagem enviada com sucesso',
+                                                    style: TextStyle(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                    ),
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds: 4000),
+                                                  backgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .tertiary400,
+                                                ),
+                                              );
+                                            } else {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title: Text('Mensagem'),
+                                                    content: Text(
+                                                        'Nos desculpe :-( Tente novamente mais tarde...'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext),
+                                                        child: Text('Ok'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            }
+
+                                            setState(() {});
                                           },
                                         ),
                                       ),
@@ -401,7 +512,19 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                   child: Stack(
                                     children: [
                                       Image.network(
-                                        _model.uploadedFileUrl3,
+                                        ImgbbGroup.imageUploadCall.uImageUrl(
+                                                  (_model.apiImageUploadResult4
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                ) !=
+                                                null
+                                            ? ImgbbGroup.imageUploadCall
+                                                .uImageUrl(
+                                                (_model.apiImageUploadResult2
+                                                        ?.jsonBody ??
+                                                    ''),
+                                              )
+                                            : 'https://picsum.photos/seed/285/600',
                                         width: 100.0,
                                         height: 100.0,
                                         fit: BoxFit.cover,
@@ -425,7 +548,6 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                             final selectedMedia =
                                                 await selectMediaWithSourceBottomSheet(
                                               context: context,
-                                              imageQuality: 100,
                                               allowPhoto: true,
                                             );
                                             if (selectedMedia != null &&
@@ -437,13 +559,8 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                   .isMediaUploading3 = true);
                                               var selectedUploadedFiles =
                                                   <FFUploadedFile>[];
-                                              var downloadUrls = <String>[];
+
                                               try {
-                                                showUploadMessage(
-                                                  context,
-                                                  'Enviando...',
-                                                  showLoading: true,
-                                                );
                                                 selectedUploadedFiles =
                                                     selectedMedia
                                                         .map((m) =>
@@ -461,46 +578,85 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                                   ?.width,
                                                             ))
                                                         .toList();
-
-                                                downloadUrls =
-                                                    (await Future.wait(
-                                                  selectedMedia.map(
-                                                    (m) async =>
-                                                        await uploadData(
-                                                            m.storagePath,
-                                                            m.bytes),
-                                                  ),
-                                                ))
-                                                        .where((u) => u != null)
-                                                        .map((u) => u!)
-                                                        .toList();
                                               } finally {
-                                                ScaffoldMessenger.of(context)
-                                                    .hideCurrentSnackBar();
                                                 _model.isMediaUploading3 =
                                                     false;
                                               }
                                               if (selectedUploadedFiles
-                                                          .length ==
-                                                      selectedMedia.length &&
-                                                  downloadUrls.length ==
-                                                      selectedMedia.length) {
+                                                      .length ==
+                                                  selectedMedia.length) {
                                                 setState(() {
                                                   _model.uploadedLocalFile3 =
                                                       selectedUploadedFiles
                                                           .first;
-                                                  _model.uploadedFileUrl3 =
-                                                      downloadUrls.first;
                                                 });
-                                                showUploadMessage(
-                                                    context, 'Sucesso!');
                                               } else {
                                                 setState(() {});
-                                                showUploadMessage(context,
-                                                    'Falha ao enviar mídia.');
                                                 return;
                                               }
                                             }
+
+                                            _model.apiImageUploadResult4 =
+                                                await ImgbbGroup.imageUploadCall
+                                                    .call(
+                                              image: _model.uploadedLocalFile2,
+                                            );
+                                            if ((_model.apiImageUploadResult4
+                                                    ?.succeeded ??
+                                                true)) {
+                                              setState(() {
+                                                FFAppState().prodImg4 =
+                                                    ImgbbGroup.imageUploadCall
+                                                        .uImageUrl(
+                                                  (_model.apiImageUploadResult4
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                );
+                                              });
+                                              ScaffoldMessenger.of(context)
+                                                  .clearSnackBars();
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'Imagem enviada com sucesso',
+                                                    style: TextStyle(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                    ),
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds: 4000),
+                                                  backgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .tertiary400,
+                                                ),
+                                              );
+                                            } else {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title: Text('Mensagem'),
+                                                    content: Text(
+                                                        'Nos desculpe :-( Tente novamente mais tarde...'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext),
+                                                        child: Text('Ok'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            }
+
+                                            setState(() {});
                                           },
                                         ),
                                       ),
@@ -540,7 +696,19 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                   child: Stack(
                                     children: [
                                       Image.network(
-                                        _model.uploadedFileUrl4,
+                                        ImgbbGroup.imageUploadCall.uImageUrl(
+                                                  (_model.apiImageUploadResult5
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                ) !=
+                                                null
+                                            ? ImgbbGroup.imageUploadCall
+                                                .uImageUrl(
+                                                (_model.apiImageUploadResult2
+                                                        ?.jsonBody ??
+                                                    ''),
+                                              )
+                                            : 'https://picsum.photos/seed/285/600',
                                         width: 100.0,
                                         height: 100.0,
                                         fit: BoxFit.cover,
@@ -564,7 +732,6 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                             final selectedMedia =
                                                 await selectMediaWithSourceBottomSheet(
                                               context: context,
-                                              imageQuality: 100,
                                               allowPhoto: true,
                                             );
                                             if (selectedMedia != null &&
@@ -576,13 +743,8 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                   .isMediaUploading4 = true);
                                               var selectedUploadedFiles =
                                                   <FFUploadedFile>[];
-                                              var downloadUrls = <String>[];
+
                                               try {
-                                                showUploadMessage(
-                                                  context,
-                                                  'Enviando...',
-                                                  showLoading: true,
-                                                );
                                                 selectedUploadedFiles =
                                                     selectedMedia
                                                         .map((m) =>
@@ -600,46 +762,80 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                                   ?.width,
                                                             ))
                                                         .toList();
-
-                                                downloadUrls =
-                                                    (await Future.wait(
-                                                  selectedMedia.map(
-                                                    (m) async =>
-                                                        await uploadData(
-                                                            m.storagePath,
-                                                            m.bytes),
-                                                  ),
-                                                ))
-                                                        .where((u) => u != null)
-                                                        .map((u) => u!)
-                                                        .toList();
                                               } finally {
-                                                ScaffoldMessenger.of(context)
-                                                    .hideCurrentSnackBar();
                                                 _model.isMediaUploading4 =
                                                     false;
                                               }
                                               if (selectedUploadedFiles
-                                                          .length ==
-                                                      selectedMedia.length &&
-                                                  downloadUrls.length ==
-                                                      selectedMedia.length) {
+                                                      .length ==
+                                                  selectedMedia.length) {
                                                 setState(() {
                                                   _model.uploadedLocalFile4 =
                                                       selectedUploadedFiles
                                                           .first;
-                                                  _model.uploadedFileUrl4 =
-                                                      downloadUrls.first;
                                                 });
-                                                showUploadMessage(
-                                                    context, 'Sucesso!');
                                               } else {
                                                 setState(() {});
-                                                showUploadMessage(context,
-                                                    'Falha ao enviar mídia.');
                                                 return;
                                               }
                                             }
+
+                                            _model.apiImageUploadResult5 =
+                                                await ImgbbGroup.imageUploadCall
+                                                    .call(
+                                              image: _model.uploadedLocalFile4,
+                                            );
+                                            if ((_model.apiImageUploadResult5
+                                                    ?.succeeded ??
+                                                true)) {
+                                              setState(() {
+                                                FFAppState().prodImg5 =
+                                                    FFAppState().prodImg5;
+                                              });
+                                              ScaffoldMessenger.of(context)
+                                                  .clearSnackBars();
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'Imagem enviada com sucesso',
+                                                    style: TextStyle(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                    ),
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds: 4000),
+                                                  backgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .tertiary400,
+                                                ),
+                                              );
+                                            } else {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title: Text('Mensagem'),
+                                                    content: Text(
+                                                        'Nos desculpe :-( Tente novamente mais tarde...'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext),
+                                                        child: Text('Ok'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            }
+
+                                            setState(() {});
                                           },
                                         ),
                                       ),
@@ -671,30 +867,32 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                         vendedorId: FFAppState().userid,
                         condicao: FFAppState().prodCondicao,
                         cor: FFAppState().prodCor,
-                        imagem2: _model.uploadedFileUrl1,
-                        imagem3: _model.uploadedFileUrl2,
-                        imagem4: _model.uploadedFileUrl3,
-                        imagem5: _model.uploadedFileUrl4,
+                        imagem2: FFAppState().prodImg2,
+                        imagem3: FFAppState().prodImg3,
+                        imagem4: FFAppState().prodImg4,
+                        imagem5: FFAppState().prodImg5,
+                        imagem1: FFAppState().prodImg1,
                       );
-                      _model.produto = await ProdutosByIdCall.call(
-                        id: CriarProdutoCall.id(
-                          (_model.produtoCadastrado?.jsonBody ?? ''),
-                        ).toString(),
-                      );
-                      await Future.delayed(const Duration(milliseconds: 5000));
-                      await Navigator.push(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.fade,
-                          duration: Duration(milliseconds: 300),
-                          reverseDuration: Duration(milliseconds: 300),
-                          child: ProdutoWidget(
-                            produto: ProdutosByIdCall.allFields(
-                              (_model.produto?.jsonBody ?? ''),
+                      if ((_model.produtoCadastrado?.succeeded ?? true)) {
+                        _model.produto = await ProdutosByIdCall.call(
+                          id: CriarProdutoCall.id(
+                            (_model.produtoCadastrado?.jsonBody ?? ''),
+                          ).toString(),
+                        );
+                        await Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 300),
+                            reverseDuration: Duration(milliseconds: 300),
+                            child: ProdutoWidget(
+                              produto: ProdutosByIdCall.allFields(
+                                (_model.produto?.jsonBody ?? ''),
+                              ),
                             ),
                           ),
-                        ),
-                      );
+                        );
+                      }
 
                       setState(() {});
                     },

@@ -82,7 +82,14 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
               Align(
                 alignment: AlignmentDirectional(0.0, -1.0),
                 child: Image.network(
-                  'https://images.unsplash.com/photo-1632932197818-6b131c21a961?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjIyfHx1c2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+                  ImgbbGroup.imageUploadCall.uImageUrl(
+                            (_model.apiImageUploadResult?.jsonBody ?? ''),
+                          ) !=
+                          null
+                      ? ImgbbGroup.imageUploadCall.uImageUrl(
+                          (_model.apiImageUploadResult?.jsonBody ?? ''),
+                        )
+                      : 'https://picsum.photos/seed/285/600',
                   width: double.infinity,
                   height: 500.0,
                   fit: BoxFit.cover,
@@ -468,8 +475,6 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                                                 FFAppState().prodPreco =
                                                     double.parse(_model
                                                         .precoController.text);
-                                                FFAppState().prodImg1 =
-                                                    FFAppState().prodImg1;
                                               });
                                               FFAppState().update(() {
                                                 FFAppState().prodQtd = _model
@@ -614,26 +619,6 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                           (_model.apiImageUploadResult?.jsonBody ?? ''),
                         );
                       });
-                      await showDialog(
-                        context: context,
-                        builder: (alertDialogContext) {
-                          return AlertDialog(
-                            title: Text('Mensagem'),
-                            content: Text(ImgbbGroup.imageUploadCall
-                                .uImageUrl(
-                                  (_model.apiImageUploadResult?.jsonBody ?? ''),
-                                )
-                                .toString()),
-                            actions: [
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(alertDialogContext),
-                                child: Text('Ok'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
                       ScaffoldMessenger.of(context).clearSnackBars();
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

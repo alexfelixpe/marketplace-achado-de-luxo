@@ -206,6 +206,30 @@ class FFAppState extends ChangeNotifier {
     prefs.setStringList('ff_likedProds', _likedProds);
   }
 
+  String _prodImg2 = '';
+  String get prodImg2 => _prodImg2;
+  set prodImg2(String _value) {
+    _prodImg2 = _value;
+  }
+
+  String _prodImg3 = '';
+  String get prodImg3 => _prodImg3;
+  set prodImg3(String _value) {
+    _prodImg3 = _value;
+  }
+
+  String _prodImg4 = '';
+  String get prodImg4 => _prodImg4;
+  set prodImg4(String _value) {
+    _prodImg4 = _value;
+  }
+
+  String _prodImg5 = '';
+  String get prodImg5 => _prodImg5;
+  set prodImg5(String _value) {
+    _prodImg5 = _value;
+  }
+
   String _prodImg1 = '';
   String get prodImg1 => _prodImg1;
   set prodImg1(String _value) {
