@@ -1,4 +1,4 @@
-import '/backend/firebase_storage/storage.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/components/categoria_widget.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -82,7 +82,7 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
               Align(
                 alignment: AlignmentDirectional(0.0, -1.0),
                 child: Image.network(
-                  'https://images.unsplash.com/photo-1632932197818-6b131c21a961?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjIyfHx1c2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+                  FFAppState().prodImg1,
                   width: double.infinity,
                   height: 500.0,
                   fit: BoxFit.cover,
@@ -578,7 +578,7 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                             validateFileFormat(m.storagePath, context))) {
                       setState(() => _model.isMediaUploading = true);
                       var selectedUploadedFiles = <FFUploadedFile>[];
-                      var downloadUrls = <String>[];
+
                       try {
                         showUploadMessage(
                           context,
@@ -593,27 +593,15 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                                   width: m.dimensions?.width,
                                 ))
                             .toList();
-
-                        downloadUrls = (await Future.wait(
-                          selectedMedia.map(
-                            (m) async =>
-                                await uploadData(m.storagePath, m.bytes),
-                          ),
-                        ))
-                            .where((u) => u != null)
-                            .map((u) => u!)
-                            .toList();
                       } finally {
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();
                         _model.isMediaUploading = false;
                       }
                       if (selectedUploadedFiles.length ==
-                              selectedMedia.length &&
-                          downloadUrls.length == selectedMedia.length) {
+                          selectedMedia.length) {
                         setState(() {
                           _model.uploadedLocalFile =
                               selectedUploadedFiles.first;
-                          _model.uploadedFileUrl = downloadUrls.first;
                         });
                         showUploadMessage(context, 'Sucesso!');
                       } else {
@@ -622,6 +610,37 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                         return;
                       }
                     }
+
+                    _model.apiImageUploadResult =
+                        await ImgbbGroup.imageUploadCall.call();
+                    if ((_model.apiImageUploadResult?.succeeded ?? true)) {
+                      setState(() {
+                        FFAppState().prodImg1 =
+                            ImgbbGroup.imageUploadCall.uImageUrl(
+                          (_model.apiImageUploadResult?.jsonBody ?? ''),
+                        );
+                      });
+                      ScaffoldMessenger.of(context).clearSnackBars();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            ImgbbGroup.imageUploadCall
+                                .uImageUrl(
+                                  (_model.apiImageUploadResult?.jsonBody ?? ''),
+                                )
+                                .toString(),
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                          ),
+                          duration: Duration(milliseconds: 4000),
+                          backgroundColor:
+                              FlutterFlowTheme.of(context).tertiary400,
+                        ),
+                      );
+                    }
+
+                    setState(() {});
                   },
                 ),
               ),

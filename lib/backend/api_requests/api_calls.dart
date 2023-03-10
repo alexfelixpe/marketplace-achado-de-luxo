@@ -343,6 +343,58 @@ class ListaDeChatsClienteCall {
 
 /// End Chat Group Code
 
+/// Start Imgbb Group Code
+
+class ImgbbGroup {
+  static String baseUrl = 'https://api.imgbb.com/1/';
+  static Map<String, String> headers = {};
+  static ImageUploadCall imageUploadCall = ImageUploadCall();
+}
+
+class ImageUploadCall {
+  Future<ApiCallResponse> call({
+    String? key = '',
+    String? image = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'ImageUpload',
+      apiUrl: '${ImgbbGroup.baseUrl}/upload',
+      callType: ApiCallType.POST,
+      headers: {
+        ...ImgbbGroup.headers,
+      },
+      params: {
+        'key': key,
+        'image': image,
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic data(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+      );
+  dynamic uImageUrl(dynamic response) => getJsonField(
+        response,
+        r'''$.data.image.url''',
+      );
+  dynamic thumbUrl(dynamic response) => getJsonField(
+        response,
+        r'''$.data.thumb.url''',
+      );
+  dynamic deleteUrl(dynamic response) => getJsonField(
+        response,
+        r'''$.data.delete_url''',
+      );
+}
+
+/// End Imgbb Group Code
+
 class AuthCall {
   static Future<ApiCallResponse> call({
     String? user = '11964591802',
