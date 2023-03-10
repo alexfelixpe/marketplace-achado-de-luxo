@@ -580,11 +580,6 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                       var selectedUploadedFiles = <FFUploadedFile>[];
 
                       try {
-                        showUploadMessage(
-                          context,
-                          'Enviando...',
-                          showLoading: true,
-                        );
                         selectedUploadedFiles = selectedMedia
                             .map((m) => FFUploadedFile(
                                   name: m.storagePath.split('/').last,
@@ -594,7 +589,6 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                                 ))
                             .toList();
                       } finally {
-                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
                         _model.isMediaUploading = false;
                       }
                       if (selectedUploadedFiles.length ==
@@ -603,10 +597,8 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                           _model.uploadedLocalFile =
                               selectedUploadedFiles.first;
                         });
-                        showUploadMessage(context, 'Sucesso!');
                       } else {
                         setState(() {});
-                        showUploadMessage(context, 'Falha ao enviar mídia.');
                         return;
                       }
                     }
@@ -620,6 +612,26 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                           (_model.apiImageUploadResult?.jsonBody ?? ''),
                         );
                       });
+                      await showDialog(
+                        context: context,
+                        builder: (alertDialogContext) {
+                          return AlertDialog(
+                            title: Text('Mensagem'),
+                            content: Text(ImgbbGroup.imageUploadCall
+                                .uImageUrl(
+                                  (_model.apiImageUploadResult?.jsonBody ?? ''),
+                                )
+                                .toString()),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(alertDialogContext),
+                                child: Text('Ok'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
                       ScaffoldMessenger.of(context).clearSnackBars();
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -637,6 +649,27 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                           backgroundColor:
                               FlutterFlowTheme.of(context).tertiary400,
                         ),
+                      );
+                    } else {
+                      await showDialog(
+                        context: context,
+                        builder: (alertDialogContext) {
+                          return AlertDialog(
+                            title: Text('Mensagem'),
+                            content: Text(ImgbbGroup.imageUploadCall
+                                .uImageUrl(
+                                  (_model.apiImageUploadResult?.jsonBody ?? ''),
+                                )
+                                .toString()),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(alertDialogContext),
+                                child: Text('Ok'),
+                              ),
+                            ],
+                          );
+                        },
                       );
                     }
 
