@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_media.dart';
 import '/login/login_widget.dart';
 import '/main.dart';
+import '/flutter_flow/permissions_util.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -574,6 +575,7 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                   ),
                   showLoadingIndicator: true,
                   onPressed: () async {
+                    await requestPermission(photoLibraryPermission);
                     final selectedMedia = await selectMedia(
                       mediaSource: MediaSource.photoGallery,
                       multiImage: false,
