@@ -604,7 +604,9 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                     }
 
                     _model.apiImageUploadResult =
-                        await ImgbbGroup.imageUploadCall.call();
+                        await ImgbbGroup.imageUploadCall.call(
+                      image: _model.uploadedLocalFile,
+                    );
                     if ((_model.apiImageUploadResult?.succeeded ?? true)) {
                       setState(() {
                         FFAppState().prodImg1 =

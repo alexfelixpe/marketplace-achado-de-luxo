@@ -353,8 +353,8 @@ class ImgbbGroup {
 
 class ImageUploadCall {
   Future<ApiCallResponse> call({
-    String? key = '',
-    String? image = '',
+    String? key = 'a45f6a3877004f8f65b9c36dec39919d',
+    FFUploadedFile? image,
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'ImageUpload',
