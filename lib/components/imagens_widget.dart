@@ -178,9 +178,10 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                           ),
                                           onPressed: () async {
                                             final selectedMedia =
-                                                await selectMediaWithSourceBottomSheet(
-                                              context: context,
-                                              allowPhoto: true,
+                                                await selectMedia(
+                                              mediaSource:
+                                                  MediaSource.photoGallery,
+                                              multiImage: false,
                                             );
                                             if (selectedMedia != null &&
                                                 selectedMedia.every((m) =>
@@ -362,9 +363,10 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                           ),
                                           onPressed: () async {
                                             final selectedMedia =
-                                                await selectMediaWithSourceBottomSheet(
-                                              context: context,
-                                              allowPhoto: true,
+                                                await selectMedia(
+                                              mediaSource:
+                                                  MediaSource.photoGallery,
+                                              multiImage: false,
                                             );
                                             if (selectedMedia != null &&
                                                 selectedMedia.every((m) =>
@@ -546,9 +548,10 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                           ),
                                           onPressed: () async {
                                             final selectedMedia =
-                                                await selectMediaWithSourceBottomSheet(
-                                              context: context,
-                                              allowPhoto: true,
+                                                await selectMedia(
+                                              mediaSource:
+                                                  MediaSource.photoGallery,
+                                              multiImage: false,
                                             );
                                             if (selectedMedia != null &&
                                                 selectedMedia.every((m) =>
@@ -730,9 +733,10 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                           ),
                                           onPressed: () async {
                                             final selectedMedia =
-                                                await selectMediaWithSourceBottomSheet(
-                                              context: context,
-                                              allowPhoto: true,
+                                                await selectMedia(
+                                              mediaSource:
+                                                  MediaSource.photoGallery,
+                                              multiImage: false,
                                             );
                                             if (selectedMedia != null &&
                                                 selectedMedia.every((m) =>

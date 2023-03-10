@@ -572,11 +572,11 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                     color: Color(0xB9262D34),
                     size: 200.0,
                   ),
+                  showLoadingIndicator: true,
                   onPressed: () async {
-                    final selectedMedia =
-                        await selectMediaWithSourceBottomSheet(
-                      context: context,
-                      allowPhoto: true,
+                    final selectedMedia = await selectMedia(
+                      mediaSource: MediaSource.photoGallery,
+                      multiImage: false,
                     );
                     if (selectedMedia != null &&
                         selectedMedia.every((m) =>
@@ -585,6 +585,11 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                       var selectedUploadedFiles = <FFUploadedFile>[];
 
                       try {
+                        showUploadMessage(
+                          context,
+                          'Enviando...',
+                          showLoading: true,
+                        );
                         selectedUploadedFiles = selectedMedia
                             .map((m) => FFUploadedFile(
                                   name: m.storagePath.split('/').last,
@@ -594,6 +599,7 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                                 ))
                             .toList();
                       } finally {
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
                         _model.isMediaUploading = false;
                       }
                       if (selectedUploadedFiles.length ==
@@ -602,8 +608,10 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                           _model.uploadedLocalFile =
                               selectedUploadedFiles.first;
                         });
+                        showUploadMessage(context, 'Sucesso!');
                       } else {
                         setState(() {});
+                        showUploadMessage(context, 'Falha ao enviar mídia.');
                         return;
                       }
                     }
@@ -623,11 +631,7 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                            ImgbbGroup.imageUploadCall
-                                .uImageUrl(
-                                  (_model.apiImageUploadResult?.jsonBody ?? ''),
-                                )
-                                .toString(),
+                            'Imagem enviada com sucesso!',
                             style: TextStyle(
                               color: FlutterFlowTheme.of(context).primaryText,
                             ),
@@ -643,9 +647,7 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                         builder: (alertDialogContext) {
                           return AlertDialog(
                             title: Text('Mensagem'),
-                            content: Text(
-                                (_model.apiImageUploadResult?.jsonBody ?? '')
-                                    .toString()),
+                            content: Text('Tente mais tarde.'),
                             actions: [
                               TextButton(
                                 onPressed: () =>
