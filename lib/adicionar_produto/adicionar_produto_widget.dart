@@ -82,7 +82,7 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
               Align(
                 alignment: AlignmentDirectional(0.0, -1.0),
                 child: Image.network(
-                  _model.uploadedFileUrl,
+                  'https://images.unsplash.com/photo-1632932197818-6b131c21a961?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjIyfHx1c2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
                   width: double.infinity,
                   height: 500.0,
                   fit: BoxFit.cover,
