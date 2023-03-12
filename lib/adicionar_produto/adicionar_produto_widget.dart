@@ -82,11 +82,11 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
               Align(
                 alignment: AlignmentDirectional(0.0, -1.0),
                 child: Image.network(
-                  ImgbbGroup.imageUploadCall.uImageUrl(
+                  ImgGroup.imageUploadCall.uImageUrl(
                             (_model.apiImageUploadResult?.jsonBody ?? ''),
                           ) !=
                           null
-                      ? ImgbbGroup.imageUploadCall.uImageUrl(
+                      ? ImgGroup.imageUploadCall.uImageUrl(
                           (_model.apiImageUploadResult?.jsonBody ?? ''),
                         )
                       : 'https://picsum.photos/seed/285/600',
@@ -617,13 +617,13 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                     }
 
                     _model.apiImageUploadResult =
-                        await ImgbbGroup.imageUploadCall.call(
+                        await ImgGroup.imageUploadCall.call(
                       image: _model.uploadedLocalFile,
                     );
                     if ((_model.apiImageUploadResult?.succeeded ?? true)) {
                       setState(() {
                         FFAppState().prodImg1 =
-                            ImgbbGroup.imageUploadCall.uImageUrl(
+                            ImgGroup.imageUploadCall.uImageUrl(
                           (_model.apiImageUploadResult?.jsonBody ?? ''),
                         );
                       });

@@ -144,13 +144,13 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                   child: Stack(
                                     children: [
                                       Image.network(
-                                        ImgbbGroup.imageUploadCall.uImageUrl(
+                                        ImgGroup.imageUploadCall.uImageUrl(
                                                   (_model.apiImageUploadResult2
                                                           ?.jsonBody ??
                                                       ''),
                                                 ) !=
                                                 null
-                                            ? ImgbbGroup.imageUploadCall
+                                            ? ImgGroup.imageUploadCall
                                                 .uImageUrl(
                                                 (_model.apiImageUploadResult2
                                                         ?.jsonBody ??
@@ -230,7 +230,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                             }
 
                                             _model.apiImageUploadResult2 =
-                                                await ImgbbGroup.imageUploadCall
+                                                await ImgGroup.imageUploadCall
                                                     .call(
                                               image: _model.uploadedLocalFile1,
                                             );
@@ -238,9 +238,9 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                     ?.succeeded ??
                                                 true)) {
                                               setState(() {
-                                                FFAppState().prodImg2 =
-                                                    ImgbbGroup.imageUploadCall
-                                                        .uImageUrl(
+                                                FFAppState().prodImg2 = ImgGroup
+                                                    .imageUploadCall
+                                                    .uImageUrl(
                                                   (_model.apiImageUploadResult2
                                                           ?.jsonBody ??
                                                       ''),
@@ -329,13 +329,13 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                   child: Stack(
                                     children: [
                                       Image.network(
-                                        ImgbbGroup.imageUploadCall.uImageUrl(
+                                        ImgGroup.imageUploadCall.uImageUrl(
                                                   (_model.apiImageUploadResult3
                                                           ?.jsonBody ??
                                                       ''),
                                                 ) !=
                                                 null
-                                            ? ImgbbGroup.imageUploadCall
+                                            ? ImgGroup.imageUploadCall
                                                 .uImageUrl(
                                                 (_model.apiImageUploadResult2
                                                         ?.jsonBody ??
@@ -415,7 +415,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                             }
 
                                             _model.apiImageUploadResult3 =
-                                                await ImgbbGroup.imageUploadCall
+                                                await ImgGroup.imageUploadCall
                                                     .call(
                                               image: _model.uploadedLocalFile2,
                                             );
@@ -423,9 +423,9 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                     ?.succeeded ??
                                                 true)) {
                                               setState(() {
-                                                FFAppState().prodImg3 =
-                                                    ImgbbGroup.imageUploadCall
-                                                        .uImageUrl(
+                                                FFAppState().prodImg3 = ImgGroup
+                                                    .imageUploadCall
+                                                    .uImageUrl(
                                                   (_model.apiImageUploadResult3
                                                           ?.jsonBody ??
                                                       ''),
@@ -514,13 +514,13 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                   child: Stack(
                                     children: [
                                       Image.network(
-                                        ImgbbGroup.imageUploadCall.uImageUrl(
+                                        ImgGroup.imageUploadCall.uImageUrl(
                                                   (_model.apiImageUploadResult4
                                                           ?.jsonBody ??
                                                       ''),
                                                 ) !=
                                                 null
-                                            ? ImgbbGroup.imageUploadCall
+                                            ? ImgGroup.imageUploadCall
                                                 .uImageUrl(
                                                 (_model.apiImageUploadResult2
                                                         ?.jsonBody ??
@@ -600,7 +600,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                             }
 
                                             _model.apiImageUploadResult4 =
-                                                await ImgbbGroup.imageUploadCall
+                                                await ImgGroup.imageUploadCall
                                                     .call(
                                               image: _model.uploadedLocalFile2,
                                             );
@@ -608,9 +608,9 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                     ?.succeeded ??
                                                 true)) {
                                               setState(() {
-                                                FFAppState().prodImg4 =
-                                                    ImgbbGroup.imageUploadCall
-                                                        .uImageUrl(
+                                                FFAppState().prodImg4 = ImgGroup
+                                                    .imageUploadCall
+                                                    .uImageUrl(
                                                   (_model.apiImageUploadResult4
                                                           ?.jsonBody ??
                                                       ''),
@@ -699,13 +699,13 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                   child: Stack(
                                     children: [
                                       Image.network(
-                                        ImgbbGroup.imageUploadCall.uImageUrl(
+                                        ImgGroup.imageUploadCall.uImageUrl(
                                                   (_model.apiImageUploadResult5
                                                           ?.jsonBody ??
                                                       ''),
                                                 ) !=
                                                 null
-                                            ? ImgbbGroup.imageUploadCall
+                                            ? ImgGroup.imageUploadCall
                                                 .uImageUrl(
                                                 (_model.apiImageUploadResult2
                                                         ?.jsonBody ??
@@ -785,7 +785,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                             }
 
                                             _model.apiImageUploadResult5 =
-                                                await ImgbbGroup.imageUploadCall
+                                                await ImgGroup.imageUploadCall
                                                     .call(
                                               image: _model.uploadedLocalFile4,
                                             );

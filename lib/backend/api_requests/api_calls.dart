@@ -343,11 +343,13 @@ class ListaDeChatsClienteCall {
 
 /// End Chat Group Code
 
-/// Start Imgbb Group Code
+/// Start Img Group Code
 
-class ImgbbGroup {
-  static String baseUrl = 'https://api.imgbb.com/1/';
-  static Map<String, String> headers = {};
+class ImgGroup {
+  static String baseUrl = 'https://achadodeluxo.com.br/version-test/api/1.1/wf';
+  static Map<String, String> headers = {
+    'Authorization': 'Bearer 4d01049ceef6c90c1b68270781d35e20',
+  };
   static ImageUploadCall imageUploadCall = ImageUploadCall();
 }
 
@@ -358,13 +360,12 @@ class ImageUploadCall {
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'ImageUpload',
-      apiUrl: '${ImgbbGroup.baseUrl}/upload',
+      apiUrl: '${ImgGroup.baseUrl}/image_upload',
       callType: ApiCallType.POST,
       headers: {
-        ...ImgbbGroup.headers,
+        ...ImgGroup.headers,
       },
       params: {
-        'key': key,
         'image': image,
       },
       bodyType: BodyType.MULTIPART,
@@ -393,7 +394,7 @@ class ImageUploadCall {
       );
 }
 
-/// End Imgbb Group Code
+/// End Img Group Code
 
 class AuthCall {
   static Future<ApiCallResponse> call({
