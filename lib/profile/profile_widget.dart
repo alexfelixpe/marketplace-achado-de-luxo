@@ -729,6 +729,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                       },
                                       child: ListView(
                                         padding: EdgeInsets.zero,
+                                        primary: false,
                                         shrinkWrap: true,
                                         scrollDirection: Axis.vertical,
                                         children: [
@@ -750,6 +751,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                   mainAxisSpacing: 10.0,
                                                   childAspectRatio: 1.0,
                                                 ),
+                                                primary: false,
                                                 shrinkWrap: true,
                                                 scrollDirection: Axis.vertical,
                                                 itemCount:
