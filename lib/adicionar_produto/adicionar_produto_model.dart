@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/components/categoria_widget.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -32,6 +33,7 @@ class AdicionarProdutoModel extends FlutterFlowModel {
   bool isMediaUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl = '';
 
   // Stores action output result for [Backend Call - API (ImageUpload)] action in IconButton widget.
   ApiCallResponse? apiImageUploadResult;

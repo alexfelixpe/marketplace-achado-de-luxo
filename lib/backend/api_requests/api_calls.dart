@@ -346,27 +346,26 @@ class ListaDeChatsClienteCall {
 /// Start Img Group Code
 
 class ImgGroup {
-  static String baseUrl = 'https://achadodeluxo.com.br/version-test/api/1.1/wf';
-  static Map<String, String> headers = {
-    'Authorization': 'Bearer 4d01049ceef6c90c1b68270781d35e20',
-  };
+  static String baseUrl = 'https://api.imgbb.com/1/';
+  static Map<String, String> headers = {};
   static ImageUploadCall imageUploadCall = ImageUploadCall();
 }
 
 class ImageUploadCall {
   Future<ApiCallResponse> call({
     String? key = 'a45f6a3877004f8f65b9c36dec39919d',
-    FFUploadedFile? image,
+    String? image = '',
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'ImageUpload',
-      apiUrl: '${ImgGroup.baseUrl}/image_upload',
+      apiUrl: '${ImgGroup.baseUrl}/upload',
       callType: ApiCallType.POST,
       headers: {
         ...ImgGroup.headers,
       },
       params: {
         'image': image,
+        'key': key,
       },
       bodyType: BodyType.MULTIPART,
       returnBody: true,
@@ -380,7 +379,7 @@ class ImageUploadCall {
         response,
         r'''$.data''',
       );
-  dynamic uImageUrl(dynamic response) => getJsonField(
+  dynamic imageUrl(dynamic response) => getJsonField(
         response,
         r'''$.data.image.url''',
       );

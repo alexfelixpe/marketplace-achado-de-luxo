@@ -234,7 +234,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                           child: Image.network(
                             'https://i.ibb.co/3NMtq69/Logo-Horizontal.jpg',
                             width: MediaQuery.of(context).size.width * 0.8,
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fitWidth,
                           ),
                         ),
                       ),

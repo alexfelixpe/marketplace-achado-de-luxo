@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/components/categoria_widget.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -82,14 +83,12 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
               Align(
                 alignment: AlignmentDirectional(0.0, -1.0),
                 child: Image.network(
-                  ImgGroup.imageUploadCall.uImageUrl(
-                            (_model.apiImageUploadResult?.jsonBody ?? ''),
-                          ) !=
-                          null
-                      ? ImgGroup.imageUploadCall.uImageUrl(
-                          (_model.apiImageUploadResult?.jsonBody ?? ''),
-                        )
-                      : 'https://picsum.photos/seed/285/600',
+                  valueOrDefault<String>(
+                    ImgGroup.imageUploadCall.imageUrl(
+                      (_model.apiImageUploadResult?.jsonBody ?? ''),
+                    ),
+                    'https://picsum.photos/seed/403/600',
+                  ),
                   width: double.infinity,
                   height: 500.0,
                   fit: BoxFit.cover,
@@ -583,7 +582,7 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                             validateFileFormat(m.storagePath, context))) {
                       setState(() => _model.isMediaUploading = true);
                       var selectedUploadedFiles = <FFUploadedFile>[];
-
+                      var downloadUrls = <String>[];
                       try {
                         showUploadMessage(
                           context,
@@ -598,15 +597,27 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                                   width: m.dimensions?.width,
                                 ))
                             .toList();
+
+                        downloadUrls = (await Future.wait(
+                          selectedMedia.map(
+                            (m) async =>
+                                await uploadData(m.storagePath, m.bytes),
+                          ),
+                        ))
+                            .where((u) => u != null)
+                            .map((u) => u!)
+                            .toList();
                       } finally {
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();
                         _model.isMediaUploading = false;
                       }
                       if (selectedUploadedFiles.length ==
-                          selectedMedia.length) {
+                              selectedMedia.length &&
+                          downloadUrls.length == selectedMedia.length) {
                         setState(() {
                           _model.uploadedLocalFile =
                               selectedUploadedFiles.first;
+                          _model.uploadedFileUrl = downloadUrls.first;
                         });
                         showUploadMessage(context, 'Sucesso!');
                       } else {
@@ -618,12 +629,12 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
 
                     _model.apiImageUploadResult =
                         await ImgGroup.imageUploadCall.call(
-                      image: _model.uploadedLocalFile,
+                      image: _model.uploadedFileUrl,
                     );
                     if ((_model.apiImageUploadResult?.succeeded ?? true)) {
                       setState(() {
                         FFAppState().prodImg1 =
-                            ImgGroup.imageUploadCall.uImageUrl(
+                            ImgGroup.imageUploadCall.imageUrl(
                           (_model.apiImageUploadResult?.jsonBody ?? ''),
                         );
                       });
