@@ -84,7 +84,7 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                 alignment: AlignmentDirectional(0.0, -1.0),
                 child: Image.network(
                   valueOrDefault<String>(
-                    ImgGroup.imageUploadCall.imageUrl(
+                    ImgGroup.imageUploadCall.imgUrl(
                       (_model.apiImageUploadResult?.jsonBody ?? ''),
                     ),
                     'https://picsum.photos/seed/403/600',
@@ -633,8 +633,7 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                     );
                     if ((_model.apiImageUploadResult?.succeeded ?? true)) {
                       setState(() {
-                        FFAppState().prodImg1 =
-                            ImgGroup.imageUploadCall.imageUrl(
+                        FFAppState().prodImg1 = ImgGroup.imageUploadCall.imgUrl(
                           (_model.apiImageUploadResult?.jsonBody ?? ''),
                         );
                       });

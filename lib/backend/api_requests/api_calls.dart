@@ -346,26 +346,26 @@ class ListaDeChatsClienteCall {
 /// Start Img Group Code
 
 class ImgGroup {
-  static String baseUrl = 'https://api.imgbb.com/1/';
-  static Map<String, String> headers = {};
+  static String baseUrl = 'https://achadodeluxo.com.br/version-test/api/1.1/wf';
+  static Map<String, String> headers = {
+    'Authorization': 'Bearer 4d01049ceef6c90c1b68270781d35e20',
+  };
   static ImageUploadCall imageUploadCall = ImageUploadCall();
 }
 
 class ImageUploadCall {
   Future<ApiCallResponse> call({
-    String? key = 'a45f6a3877004f8f65b9c36dec39919d',
     String? image = '',
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'ImageUpload',
-      apiUrl: '${ImgGroup.baseUrl}/upload',
+      apiUrl: '${ImgGroup.baseUrl}/image_upload',
       callType: ApiCallType.POST,
       headers: {
         ...ImgGroup.headers,
       },
       params: {
         'image': image,
-        'key': key,
       },
       bodyType: BodyType.MULTIPART,
       returnBody: true,
@@ -379,17 +379,17 @@ class ImageUploadCall {
         response,
         r'''$.data''',
       );
-  dynamic imageUrl(dynamic response) => getJsonField(
+  dynamic imgUrl(dynamic response) => getJsonField(
         response,
-        r'''$.data.image.url''',
+        r'''$.response.imageUrl''',
       );
-  dynamic thumbUrl(dynamic response) => getJsonField(
+  dynamic status(dynamic response) => getJsonField(
         response,
-        r'''$.data.thumb.url''',
+        r'''$.status''',
       );
-  dynamic deleteUrl(dynamic response) => getJsonField(
+  dynamic response(dynamic response) => getJsonField(
         response,
-        r'''$.data.delete_url''',
+        r'''$.response''',
       );
 }
 

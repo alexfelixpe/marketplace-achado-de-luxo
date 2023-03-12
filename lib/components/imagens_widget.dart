@@ -146,7 +146,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                     children: [
                                       Image.network(
                                         valueOrDefault<String>(
-                                          ImgGroup.imageUploadCall.imageUrl(
+                                          ImgGroup.imageUploadCall.imgUrl(
                                             (_model.apiImageUploadResult2
                                                     ?.jsonBody ??
                                                 ''),
@@ -346,7 +346,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                     children: [
                                       Image.network(
                                         valueOrDefault<String>(
-                                          ImgGroup.imageUploadCall.imageUrl(
+                                          ImgGroup.imageUploadCall.imgUrl(
                                             (_model.apiImageUploadResult3
                                                     ?.jsonBody ??
                                                 ''),
@@ -546,7 +546,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                     children: [
                                       Image.network(
                                         valueOrDefault<String>(
-                                          ImgGroup.imageUploadCall.imageUrl(
+                                          ImgGroup.imageUploadCall.imgUrl(
                                             (_model.apiImageUploadResult4
                                                     ?.jsonBody ??
                                                 ''),
@@ -746,7 +746,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                     children: [
                                       Image.network(
                                         valueOrDefault<String>(
-                                          ImgGroup.imageUploadCall.imageUrl(
+                                          ImgGroup.imageUploadCall.imgUrl(
                                             (_model.apiImageUploadResult5
                                                     ?.jsonBody ??
                                                 ''),
@@ -937,16 +937,16 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                         vendedorId: FFAppState().userid,
                         condicao: FFAppState().prodCondicao,
                         cor: FFAppState().prodCor,
-                        imagem2: ImgGroup.imageUploadCall.imageUrl(
+                        imagem2: ImgGroup.imageUploadCall.imgUrl(
                           (_model.apiImageUploadResult2?.jsonBody ?? ''),
                         ),
-                        imagem3: ImgGroup.imageUploadCall.imageUrl(
+                        imagem3: ImgGroup.imageUploadCall.imgUrl(
                           (_model.apiImageUploadResult3?.jsonBody ?? ''),
                         ),
-                        imagem4: ImgGroup.imageUploadCall.imageUrl(
+                        imagem4: ImgGroup.imageUploadCall.imgUrl(
                           (_model.apiImageUploadResult4?.jsonBody ?? ''),
                         ),
-                        imagem5: ImgGroup.imageUploadCall.imageUrl(
+                        imagem5: ImgGroup.imageUploadCall.imgUrl(
                           (_model.apiImageUploadResult5?.jsonBody ?? ''),
                         ),
                         imagem1: FFAppState().prodImg1,
