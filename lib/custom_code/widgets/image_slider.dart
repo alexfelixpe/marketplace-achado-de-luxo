@@ -29,46 +29,42 @@ class ImageSlider extends StatefulWidget {
 class _ImageSliderState extends State<ImageSlider> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: ImageSlideshow(
-          /// Width of the [ImageSlideshow].
-          width: widget.width ?? double.infinity,
+    return ImageSlideshow(
+      /// Width of the [ImageSlideshow].
+      width: widget.width ?? double.infinity,
 
-          /// Height of the [ImageSlideshow].
-          height: widget.height ?? 200,
+      /// Height of the [ImageSlideshow].
+      height: widget.height ?? 200,
 
-          /// The page to show when first creating the [ImageSlideshow].
-          initialPage: 0,
+      /// The page to show when first creating the [ImageSlideshow].
+      initialPage: 0,
 
-          /// The color to paint the indicator.
-          indicatorColor: Colors.blue,
+      /// The color to paint the indicator.
+      indicatorColor: Colors.blue,
 
-          /// The color to paint behind th indicator.
-          indicatorBackgroundColor: Colors.grey,
+      /// The color to paint behind th indicator.
+      indicatorBackgroundColor: Colors.grey,
 
-          /// The widgets to display in the [ImageSlideshow].
-          children: [
-            for (final url in widget.imageUrls)
-              Image.network(
-                url,
-                fit: BoxFit.cover,
-              ),
-          ],
+      /// The widgets to display in the [ImageSlideshow].
+      children: [
+        for (final url in widget.imageUrls)
+          Image.network(
+            url,
+            fit: BoxFit.cover,
+          ),
+      ],
 
-          /// Called whenever the page in the center of the viewport changes.
-          onPageChanged: (value) {
-            print('Page changed: $value');
-          },
+      /// Called whenever the page in the center of the viewport changes.
+      onPageChanged: (value) {
+        print('Page changed: $value');
+      },
 
-          /// Auto scroll interval.
-          /// Do not auto scroll with null or 0.
-          autoPlayInterval: 3000,
+      /// Auto scroll interval.
+      /// Do not auto scroll with null or 0.
+      autoPlayInterval: 3000,
 
-          /// Loops back to first slide.
-          isLoop: true,
-        ),
-      ),
+      /// Loops back to first slide.
+      isLoop: true,
     );
   }
 }

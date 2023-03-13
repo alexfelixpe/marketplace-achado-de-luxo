@@ -647,6 +647,11 @@ class ProdutosByIdCall {
         response,
         r'''$.response''',
       );
+  static dynamic imagens(dynamic response) => getJsonField(
+        response,
+        r'''$.response.Imagem''',
+        true,
+      );
 }
 
 class AddToCartCall {
@@ -954,6 +959,12 @@ class ProdutosNovidadesCall {
   static dynamic vendedor(dynamic response) => getJsonField(
         response,
         r'''$.response.results[:].Vendedor''',
+        true,
+      );
+  static dynamic imagens(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].ImagemRemota''',
+        true,
       );
 }
 
