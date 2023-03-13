@@ -1,13 +1,14 @@
 // Export pages
-export '/login/login_widget.dart' show LoginWidget;
-export '/feed/feed_widget.dart' show FeedWidget;
-export '/produto/produto_widget.dart' show ProdutoWidget;
-export '/account/account_widget.dart' show AccountWidget;
-export '/adicionar_produto/adicionar_produto_widget.dart'
+export '/pages/login/login_widget.dart' show LoginWidget;
+export '/pages/feed/feed_widget.dart' show FeedWidget;
+export '/pages/produto/produto_widget.dart' show ProdutoWidget;
+export '/pages/account/account_widget.dart' show AccountWidget;
+export '/pages/adicionar_produto/adicionar_produto_widget.dart'
     show AdicionarProdutoWidget;
-export '/explore/explore_widget.dart' show ExploreWidget;
-export '/cart/cart_widget.dart' show CartWidget;
-export '/categoria_page/categoria_page_widget.dart' show CategoriaPageWidget;
-export '/profile/profile_widget.dart' show ProfileWidget;
-export '/chat_list/chat_list_widget.dart' show ChatListWidget;
-export '/chat/chat_widget.dart' show ChatWidget;
+export '/pages/explore/explore_widget.dart' show ExploreWidget;
+export '/pages/cart/cart_widget.dart' show CartWidget;
+export '/pages/categoria_page/categoria_page_widget.dart'
+    show CategoriaPageWidget;
+export '/pages/profile/profile_widget.dart' show ProfileWidget;
+export '/pages/chat_list/chat_list_widget.dart' show ChatListWidget;
+export '/pages/chat/chat_widget.dart' show ChatWidget;

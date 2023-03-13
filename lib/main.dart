@@ -158,7 +158,7 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.home,
+                  currentIndex == 0 ? Icons.home : Icons.home_outlined,
                   color:
                       currentIndex == 0 ? Color(0x00000000) : Color(0x00000000),
                   size: 24.0,

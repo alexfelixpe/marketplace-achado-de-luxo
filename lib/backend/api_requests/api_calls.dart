@@ -1091,7 +1091,7 @@ class ProdutosNovidadesPorVendedorCall {
         r'''$.response.results[:].Visualizadores''',
         true,
       );
-  static dynamic imagem(dynamic response) => getJsonField(
+  static dynamic imagens(dynamic response) => getJsonField(
         response,
         r'''$.response.results[:].ImagemRemota''',
         true,
