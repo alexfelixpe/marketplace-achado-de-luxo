@@ -569,14 +569,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                               height: double
                                                                   .infinity,
                                                               imageUrls:
-                                                                  (getJsonField(
-                                                                imagensItem,
-                                                                r'''$''',
-                                                              ) as List)
-                                                                      .map<String>(
-                                                                          (s) =>
-                                                                              s.toString())
-                                                                      .toList()!
+                                                                  imagensItem
                                                                       .toList(),
                                                             ),
                                                           ),
