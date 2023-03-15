@@ -395,6 +395,17 @@ class ImageUploadCall {
 
 /// End Img Group Code
 
+/// Start User Group Code
+
+class UserGroup {
+  static String baseUrl = 'https://achadodeluxo.com.br/api/1.1/wf';
+  static Map<String, String> headers = {
+    'Authorization': 'Bearer 4d01049ceef6c90c1b68270781d35e20',
+  };
+}
+
+/// End User Group Code
+
 class AuthCall {
   static Future<ApiCallResponse> call({
     String? user = '11964591802',
@@ -524,6 +535,10 @@ class UsersByIdCall {
         response,
         r'''$.response.LikesProdutos''',
         true,
+      );
+  static dynamic cpf(dynamic response) => getJsonField(
+        response,
+        r'''$.response.CPF''',
       );
 }
 
@@ -942,7 +957,7 @@ class ProdutosNovidadesCall {
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: true,
-      cache: false,
+      cache: true,
     );
   }
 

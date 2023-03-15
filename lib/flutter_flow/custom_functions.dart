@@ -31,6 +31,22 @@ String? transformString(String inputString) {
   return outputString;
 }
 
+List<String>? imageCompressList(List<String>? urls) {
+  if (urls == null) {
+    return null;
+  }
+
+  List<String> compressedUrls = [];
+
+  for (String url in urls) {
+    String compressedUrl =
+        "https://d1muf25xaso8hp.cloudfront.net/$url?w=220&h=220&auto=compress,enhance,&q=100&dpr=2&fit=max";
+    compressedUrls.add(compressedUrl);
+  }
+
+  return compressedUrls;
+}
+
 String? circleImage(String? imageUrl) {
   if (imageUrl == null || !imageUrl.startsWith('//')) {
     return 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';

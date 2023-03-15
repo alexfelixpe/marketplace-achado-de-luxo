@@ -4,10 +4,10 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main.dart';
-import '/pages/account/account_widget.dart';
 import '/pages/adicionar_produto/adicionar_produto_widget.dart';
 import '/pages/chat/chat_widget.dart';
 import '/pages/login/login_widget.dart';
+import '/pages/produto/produto_widget.dart';
 import '/pages/profile/profile_widget.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -23,6 +23,8 @@ import 'package:provider/provider.dart';
 class FeedModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Backend Call - API (Users By Id)] action in IconButton widget.
+  ApiCallResponse? apiResultvg9;
   // State field(s) for ListView widget.
   PagingController<ApiPagingParams, dynamic>? pagingController;
   // Stores action output result for [Backend Call - API (DoLike)] action in IconButton widget.

@@ -12,3 +12,4 @@ export '/pages/categoria_page/categoria_page_widget.dart'
 export '/pages/profile/profile_widget.dart' show ProfileWidget;
 export '/pages/chat_list/chat_list_widget.dart' show ChatListWidget;
 export '/pages/chat/chat_widget.dart' show ChatWidget;
+export '/pages/profile_edit/profile_edit_widget.dart' show ProfileEditWidget;

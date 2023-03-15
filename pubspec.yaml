@@ -34,6 +34,7 @@ dependencies:
   cloud_firestore_web: 3.1.1
   easy_debounce: 2.0.1
   equatable: 2.0.3
+  fan_carousel_image_slider: ^0.1.2
   file_picker: 4.5.1
   firebase_auth: 4.2.0
   firebase_auth_platform_interface: 6.11.4

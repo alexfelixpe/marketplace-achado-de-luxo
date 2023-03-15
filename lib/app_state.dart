@@ -39,6 +39,7 @@ class FFAppState extends ChangeNotifier {
         }).toList() ??
         _prodMsg;
     _likedProds = prefs.getStringList('ff_likedProds') ?? _likedProds;
+    _profilePic = prefs.getString('ff_profilePic') ?? _profilePic;
   }
 
   void update(VoidCallback callback) {
@@ -234,6 +235,13 @@ class FFAppState extends ChangeNotifier {
   String get prodImg1 => _prodImg1;
   set prodImg1(String _value) {
     _prodImg1 = _value;
+  }
+
+  String _profilePic = '';
+  String get profilePic => _profilePic;
+  set profilePic(String _value) {
+    _profilePic = _value;
+    prefs.setString('ff_profilePic', _value);
   }
 }
 

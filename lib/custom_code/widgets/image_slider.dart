@@ -27,44 +27,41 @@ class ImageSlider extends StatefulWidget {
 }
 
 class _ImageSliderState extends State<ImageSlider> {
+  bool _isLoading = true;
+
   @override
   Widget build(BuildContext context) {
-    return ImageSlideshow(
-      /// Width of the [ImageSlideshow].
-      width: widget.width ?? double.infinity,
-
-      /// Height of the [ImageSlideshow].
-      height: widget.height ?? 200,
-
-      /// The page to show when first creating the [ImageSlideshow].
-      initialPage: 0,
-
-      /// The color to paint the indicator.
-      indicatorColor: Colors.blue,
-
-      /// The color to paint behind th indicator.
-      indicatorBackgroundColor: Colors.grey,
-
-      /// The widgets to display in the [ImageSlideshow].
+    return Stack(
       children: [
-        for (final url in widget.imageUrls)
-          Image.network(
-            url,
-            fit: BoxFit.cover,
-          ),
+        ImageSlideshow(
+          width: widget.width ?? 300,
+          height: widget.height ?? 200,
+          initialPage: 0,
+          indicatorColor: Colors.blue,
+          indicatorBackgroundColor: Colors.grey,
+          children: [
+            for (final url in widget.imageUrls)
+              Image.network(
+                url,
+                fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) {
+                    _isLoading = false;
+                    return child;
+                  } else {
+                    _isLoading = true;
+                    return child;
+                  }
+                },
+              ),
+          ],
+          onPageChanged: (value) {
+            print('Page changed: $value');
+          },
+          autoPlayInterval: 0,
+          isLoop: true,
+        ),
       ],
-
-      /// Called whenever the page in the center of the viewport changes.
-      onPageChanged: (value) {
-        print('Page changed: $value');
-      },
-
-      /// Auto scroll interval.
-      /// Do not auto scroll with null or 0.
-      autoPlayInterval: 3000,
-
-      /// Loops back to first slide.
-      isLoop: true,
     );
   }
 }

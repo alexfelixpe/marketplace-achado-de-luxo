@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/chat/chat_widget.dart';
 import '/pages/produto/produto_widget.dart';
+import '/pages/profile_edit/profile_edit_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -392,224 +393,314 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     children: [
-                                                      Expanded(
-                                                        child: Align(
-                                                          alignment:
-                                                              AlignmentDirectional(
-                                                                  -0.75, 0.0),
-                                                          child: Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        10.0,
-                                                                        10.0,
-                                                                        10.0,
-                                                                        10.0),
-                                                            child:
-                                                                FFButtonWidget(
-                                                              onPressed:
-                                                                  () async {
-                                                                _model.apiResultw9i =
-                                                                    await FollowUnfollowGroup
-                                                                        .followCall
-                                                                        .call(
-                                                                  vendedorID:
-                                                                      getJsonField(
-                                                                    widget.user,
-                                                                    r'''$.response._id''',
-                                                                  ).toString(),
-                                                                  seguidorID:
-                                                                      FFAppState()
-                                                                          .userid,
-                                                                );
-                                                                if (FollowUnfollowGroup
-                                                                    .followersCall
-                                                                    .seguidor(
-                                                                  containerFollowersResponse
-                                                                      .jsonBody,
-                                                                )) {
-                                                                  setState(() =>
-                                                                      _model.apiRequestCompleter1 =
-                                                                          null);
-                                                                  await _model
-                                                                      .waitForApiRequestCompleter1();
-                                                                  setState(
-                                                                      () {});
-                                                                } else {
-                                                                  setState(() =>
-                                                                      _model.apiRequestCompleter1 =
-                                                                          null);
-                                                                  await _model
-                                                                      .waitForApiRequestCompleter1();
-                                                                  setState(
-                                                                      () {});
-                                                                }
-
-                                                                setState(() {});
-                                                              },
-                                                              text: FollowUnfollowGroup
+                                                      if (getJsonField(
+                                                            widget.user,
+                                                            r'''$.response._id''',
+                                                          ) !=
+                                                          FFAppState().userid)
+                                                        Expanded(
+                                                          child: Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    -0.75, 0.0),
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          10.0,
+                                                                          10.0,
+                                                                          10.0,
+                                                                          10.0),
+                                                              child:
+                                                                  FFButtonWidget(
+                                                                onPressed:
+                                                                    () async {
+                                                                  _model.apiResultw9i =
+                                                                      await FollowUnfollowGroup
+                                                                          .followCall
+                                                                          .call(
+                                                                    vendedorID:
+                                                                        getJsonField(
+                                                                      widget
+                                                                          .user,
+                                                                      r'''$.response._id''',
+                                                                    ).toString(),
+                                                                    seguidorID:
+                                                                        FFAppState()
+                                                                            .userid,
+                                                                  );
+                                                                  if (FollowUnfollowGroup
                                                                       .followersCall
                                                                       .seguidor(
-                                                                containerFollowersResponse
-                                                                    .jsonBody,
-                                                              )
-                                                                  ? 'Seguindo'
-                                                                  : 'Seguir',
-                                                              options:
-                                                                  FFButtonOptions(
-                                                                width: double
-                                                                    .infinity,
-                                                                height: 30.0,
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                iconPadding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                color: FollowUnfollowGroup
+                                                                    containerFollowersResponse
+                                                                        .jsonBody,
+                                                                  )) {
+                                                                    setState(() =>
+                                                                        _model.apiRequestCompleter1 =
+                                                                            null);
+                                                                    await _model
+                                                                        .waitForApiRequestCompleter1();
+                                                                    setState(
+                                                                        () {});
+                                                                  } else {
+                                                                    setState(() =>
+                                                                        _model.apiRequestCompleter1 =
+                                                                            null);
+                                                                    await _model
+                                                                        .waitForApiRequestCompleter1();
+                                                                    setState(
+                                                                        () {});
+                                                                  }
+
+                                                                  setState(
+                                                                      () {});
+                                                                },
+                                                                text: FollowUnfollowGroup
                                                                         .followersCall
                                                                         .seguidor(
                                                                   containerFollowersResponse
                                                                       .jsonBody,
                                                                 )
-                                                                    ? FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .white
-                                                                    : FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryColor,
-                                                                textStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .subtitle2
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      color: FollowUnfollowGroup
-                                                                              .followersCall
-                                                                              .seguidor(
-                                                                        containerFollowersResponse
-                                                                            .jsonBody,
-                                                                      )
-                                                                          ? FlutterFlowTheme.of(context)
-                                                                              .primaryColor
-                                                                          : FlutterFlowTheme.of(context)
-                                                                              .white,
-                                                                    ),
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: Colors
-                                                                      .transparent,
-                                                                  width: 1.0,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            8.0),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: Align(
-                                                          alignment:
-                                                              AlignmentDirectional(
-                                                                  -0.75, 0.0),
-                                                          child: Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        10.0,
-                                                                        10.0,
-                                                                        10.0,
-                                                                        10.0),
-                                                            child:
-                                                                FFButtonWidget(
-                                                              onPressed:
-                                                                  () async {
-                                                                await Navigator
-                                                                    .push(
-                                                                  context,
-                                                                  PageTransition(
-                                                                    type: PageTransitionType
-                                                                        .fade,
-                                                                    duration: Duration(
-                                                                        milliseconds:
-                                                                            300),
-                                                                    reverseDuration:
-                                                                        Duration(
-                                                                            milliseconds:
-                                                                                300),
-                                                                    child:
-                                                                        ChatWidget(
-                                                                      vendedorID:
-                                                                          getJsonField(
-                                                                        widget
-                                                                            .user,
-                                                                        r'''$.response._id''',
-                                                                      ).toString(),
-                                                                      clienteID:
-                                                                          FFAppState()
-                                                                              .userid,
-                                                                    ),
+                                                                    ? 'Seguindo'
+                                                                    : 'Seguir',
+                                                                options:
+                                                                    FFButtonOptions(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  height: 30.0,
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  iconPadding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  color: FollowUnfollowGroup
+                                                                          .followersCall
+                                                                          .seguidor(
+                                                                    containerFollowersResponse
+                                                                        .jsonBody,
+                                                                  )
+                                                                      ? FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .white
+                                                                      : FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryColor,
+                                                                  textStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .subtitle2
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Poppins',
+                                                                        color: FollowUnfollowGroup.followersCall.seguidor(
+                                                                          containerFollowersResponse
+                                                                              .jsonBody,
+                                                                        )
+                                                                            ? FlutterFlowTheme.of(context).primaryColor
+                                                                            : FlutterFlowTheme.of(context).white,
+                                                                      ),
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                    color: Colors
+                                                                        .transparent,
+                                                                    width: 1.0,
                                                                   ),
-                                                                );
-                                                              },
-                                                              text: 'Mensagem',
-                                                              options:
-                                                                  FFButtonOptions(
-                                                                width: double
-                                                                    .infinity,
-                                                                height: 30.0,
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                iconPadding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryColor,
-                                                                textStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .subtitle2
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      color: Colors
-                                                                          .white,
-                                                                    ),
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: Colors
-                                                                      .transparent,
-                                                                  width: 1.0,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8.0),
                                                                 ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            8.0),
                                                               ),
                                                             ),
                                                           ),
                                                         ),
-                                                      ),
+                                                      if (getJsonField(
+                                                            widget.user,
+                                                            r'''$.response._id''',
+                                                          ) !=
+                                                          FFAppState().userid)
+                                                        Expanded(
+                                                          child: Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    -0.75, 0.0),
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          10.0,
+                                                                          10.0,
+                                                                          10.0,
+                                                                          10.0),
+                                                              child:
+                                                                  FFButtonWidget(
+                                                                onPressed:
+                                                                    () async {
+                                                                  await Navigator
+                                                                      .push(
+                                                                    context,
+                                                                    PageTransition(
+                                                                      type: PageTransitionType
+                                                                          .fade,
+                                                                      duration: Duration(
+                                                                          milliseconds:
+                                                                              300),
+                                                                      reverseDuration:
+                                                                          Duration(
+                                                                              milliseconds: 300),
+                                                                      child:
+                                                                          ChatWidget(
+                                                                        vendedorID:
+                                                                            getJsonField(
+                                                                          widget
+                                                                              .user,
+                                                                          r'''$.response._id''',
+                                                                        ).toString(),
+                                                                        clienteID:
+                                                                            FFAppState().userid,
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                                text:
+                                                                    'Mensagem',
+                                                                options:
+                                                                    FFButtonOptions(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  height: 30.0,
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  iconPadding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryColor,
+                                                                  textStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .subtitle2
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Poppins',
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                    color: Colors
+                                                                        .transparent,
+                                                                    width: 1.0,
+                                                                  ),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8.0),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      if (getJsonField(
+                                                            widget.user,
+                                                            r'''$.response._id''',
+                                                          ) ==
+                                                          FFAppState().userid)
+                                                        Expanded(
+                                                          child: Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    -0.75, 0.0),
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          10.0,
+                                                                          10.0,
+                                                                          10.0,
+                                                                          10.0),
+                                                              child:
+                                                                  FFButtonWidget(
+                                                                onPressed:
+                                                                    () async {
+                                                                  await Navigator
+                                                                      .push(
+                                                                    context,
+                                                                    PageTransition(
+                                                                      type: PageTransitionType
+                                                                          .fade,
+                                                                      duration: Duration(
+                                                                          milliseconds:
+                                                                              300),
+                                                                      reverseDuration:
+                                                                          Duration(
+                                                                              milliseconds: 300),
+                                                                      child:
+                                                                          ProfileEditWidget(
+                                                                        user: widget
+                                                                            .user,
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                                text: 'Editar',
+                                                                options:
+                                                                    FFButtonOptions(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  height: 30.0,
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  iconPadding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryColor,
+                                                                  textStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .subtitle2
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Poppins',
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                    color: Colors
+                                                                        .transparent,
+                                                                    width: 1.0,
+                                                                  ),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8.0),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
                                                     ],
                                                   ),
                                                 ),

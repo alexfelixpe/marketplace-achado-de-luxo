@@ -4,10 +4,10 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main.dart';
-import '/pages/account/account_widget.dart';
 import '/pages/adicionar_produto/adicionar_produto_widget.dart';
 import '/pages/chat/chat_widget.dart';
 import '/pages/login/login_widget.dart';
+import '/pages/produto/produto_widget.dart';
 import '/pages/profile/profile_widget.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -288,15 +288,27 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                             size: 20.0,
                           ),
                           onPressed: () async {
-                            await Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.fade,
-                                duration: Duration(milliseconds: 200),
-                                reverseDuration: Duration(milliseconds: 200),
-                                child: AccountWidget(),
-                              ),
+                            _model.apiResultvg9 = await UsersByIdCall.call(
+                              id: FFAppState().userid,
                             );
+                            if ((_model.apiResultvg9?.succeeded ?? true)) {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  duration: Duration(milliseconds: 300),
+                                  reverseDuration: Duration(milliseconds: 300),
+                                  child: ProfileWidget(
+                                    user: getJsonField(
+                                      (_model.apiResultvg9?.jsonBody ?? ''),
+                                      r'''$''',
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+
+                            setState(() {});
                           },
                         ),
                       ),
@@ -507,88 +519,74 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                       decoration: BoxDecoration(
                                         color: Color(0xFFEEEEEE),
                                       ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Expanded(
-                                            child: Builder(
-                                              builder: (context) {
-                                                final imagens = getJsonField(
-                                                  produtosItem,
-                                                  r'''$..ImagemRemota''',
-                                                ).toList();
-                                                return GridView.builder(
-                                                  padding: EdgeInsets.zero,
-                                                  gridDelegate:
-                                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 1,
-                                                    crossAxisSpacing: 10.0,
-                                                    mainAxisSpacing: 10.0,
-                                                    childAspectRatio: 1.0,
-                                                  ),
-                                                  shrinkWrap: true,
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  itemCount: imagens.length,
-                                                  itemBuilder:
-                                                      (context, imagensIndex) {
-                                                    final imagensItem =
-                                                        imagens[imagensIndex];
-                                                    return Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Expanded(
-                                                          child: Image.network(
-                                                            functions
-                                                                .imageCompress(
-                                                                    getJsonField(
-                                                              imagensItem,
-                                                              r'''$''',
-                                                            ).toString())!,
-                                                            width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width *
-                                                                1.0,
-                                                            height:
-                                                                double.infinity,
-                                                            fit: BoxFit.cover,
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Container(
-                                                            width:
-                                                                double.infinity,
-                                                            height:
-                                                                double.infinity,
-                                                            child: custom_widgets
-                                                                .ImageSlider(
-                                                              width: double
-                                                                  .infinity,
-                                                              height: double
-                                                                  .infinity,
-                                                              imageUrls:
-                                                                  (getJsonField(
-                                                                produtosItem,
-                                                                r'''$..ImagemRemota''',
-                                                              ) as List)
-                                                                      .map<String>(
-                                                                          (s) =>
-                                                                              s.toString())
-                                                                      .toList()!
-                                                                      .toList(),
+                                      child: AnimatedContainer(
+                                        duration: Duration(milliseconds: 100),
+                                        curve: Curves.easeIn,
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Expanded(
+                                                    child: InkWell(
+                                                      onTap: () async {
+                                                        await Navigator.push(
+                                                          context,
+                                                          PageTransition(
+                                                            type:
+                                                                PageTransitionType
+                                                                    .fade,
+                                                            duration: Duration(
+                                                                milliseconds:
+                                                                    300),
+                                                            reverseDuration:
+                                                                Duration(
+                                                                    milliseconds:
+                                                                        300),
+                                                            child:
+                                                                ProdutoWidget(
+                                                              produto:
+                                                                  produtosItem,
                                                             ),
                                                           ),
+                                                        );
+                                                      },
+                                                      child: Container(
+                                                        width: double.infinity,
+                                                        height: double.infinity,
+                                                        child: custom_widgets
+                                                            .ImageSlider(
+                                                          width:
+                                                              double.infinity,
+                                                          height:
+                                                              double.infinity,
+                                                          imageUrls:
+                                                              (getJsonField(
+                                                            produtosItem,
+                                                            r'''$..ImagemRemota''',
+                                                          ) as List)
+                                                                  .map<String>(
+                                                                      (s) => s
+                                                                          .toString())
+                                                                  .toList()!
+                                                                  .toList(),
                                                         ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
-                                              },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -676,11 +674,6 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                           FFAppState().userid,
                                                     );
                                                     setState(() => _model
-                                                        .pagingController
-                                                        ?.refresh());
-                                                    await _model
-                                                        .waitForOnePage();
-                                                    setState(() => _model
                                                             .apiRequestCompleter2 =
                                                         null);
                                                     await _model
@@ -703,11 +696,6 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                       userId:
                                                           FFAppState().userid,
                                                     );
-                                                    setState(() => _model
-                                                        .pagingController
-                                                        ?.refresh());
-                                                    await _model
-                                                        .waitForOnePage();
                                                     setState(() => _model
                                                             .apiRequestCompleter2 =
                                                         null);
