@@ -402,6 +402,32 @@ class UserGroup {
   static Map<String, String> headers = {
     'Authorization': 'Bearer 4d01049ceef6c90c1b68270781d35e20',
   };
+  static UserImgProfileCall userImgProfileCall = UserImgProfileCall();
+}
+
+class UserImgProfileCall {
+  Future<ApiCallResponse> call({
+    String? id = '',
+    String? image = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'UserImgProfile',
+      apiUrl: '${UserGroup.baseUrl}/userimage',
+      callType: ApiCallType.POST,
+      headers: {
+        ...UserGroup.headers,
+      },
+      params: {
+        'image': image,
+        'id': id,
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
 }
 
 /// End User Group Code
