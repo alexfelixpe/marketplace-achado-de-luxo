@@ -1,4 +1,4 @@
-import '/backend/api_requests/api_calls.dart';
+import '/components/mudar_foto/mudar_foto_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -10,15 +10,6 @@ import 'package:provider/provider.dart';
 class ProfileEditModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
-  bool isMediaUploading = false;
-  FFUploadedFile uploadedLocalFile =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl = '';
-
-  // Stores action output result for [Backend Call - API (ImageUpload)] action in Button widget.
-  ApiCallResponse? apiResulte9h;
-  // Stores action output result for [Backend Call - API (UserImgProfile)] action in Button widget.
-  ApiCallResponse? apiResultqhj;
   // State field(s) for yourName widget.
   TextEditingController? yourNameController;
   String? Function(BuildContext, String?)? yourNameControllerValidator;

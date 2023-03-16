@@ -1,4 +1,4 @@
-import '/backend/api_requests/api_calls.dart';
+import '/components/mudar_foto/mudar_foto_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -124,32 +124,33 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
                     color: Color(0xFFDBE2E7),
                     shape: BoxShape.circle,
                   ),
-                  child: Visibility(
-                    visible: getJsonField(
-                          widget.user,
-                          r'''$.response.Foto''',
-                        ) !=
-                        null,
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(2.0, 2.0, 2.0, 2.0),
-                      child: Container(
-                        width: 90.0,
-                        height: 90.0,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                        ),
-                        child: Image.network(
-                          valueOrDefault<String>(
-                            getJsonField(
-                              widget.user,
-                              r'''$.response.Foto''',
-                            ),
-                            'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
-                          ),
-                          fit: BoxFit.fitWidth,
-                        ),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(2.0, 2.0, 2.0, 2.0),
+                    child: Container(
+                      width: 90.0,
+                      height: 90.0,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: Image.network(
+                        FFAppState().profilePic == null ||
+                                FFAppState().profilePic == ''
+                            ? valueOrDefault<String>(
+                                getJsonField(
+                                  widget.user,
+                                  r'''$.response.Foto''',
+                                ),
+                                'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
+                              )
+                            : valueOrDefault<String>(
+                                getJsonField(
+                                  widget.user,
+                                  r'''$.response.Foto''',
+                                ),
+                                'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
+                              ),
+                        fit: BoxFit.fitWidth,
                       ),
                     ),
                   ),
@@ -164,32 +165,26 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
                 children: [
                   FFButtonWidget(
                     onPressed: () async {
-                      _model.apiResultqhj =
-                          await UserGroup.userImgProfileCall.call(
-                        id: FFAppState().userid,
-                        image: _model.uploadedFileUrl,
-                      );
-                      if ((_model.apiResultqhj?.succeeded ?? true)) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              'Sucesso!',
-                              style: TextStyle(
-                                color: FlutterFlowTheme.of(context).primaryText,
-                              ),
+                      await showModalBottomSheet(
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        enableDrag: false,
+                        context: context,
+                        builder: (context) {
+                          return Padding(
+                            padding: MediaQuery.of(context).viewInsets,
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.4,
+                              child: MudarFotoWidget(),
                             ),
-                            duration: Duration(milliseconds: 4000),
-                            backgroundColor: Color(0x00000000),
-                          ),
-                        );
-                      }
-
-                      setState(() {});
+                          );
+                        },
+                      ).then((value) => setState(() {}));
                     },
-                    text: 'Change Photo',
+                    text: 'Editar Foto',
                     options: FFButtonOptions(
                       width: 130.0,
-                      height: 40.0,
+                      height: 30.0,
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       iconPadding:
@@ -200,7 +195,7 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
                           .override(
                             fontFamily: 'Lexend Deca',
                             color: FlutterFlowTheme.of(context).primaryColor,
-                            fontSize: 14.0,
+                            fontSize: 12.0,
                             fontWeight: FontWeight.normal,
                           ),
                       elevation: 1.0,

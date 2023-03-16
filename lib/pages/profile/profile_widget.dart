@@ -214,16 +214,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               borderRadius:
                                                   BorderRadius.circular(60.0),
                                               child: Image.network(
-                                                getJsonField(
-                                                          widget.user,
-                                                          r'''$.response.Foto''',
-                                                        ) ==
-                                                        null
-                                                    ? getJsonField(
-                                                        widget.user,
-                                                        r'''$.response.Foto''',
-                                                      )
-                                                    : 'https://d1muf25xaso8hp.cloudfront.net/https%3A%2F%2Fs3.amazonaws.com%2Fappforest_uf%2Ff1650305716533x129808214156605260%2FAchado%2520de%2520Luxo%2520-%2520Logo.png?w=128&h=&auto=compress&dpr=0.75&fit=max',
+                                                valueOrDefault<String>(
+                                                  getJsonField(
+                                                    widget.user,
+                                                    r'''$.response.Foto''',
+                                                  ),
+                                                  'https://d1muf25xaso8hp.cloudfront.net/https%3A%2F%2Fs3.amazonaws.com%2Fappforest_uf%2Ff1650305716533x129808214156605260%2FAchado%2520de%2520Luxo%2520-%2520Logo.png?w=128&h=&auto=compress&dpr=0.75&fit=max',
+                                                ),
                                                 width: 80.0,
                                                 height: 80.0,
                                                 fit: BoxFit.cover,
