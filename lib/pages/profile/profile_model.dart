@@ -30,7 +30,7 @@ class ProfileModel extends FlutterFlowModel {
 
   /// Additional helper methods are added here.
 
-  Future waitForApiRequestCompleter1({
+  Future waitForApiRequestCompleted1({
     double minWait = 0,
     double maxWait = double.infinity,
   }) async {
@@ -45,7 +45,7 @@ class ProfileModel extends FlutterFlowModel {
     }
   }
 
-  Future waitForApiRequestCompleter2({
+  Future waitForApiRequestCompleted2({
     double minWait = 0,
     double maxWait = double.infinity,
   }) async {

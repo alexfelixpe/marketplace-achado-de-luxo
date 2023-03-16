@@ -17,7 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 
 class FeedModel extends FlutterFlowModel {
@@ -25,8 +24,7 @@ class FeedModel extends FlutterFlowModel {
 
   // Stores action output result for [Backend Call - API (Users By Id)] action in IconButton widget.
   ApiCallResponse? apiResultvg9;
-  // State field(s) for ListView widget.
-  PagingController<ApiPagingParams, dynamic>? pagingController;
+  Completer<ApiCallResponse>? apiRequestCompleter1;
   // Stores action output result for [Backend Call - API (DoLike)] action in IconButton widget.
   ApiCallResponse? apiResulttpe;
   Completer<ApiCallResponse>? apiRequestCompleter2;
@@ -41,7 +39,7 @@ class FeedModel extends FlutterFlowModel {
 
   /// Additional helper methods are added here.
 
-  Future waitForOnePage({
+  Future waitForApiRequestCompleted1({
     double minWait = 0,
     double maxWait = double.infinity,
   }) async {
@@ -49,15 +47,14 @@ class FeedModel extends FlutterFlowModel {
     while (true) {
       await Future.delayed(Duration(milliseconds: 50));
       final timeElapsed = stopwatch.elapsedMilliseconds;
-      final requestComplete =
-          (pagingController?.nextPageKey?.nextPageNumber ?? 0) > 0;
+      final requestComplete = apiRequestCompleter1?.isCompleted ?? false;
       if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
         break;
       }
     }
   }
 
-  Future waitForApiRequestCompleter2({
+  Future waitForApiRequestCompleted2({
     double minWait = 0,
     double maxWait = double.infinity,
   }) async {

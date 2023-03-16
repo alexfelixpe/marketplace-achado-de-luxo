@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import '/pages/login/login_widget.dart';
 import '/pages/produto/produto_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -211,6 +212,10 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                 chipSpacing: 5.0,
                                 multiselect: false,
                                 alignment: WrapAlignment.spaceEvenly,
+                                controller: _model.choiceChipsController ??=
+                                    FormFieldController<List<String>>(
+                                  [],
+                                ),
                               );
                             },
                           ),

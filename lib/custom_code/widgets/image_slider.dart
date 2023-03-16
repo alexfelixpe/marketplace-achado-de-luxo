@@ -28,10 +28,30 @@ class ImageSlider extends StatefulWidget {
 }
 
 class _ImageSliderState extends State<ImageSlider> {
-  bool _isLoading = true;
+  late final List<ImageProvider> _imageProviders;
+
+  @override
+  void initState() {
+    super.initState();
+    _imageProviders = widget.imageUrls.map((url) {
+      return NetworkImage(
+        "https://d1muf25xaso8hp.cloudfront.net/$url",
+      );
+    }).toList();
+  }
+
+  Future<void> _precacheImages() async {
+    for (final provider in _imageProviders) {
+      await precacheImage(provider, context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      _precacheImages();
+    });
+
     return Stack(
       children: [
         ImageSlideshow(
@@ -41,20 +61,8 @@ class _ImageSliderState extends State<ImageSlider> {
           indicatorColor: Colors.blue,
           indicatorBackgroundColor: Colors.grey,
           children: [
-            for (final url in widget.imageUrls)
-              Image.network(
-                url,
-                fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) {
-                    _isLoading = false;
-                    return child;
-                  } else {
-                    _isLoading = true;
-                    return child;
-                  }
-                },
-              ),
+            for (final provider in _imageProviders)
+              Image(image: provider, fit: BoxFit.cover),
           ],
           onPageChanged: (value) {
             print('Page changed: $value');

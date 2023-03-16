@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import '/pages/login/login_widget.dart';
 import '/pages/produto/produto_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -20,6 +21,7 @@ class ExploreModel extends FlutterFlowModel {
   String? Function(BuildContext, String?)? textControllerValidator;
   // State field(s) for ChoiceChips widget.
   String? choiceChipsValue;
+  FormFieldController<List<String>>? choiceChipsController;
 
   /// Initialization and disposal methods.
 

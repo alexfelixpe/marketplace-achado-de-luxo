@@ -41,7 +41,7 @@ class _ChatWidgetState extends State<ChatWidget> {
         duration: Duration(milliseconds: 5000),
         callback: (timer) async {
           setState(() => _model.apiRequestCompleter = null);
-          await _model.waitForApiRequestCompleter();
+          await _model.waitForApiRequestCompleted();
         },
         startImmediately: true,
       );
@@ -318,7 +318,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                       true)) {
                                     setState(() =>
                                         _model.apiRequestCompleter = null);
-                                    await _model.waitForApiRequestCompleter();
+                                    await _model.waitForApiRequestCompleted();
                                     setState(() {
                                       _model.inputMsgController?.clear();
                                     });

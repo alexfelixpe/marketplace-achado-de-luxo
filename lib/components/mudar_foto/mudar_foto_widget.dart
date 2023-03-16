@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_media.dart';
-import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -102,7 +101,7 @@ class _MudarFotoWidgetState extends State<MudarFotoWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 8.0, 0.0, 0.0),
                               child: Text(
-                                'Upload a new photo below in order to change your avatar seen by others.',
+                                'Faça o upload de uma nova foto abaixo para alterar o seu avatar visto pelos outros.',
                                 style: FlutterFlowTheme.of(context).bodyText2,
                               ),
                             ),
@@ -241,7 +240,8 @@ class _MudarFotoWidgetState extends State<MudarFotoWidget> {
                                     0.0, 0.0, 0.0, 0.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context).alternate,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryColor,
                                 textStyle: FlutterFlowTheme.of(context)
                                     .subtitle2
                                     .override(
@@ -276,6 +276,10 @@ class _MudarFotoWidgetState extends State<MudarFotoWidget> {
                                       backgroundColor: Color(0x00000000),
                                     ),
                                   );
+                                  setState(() {
+                                    FFAppState().profilePic =
+                                        _model.uploadedFileUrl;
+                                  });
                                 } else {
                                   await showDialog(
                                     context: context,
@@ -297,10 +301,6 @@ class _MudarFotoWidgetState extends State<MudarFotoWidget> {
                                 }
 
                                 Navigator.pop(context);
-                                await actions.refreshPage(
-                                  context,
-                                  'ProfileEdit',
-                                );
 
                                 setState(() {});
                               },

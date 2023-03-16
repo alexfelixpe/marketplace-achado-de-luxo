@@ -525,7 +525,7 @@ class UsersByIdCall {
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: true,
-      cache: false,
+      cache: true,
     );
   }
 
@@ -1070,7 +1070,7 @@ class ProdutosNovidadesPorVendedorCall {
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
-      cache: false,
+      cache: true,
     );
   }
 

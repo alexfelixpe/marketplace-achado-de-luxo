@@ -214,13 +214,19 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               borderRadius:
                                                   BorderRadius.circular(60.0),
                                               child: Image.network(
-                                                valueOrDefault<String>(
-                                                  getJsonField(
-                                                    widget.user,
-                                                    r'''$.response.Foto''',
-                                                  ),
-                                                  'https://d1muf25xaso8hp.cloudfront.net/https%3A%2F%2Fs3.amazonaws.com%2Fappforest_uf%2Ff1650305716533x129808214156605260%2FAchado%2520de%2520Luxo%2520-%2520Logo.png?w=128&h=&auto=compress&dpr=0.75&fit=max',
-                                                ),
+                                                FFAppState().profilePic ==
+                                                            null ||
+                                                        FFAppState()
+                                                                .profilePic ==
+                                                            ''
+                                                    ? valueOrDefault<String>(
+                                                        getJsonField(
+                                                          widget.user,
+                                                          r'''$.response.Foto''',
+                                                        ),
+                                                        'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
+                                                      )
+                                                    : FFAppState().profilePic,
                                                 width: 80.0,
                                                 height: 80.0,
                                                 fit: BoxFit.cover,
@@ -436,7 +442,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                         _model.apiRequestCompleter1 =
                                                                             null);
                                                                     await _model
-                                                                        .waitForApiRequestCompleter1();
+                                                                        .waitForApiRequestCompleted1();
                                                                     setState(
                                                                         () {});
                                                                   } else {
@@ -444,7 +450,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                         _model.apiRequestCompleter1 =
                                                                             null);
                                                                     await _model
-                                                                        .waitForApiRequestCompleter1();
+                                                                        .waitForApiRequestCompleted1();
                                                                     setState(
                                                                         () {});
                                                                   }
@@ -813,7 +819,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                         setState(() =>
                                             _model.apiRequestCompleter2 = null);
                                         await _model
-                                            .waitForApiRequestCompleter2();
+                                            .waitForApiRequestCompleted2();
                                       },
                                       child: ListView(
                                         padding: EdgeInsets.zero,
