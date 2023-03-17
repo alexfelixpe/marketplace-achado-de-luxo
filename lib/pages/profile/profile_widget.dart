@@ -214,19 +214,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               borderRadius:
                                                   BorderRadius.circular(60.0),
                                               child: Image.network(
-                                                FFAppState().profilePic ==
-                                                            null ||
-                                                        FFAppState()
-                                                                .profilePic ==
-                                                            ''
-                                                    ? valueOrDefault<String>(
-                                                        getJsonField(
-                                                          widget.user,
-                                                          r'''$.response.Foto''',
-                                                        ),
-                                                        'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
-                                                      )
-                                                    : FFAppState().profilePic,
+                                                valueOrDefault<String>(
+                                                  getJsonField(
+                                                    widget.user,
+                                                    r'''$.response.Foto''',
+                                                  ),
+                                                  'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
+                                                ),
                                                 width: 80.0,
                                                 height: 80.0,
                                                 fit: BoxFit.cover,
