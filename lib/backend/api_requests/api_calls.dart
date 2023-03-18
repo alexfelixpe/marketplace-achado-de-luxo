@@ -403,6 +403,7 @@ class UserGroup {
     'Authorization': 'Bearer 4d01049ceef6c90c1b68270781d35e20',
   };
   static UserImgProfileCall userImgProfileCall = UserImgProfileCall();
+  static UserUpdateCall userUpdateCall = UserUpdateCall();
 }
 
 class UserImgProfileCall {
@@ -425,6 +426,39 @@ class UserImgProfileCall {
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class UserUpdateCall {
+  Future<ApiCallResponse> call({
+    String? nome = '',
+    String? whatsApp = '',
+    String? bio = '',
+    String? slug = '',
+    String? email = '',
+    String? id = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'User Update',
+      apiUrl: '${UserGroup.baseUrl}/userupdate',
+      callType: ApiCallType.POST,
+      headers: {
+        ...UserGroup.headers,
+      },
+      params: {
+        'nome': nome,
+        'bio': bio,
+        'whatsapp': whatsApp,
+        'email': email,
+        'slug': slug,
+        'id': id,
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: true,
       cache: false,
     );
   }
@@ -525,7 +559,7 @@ class UsersByIdCall {
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: true,
-      cache: true,
+      cache: false,
     );
   }
 
@@ -983,7 +1017,7 @@ class ProdutosNovidadesCall {
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: true,
-      cache: true,
+      cache: false,
     );
   }
 

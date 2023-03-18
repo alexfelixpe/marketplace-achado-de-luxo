@@ -232,7 +232,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           child: Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 10.0, 10.0, 10.0),
+                                                    10.0, 10.0, 10.0, 2.0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
                                               mainAxisAlignment:
@@ -738,7 +738,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    20.0, 0.0, 0.0, 0.0),
+                                                    10.0, 0.0, 0.0, 0.0),
                                             child: Text(
                                               getJsonField(
                                                 widget.user,
@@ -757,9 +757,12 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    20.0, 0.0, 0.0, 0.0),
+                                                    10.0, 0.0, 0.0, 0.0),
                                             child: Text(
-                                              'Aqui é a bio da loja e terá até duas linhas de altura. \nTá certo isto?',
+                                              getJsonField(
+                                                widget.user,
+                                                r'''$.response.Bio''',
+                                              ).toString(),
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText1

@@ -2,7 +2,6 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main.dart';
 import '/pages/adicionar_produto/adicionar_produto_widget.dart';
@@ -26,13 +25,9 @@ class FeedModel extends FlutterFlowModel {
   // Stores action output result for [Backend Call - API (Users By Id)] action in IconButton widget.
   ApiCallResponse? apiResultvg9;
   Completer<ApiCallResponse>? apiRequestCompleter1;
-  // Stores action output result for [Backend Call - API (DoLike)] action in ToggleIcon widget.
-  ApiCallResponse? apiResulttpeCopy;
-  Completer<ApiCallResponse>? apiRequestCompleter2;
-  // Stores action output result for [Backend Call - API (Dislike)] action in ToggleIcon widget.
-  ApiCallResponse? apiResulttpe1Copy;
   // Stores action output result for [Backend Call - API (DoLike)] action in IconButton widget.
   ApiCallResponse? apiResulttpe;
+  Completer<ApiCallResponse>? apiRequestCompleter2;
   // Stores action output result for [Backend Call - API (Dislike)] action in IconButton widget.
   ApiCallResponse? apiResulttpe1;
 

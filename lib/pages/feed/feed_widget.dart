@@ -2,7 +2,6 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main.dart';
 import '/pages/adicionar_produto/adicionar_produto_widget.dart';
@@ -425,54 +424,29 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         2.0, 2.0, 2.0, 2.0),
-                                                child: InkWell(
-                                                  onTap: () async {
-                                                    await Navigator.push(
-                                                      context,
-                                                      PageTransition(
-                                                        type: PageTransitionType
-                                                            .fade,
-                                                        duration: Duration(
-                                                            milliseconds: 300),
-                                                        reverseDuration:
-                                                            Duration(
-                                                                milliseconds:
-                                                                    300),
-                                                        child: ProfileWidget(
-                                                          user:
-                                                              rowProfilePicUsersByIdResponse
-                                                                  .jsonBody,
-                                                        ),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          60.0),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl:
+                                                        valueOrDefault<String>(
+                                                      UsersByIdCall.foto(
+                                                        rowProfilePicUsersByIdResponse
+                                                            .jsonBody,
                                                       ),
-                                                    );
-                                                  },
-                                                  child: Container(
+                                                      'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
+                                                    ),
                                                     width: 35.0,
                                                     height: 35.0,
-                                                    clipBehavior:
-                                                        Clip.antiAlias,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: CachedNetworkImage(
-                                                      imageUrl: valueOrDefault<
-                                                          String>(
-                                                        '${'${functions.circleImage(UsersByIdCall.foto(
-                                                          rowProfilePicUsersByIdResponse
-                                                              .jsonBody,
-                                                        ).toString())}'}',
-                                                        'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
-                                                      ),
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                                    fit: BoxFit.cover,
                                                   ),
                                                 ),
                                               ),
                                               Text(
-                                                getJsonField(
+                                                UsersByIdCall.slug(
                                                   rowProfilePicUsersByIdResponse
                                                       .jsonBody,
-                                                  r'''$.response.Slug''',
                                                 ).toString(),
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -622,164 +596,6 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                   mainAxisSize:
                                                       MainAxisSize.max,
                                                   children: [
-                                                    ToggleIcon(
-                                                      onPressed: () async {
-                                                        setState(
-                                                          () => FFAppState()
-                                                                  .likedProds
-                                                                  .contains(
-                                                                      getJsonField(
-                                                                    produtosItem,
-                                                                    r'''$._id''',
-                                                                  ))
-                                                              ? FFAppState()
-                                                                  .likedProds
-                                                                  .remove(
-                                                                      getJsonField(
-                                                                    produtosItem,
-                                                                    r'''$._id''',
-                                                                  ))
-                                                              : FFAppState()
-                                                                  .likedProds
-                                                                  .add(
-                                                                      getJsonField(
-                                                                    produtosItem,
-                                                                    r'''$._id''',
-                                                                  )),
-                                                        );
-                                                        if (!FFAppState()
-                                                            .likedProds
-                                                            .contains(
-                                                                getJsonField(
-                                                              produtosItem,
-                                                              r'''$._id''',
-                                                            ))) {
-                                                          _model.apiResulttpeCopy =
-                                                              await DoLikeCall
-                                                                  .call(
-                                                            produtoId:
-                                                                getJsonField(
-                                                              produtosItem,
-                                                              r'''$._id''',
-                                                            ).toString(),
-                                                            userId: FFAppState()
-                                                                .userid,
-                                                          );
-                                                          setState(() => _model
-                                                                  .apiRequestCompleter2 =
-                                                              null);
-                                                          await _model
-                                                              .waitForApiRequestCompleted2();
-                                                          setState(() => _model
-                                                                  .apiRequestCompleter1 =
-                                                              null);
-                                                          await _model
-                                                              .waitForApiRequestCompleted1();
-                                                          setState(() {
-                                                            FFAppState()
-                                                                .addToLikedProds(
-                                                                    getJsonField(
-                                                              produtosItem,
-                                                              r'''$._id''',
-                                                            ).toString());
-                                                          });
-                                                          await showDialog(
-                                                            context: context,
-                                                            builder:
-                                                                (alertDialogContext) {
-                                                              return AlertDialog(
-                                                                title: Text(
-                                                                    'Good'),
-                                                                content: Text(
-                                                                    'Liked'),
-                                                                actions: [
-                                                                  TextButton(
-                                                                    onPressed: () =>
-                                                                        Navigator.pop(
-                                                                            alertDialogContext),
-                                                                    child: Text(
-                                                                        'Ok'),
-                                                                  ),
-                                                                ],
-                                                              );
-                                                            },
-                                                          );
-                                                        } else {
-                                                          _model.apiResulttpe1Copy =
-                                                              await DislikeCall
-                                                                  .call(
-                                                            produtoId:
-                                                                getJsonField(
-                                                              produtosItem,
-                                                              r'''$._id''',
-                                                            ).toString(),
-                                                            userId: FFAppState()
-                                                                .userid,
-                                                          );
-                                                          setState(() => _model
-                                                                  .apiRequestCompleter2 =
-                                                              null);
-                                                          await _model
-                                                              .waitForApiRequestCompleted2();
-                                                          setState(() => _model
-                                                                  .apiRequestCompleter1 =
-                                                              null);
-                                                          await _model
-                                                              .waitForApiRequestCompleted1();
-                                                          setState(() {
-                                                            FFAppState()
-                                                                .removeFromLikedProds(
-                                                                    getJsonField(
-                                                              produtosItem,
-                                                              r'''$._id''',
-                                                            ).toString());
-                                                          });
-                                                          await showDialog(
-                                                            context: context,
-                                                            builder:
-                                                                (alertDialogContext) {
-                                                              return AlertDialog(
-                                                                title:
-                                                                    Text('Bad'),
-                                                                content: Text(
-                                                                    'Not Liked'),
-                                                                actions: [
-                                                                  TextButton(
-                                                                    onPressed: () =>
-                                                                        Navigator.pop(
-                                                                            alertDialogContext),
-                                                                    child: Text(
-                                                                        'Ok'),
-                                                                  ),
-                                                                ],
-                                                              );
-                                                            },
-                                                          );
-                                                        }
-
-                                                        setState(() {});
-                                                      },
-                                                      value: FFAppState()
-                                                          .likedProds
-                                                          .contains(
-                                                              getJsonField(
-                                                            produtosItem,
-                                                            r'''$._id''',
-                                                          )),
-                                                      onIcon: Icon(
-                                                        Icons.favorite,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .alternate,
-                                                        size: 25.0,
-                                                      ),
-                                                      offIcon: Icon(
-                                                        Icons.favorite_border,
-                                                        color: Colors.black,
-                                                        size: 25.0,
-                                                      ),
-                                                    ),
                                                     FlutterFlowIconButton(
                                                       borderColor:
                                                           FlutterFlowTheme.of(
@@ -859,6 +675,11 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                               null);
                                                           await _model
                                                               .waitForApiRequestCompleted2();
+                                                          setState(() => _model
+                                                                  .apiRequestCompleter1 =
+                                                              null);
+                                                          await _model
+                                                              .waitForApiRequestCompleted1();
                                                           setState(() {
                                                             FFAppState()
                                                                 .removeFromLikedProds(
