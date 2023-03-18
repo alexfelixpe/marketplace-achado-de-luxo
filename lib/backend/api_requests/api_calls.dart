@@ -346,11 +346,12 @@ class ListaDeChatsClienteCall {
 /// Start Img Group Code
 
 class ImgGroup {
-  static String baseUrl = 'https://achadodeluxo.com.br/version-test/api/1.1/wf';
+  static String baseUrl = 'https://achadodeluxo.com.br/api/1.1/wf';
   static Map<String, String> headers = {
     'Authorization': 'Bearer 4d01049ceef6c90c1b68270781d35e20',
   };
   static ImageUploadCall imageUploadCall = ImageUploadCall();
+  static ImageDeleteCall imageDeleteCall = ImageDeleteCall();
 }
 
 class ImageUploadCall {
@@ -371,6 +372,48 @@ class ImageUploadCall {
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic data(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+      );
+  dynamic imgUrl(dynamic response) => getJsonField(
+        response,
+        r'''$.response.imageUrl''',
+      );
+  dynamic status(dynamic response) => getJsonField(
+        response,
+        r'''$.status''',
+      );
+  dynamic response(dynamic response) => getJsonField(
+        response,
+        r'''$.response''',
+      );
+}
+
+class ImageDeleteCall {
+  Future<ApiCallResponse> call({
+    String? image = '',
+    String? id = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Image Delete',
+      apiUrl: '${ImgGroup.baseUrl}/image-delete',
+      callType: ApiCallType.POST,
+      headers: {
+        ...ImgGroup.headers,
+      },
+      params: {
+        'image': image,
+        'id': id,
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: true,
       cache: false,
     );
   }
@@ -465,6 +508,74 @@ class UserUpdateCall {
 }
 
 /// End User Group Code
+
+/// Start Listas Group Code
+
+class ListasGroup {
+  static String baseUrl = 'https://achadodeluxo.com.br/api/1.1';
+  static Map<String, String> headers = {
+    'Authorization': 'Bearer 4d01049ceef6c90c1b68270781d35e20',
+  };
+  static MarcasCall marcasCall = MarcasCall();
+  static CategoriasCall categoriasCall = CategoriasCall();
+}
+
+class MarcasCall {
+  Future<ApiCallResponse> call() {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Marcas',
+      apiUrl: '${ListasGroup.baseUrl}/obj/Marcas',
+      callType: ApiCallType.GET,
+      headers: {
+        ...ListasGroup.headers,
+      },
+      params: {
+        'cursor': "0",
+        'limit': "200",
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class CategoriasCall {
+  Future<ApiCallResponse> call() {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Categorias',
+      apiUrl: '${ListasGroup.baseUrl}/obj/Categoria',
+      callType: ApiCallType.GET,
+      headers: {
+        ...ListasGroup.headers,
+      },
+      params: {
+        'sort_field': "Categoria",
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: true,
+      cache: false,
+    );
+  }
+
+  dynamic categoria(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].Categoria''',
+      );
+  dynamic response(dynamic response) => getJsonField(
+        response,
+        r'''$.response''',
+        true,
+      );
+  dynamic id(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:]._id''',
+      );
+}
+
+/// End Listas Group Code
 
 class AuthCall {
   static Future<ApiCallResponse> call({
@@ -668,35 +779,6 @@ class DislikeCall {
       );
 }
 
-class CategoriasCall {
-  static Future<ApiCallResponse> call({
-    String? sortField = 'Categoria',
-  }) {
-    return ApiManager.instance.makeApiCall(
-      callName: 'Categorias',
-      apiUrl: 'https://achadodeluxo.com.br/api/1.1/obj/Categoria',
-      callType: ApiCallType.GET,
-      headers: {},
-      params: {
-        'sort_field': sortField,
-      },
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: true,
-      cache: false,
-    );
-  }
-
-  static dynamic nome(dynamic response) => getJsonField(
-        response,
-        r'''$.response.results..Categoria''',
-      );
-  static dynamic allFields(dynamic response) => getJsonField(
-        response,
-        r'''$.response.results''',
-      );
-}
-
 class ProdutosByIdCall {
   static Future<ApiCallResponse> call({
     String? id = '1629160184464x401863667371507900',
@@ -856,35 +938,6 @@ class CorCall {
     return ApiManager.instance.makeApiCall(
       callName: 'Cor',
       apiUrl: 'https://achadodeluxo.com.br/api/1.1/obj/Cor',
-      callType: ApiCallType.GET,
-      headers: {},
-      params: {
-        'sort_field': sortField,
-      },
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: true,
-      cache: false,
-    );
-  }
-
-  static dynamic nome(dynamic response) => getJsonField(
-        response,
-        r'''$.response.results..Nome''',
-      );
-  static dynamic allFields(dynamic response) => getJsonField(
-        response,
-        r'''$.response.results''',
-      );
-}
-
-class MarcasCall {
-  static Future<ApiCallResponse> call({
-    String? sortField = 'Nome',
-  }) {
-    return ApiManager.instance.makeApiCall(
-      callName: 'Marcas',
-      apiUrl: 'https://achadodeluxo.com.br/api/1.1/obj/Marcas',
       callType: ApiCallType.GET,
       headers: {},
       params: {

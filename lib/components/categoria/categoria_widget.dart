@@ -100,7 +100,7 @@ class _CategoriaWidgetState extends State<CategoriaWidget> {
                     children: [
                       Expanded(
                         child: FutureBuilder<ApiCallResponse>(
-                          future: CategoriasCall.call(),
+                          future: ListasGroup.categoriasCall.call(),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
                             if (!snapshot.hasData) {
@@ -118,9 +118,12 @@ class _CategoriaWidgetState extends State<CategoriaWidget> {
                             final wrapCategoriasResponse = snapshot.data!;
                             return Builder(
                               builder: (context) {
-                                final categoria = CategoriasCall.allFields(
-                                  wrapCategoriasResponse.jsonBody,
-                                ).toList();
+                                final categoria = ListasGroup.categoriasCall
+                                        .response(
+                                          wrapCategoriasResponse.jsonBody,
+                                        )
+                                        ?.toList() ??
+                                    [];
                                 return Wrap(
                                   spacing: 0.0,
                                   runSpacing: 0.0,

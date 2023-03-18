@@ -100,7 +100,7 @@ class _MarcaWidgetState extends State<MarcaWidget> {
                     children: [
                       Expanded(
                         child: FutureBuilder<ApiCallResponse>(
-                          future: MarcasCall.call(),
+                          future: ListasGroup.marcasCall.call(),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
                             if (!snapshot.hasData) {
@@ -118,8 +118,9 @@ class _MarcaWidgetState extends State<MarcaWidget> {
                             final wrapMarcasResponse = snapshot.data!;
                             return Builder(
                               builder: (context) {
-                                final categoria = MarcasCall.allFields(
+                                final categoria = getJsonField(
                                   wrapMarcasResponse.jsonBody,
+                                  r'''$.response''',
                                 ).toList();
                                 return Wrap(
                                   spacing: 0.0,

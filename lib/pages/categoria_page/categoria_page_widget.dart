@@ -154,9 +154,7 @@ class _CategoriaPageWidgetState extends State<CategoriaPageWidget> {
                   children: [
                     Expanded(
                       child: FutureBuilder<ApiCallResponse>(
-                        future: CategoriasCall.call(
-                          sortField: 'Categoria',
-                        ),
+                        future: ListasGroup.categoriasCall.call(),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
@@ -174,9 +172,12 @@ class _CategoriaPageWidgetState extends State<CategoriaPageWidget> {
                           final listViewCategoriasResponse = snapshot.data!;
                           return Builder(
                             builder: (context) {
-                              final categoria = CategoriasCall.allFields(
-                                listViewCategoriasResponse.jsonBody,
-                              ).toList();
+                              final categoria = ListasGroup.categoriasCall
+                                      .response(
+                                        listViewCategoriasResponse.jsonBody,
+                                      )
+                                      ?.toList() ??
+                                  [];
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 primary: false,
@@ -255,9 +256,7 @@ class _CategoriaPageWidgetState extends State<CategoriaPageWidget> {
                     ),
                     Expanded(
                       child: FutureBuilder<ApiCallResponse>(
-                        future: CategoriasCall.call(
-                          sortField: 'Categoria',
-                        ),
+                        future: ListasGroup.categoriasCall.call(),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
@@ -275,9 +274,12 @@ class _CategoriaPageWidgetState extends State<CategoriaPageWidget> {
                           final listViewCategoriasResponse = snapshot.data!;
                           return Builder(
                             builder: (context) {
-                              final categoria = CategoriasCall.allFields(
-                                listViewCategoriasResponse.jsonBody,
-                              ).toList();
+                              final categoria = ListasGroup.categoriasCall
+                                      .response(
+                                        listViewCategoriasResponse.jsonBody,
+                                      )
+                                      ?.toList() ??
+                                  [];
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 primary: false,
