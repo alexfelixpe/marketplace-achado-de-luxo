@@ -722,10 +722,18 @@ class ProdutosByIdCall {
         response,
         r'''$.response''',
       );
-  static dynamic imagens(dynamic response) => getJsonField(
+  static dynamic imagemRemota(dynamic response) => getJsonField(
         response,
-        r'''$.response.Imagem''',
+        r'''$.response.ImagemRemota''',
         true,
+      );
+  static dynamic nome(dynamic response) => getJsonField(
+        response,
+        r'''$.response.Nome''',
+      );
+  static dynamic quantidade(dynamic response) => getJsonField(
+        response,
+        r'''$.response.Quantidade''',
       );
 }
 

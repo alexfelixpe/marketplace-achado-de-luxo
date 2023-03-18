@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/login/login_widget.dart';
+import '/pages/product_edit/product_edit_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -214,6 +215,35 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                                                 ),
                                               ),
                                             ),
+                                            FlutterFlowIconButton(
+                                              borderColor: Colors.transparent,
+                                              borderRadius: 30.0,
+                                              borderWidth: 1.0,
+                                              buttonSize: 60.0,
+                                              icon: Icon(
+                                                Icons.edit,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                size: 30.0,
+                                              ),
+                                              onPressed: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  PageTransition(
+                                                    type:
+                                                        PageTransitionType.fade,
+                                                    duration: Duration(
+                                                        milliseconds: 300),
+                                                    reverseDuration: Duration(
+                                                        milliseconds: 300),
+                                                    child: ProductEditWidget(
+                                                      produto: widget.produto,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -241,7 +271,7 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                                         icon: Icon(
                                           Icons.arrow_back_rounded,
                                           color: FlutterFlowTheme.of(context)
-                                              .grayIcon,
+                                              .white,
                                           size: 30.0,
                                         ),
                                         onPressed: () async {

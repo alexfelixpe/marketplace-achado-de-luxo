@@ -13,3 +13,4 @@ export '/pages/profile/profile_widget.dart' show ProfileWidget;
 export '/pages/chat_list/chat_list_widget.dart' show ChatListWidget;
 export '/pages/chat/chat_widget.dart' show ChatWidget;
 export '/pages/profile_edit/profile_edit_widget.dart' show ProfileEditWidget;
+export '/pages/product_edit/product_edit_widget.dart' show ProductEditWidget;
