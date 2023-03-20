@@ -47,7 +47,7 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
           r'''$._id''',
         ).toString().toString(),
       );
-      if (ProdutosByIdCall.allFields(
+      if (ProdutosByIdCall.nome(
             (_model.apiResultProduto?.jsonBody ?? ''),
           ) !=
           null) {
