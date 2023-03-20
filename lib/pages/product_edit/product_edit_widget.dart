@@ -87,12 +87,12 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
     _model.yourNameController1 ??= TextEditingController(
         text: getJsonField(
       widget.produto,
-      r'''$.response.Descricao''',
+      r'''$.Descricao''',
     ).toString().toString());
     _model.yourNameController2 ??= TextEditingController(
         text: getJsonField(
       widget.produto,
-      r'''$.response.Marca''',
+      r'''$.Marca''',
     ).toString().toString());
     _model.myBioController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
