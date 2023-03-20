@@ -9,6 +9,7 @@ import '/flutter_flow/form_field_controller.dart';
 import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -17,9 +18,11 @@ class ProductEditModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
+  // Stores action output result for [Backend Call - API (Produtos By Id)] action in ProductEdit widget.
+  ApiCallResponse? apiResultProduto;
+  Completer<ApiCallResponse>? apiRequestCompleter;
   // Stores action output result for [Backend Call - API (Image Delete)] action in IconButton widget.
   ApiCallResponse? apiResultmkj;
-  Completer<ApiCallResponse>? apiRequestCompleter;
   // Stores action output result for [Backend Call - API (Image Delete)] action in IconButton widget.
   ApiCallResponse? apiResultmkj5;
   // Stores action output result for [Backend Call - API (Image Delete)] action in IconButton widget.

@@ -651,7 +651,7 @@ class RecuperarSenhaCall {
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
     );
   }
@@ -843,7 +843,7 @@ class AddToCartCall {
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
     );
   }
@@ -1010,7 +1010,7 @@ class CriarProdutoCall {
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
     );
   }
@@ -1164,7 +1164,7 @@ class ProdutosNovidadesPorVendedorCall {
       },
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: true,
     );
   }
