@@ -82,7 +82,7 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
     _model.arrobalojaController ??= TextEditingController(
         text: getJsonField(
       (_model.apiResultProduto?.jsonBody ?? ''),
-      r'''$.Nome''',
+      r'''$.response.Nome''',
     ).toString().toString());
     _model.yourNameController1 ??= TextEditingController(
         text: getJsonField(
