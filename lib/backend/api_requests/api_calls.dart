@@ -605,7 +605,7 @@ class TamanhosCall {
 /// Start Produto Group Code
 
 class ProdutoGroup {
-  static String baseUrl = 'https://achadodeluxo.com.br/version-test/api/1.1';
+  static String baseUrl = 'https://achadodeluxo.com.br/api/1.1';
   static Map<String, String> headers = {
     'Authorization': 'Bearer 4d01049ceef6c90c1b68270781d35e20',
   };
