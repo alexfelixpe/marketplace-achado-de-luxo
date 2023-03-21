@@ -243,6 +243,12 @@ class FFAppState extends ChangeNotifier {
   set profilePic(String _value) {
     _profilePic = _value;
   }
+
+  dynamic _prodToEdit;
+  dynamic get prodToEdit => _prodToEdit;
+  set prodToEdit(dynamic _value) {
+    _prodToEdit = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

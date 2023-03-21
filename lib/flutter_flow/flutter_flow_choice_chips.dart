@@ -115,12 +115,14 @@ class _FlutterFlowChoiceChipsState extends State<FlutterFlowChoiceChips> {
                             widget.multiselect
                                 ? choiceChipValues.add(option.label)
                                 : choiceChipValues = [option.label];
-                            widget.controller.value = choiceChipValues;
+                            widget.controller.value =
+                                List.from(choiceChipValues);
                             setState(() {});
                           } else {
                             if (widget.multiselect) {
                               choiceChipValues.remove(option.label);
-                              widget.controller.value = choiceChipValues;
+                              widget.controller.value =
+                                  List.from(choiceChipValues);
                               setState(() {});
                             }
                           }

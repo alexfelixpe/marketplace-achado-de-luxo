@@ -9,7 +9,6 @@ import '/flutter_flow/form_field_controller.dart';
 import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -39,50 +38,10 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
     super.initState();
     _model = createModel(context, () => ProductEditModel());
 
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.apiResultProduto = await ProdutosByIdCall.call(
-        id: getJsonField(
-          widget.produto,
-          r'''$._id''',
-        ).toString().toString(),
-      );
-      if (ProdutosByIdCall.nome(
-            (_model.apiResultProduto?.jsonBody ?? ''),
-          ) !=
-          null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'Sucesso',
-              style: TextStyle(
-                color: FlutterFlowTheme.of(context).primaryText,
-              ),
-            ),
-            duration: Duration(milliseconds: 4000),
-            backgroundColor: Color(0x00000000),
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'Falha',
-              style: TextStyle(
-                color: FlutterFlowTheme.of(context).primaryText,
-              ),
-            ),
-            duration: Duration(milliseconds: 4000),
-            backgroundColor: Color(0x00000000),
-          ),
-        );
-      }
-    });
-
     _model.arrobalojaController ??= TextEditingController(
         text: getJsonField(
-      (_model.apiResultProduto?.jsonBody ?? ''),
-      r'''$.response.Nome''',
+      widget.produto,
+      r'''$.Nome''',
     ).toString().toString());
     _model.yourNameController1 ??= TextEditingController(
         text: getJsonField(
@@ -168,412 +127,98 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10.0, 10.0, 10.0, 10.0),
-                                          child: Image.network(
-                                            valueOrDefault<String>(
-                                              getJsonField(
-                                                (_model.apiResultProduto
-                                                        ?.jsonBody ??
-                                                    ''),
-                                                r'''$.ImagemRemota[0]''',
-                                              ),
-                                              'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
-                                            ),
-                                            width: 100.0,
-                                            height: 100.0,
-                                            fit: BoxFit.cover,
-                                          ),
+                                Expanded(
+                                  child: Builder(
+                                    builder: (context) {
+                                      final fotos = getJsonField(
+                                        widget.produto,
+                                        r'''$.ImagemRemota''',
+                                      ).toList().take(6).toList();
+                                      return GridView.builder(
+                                        padding: EdgeInsets.zero,
+                                        gridDelegate:
+                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 3,
+                                          crossAxisSpacing: 10.0,
+                                          mainAxisSpacing: 10.0,
+                                          childAspectRatio: 1.0,
                                         ),
-                                        Align(
-                                          alignment:
-                                              AlignmentDirectional(1.03, -0.08),
-                                          child: FlutterFlowIconButton(
-                                            borderColor: Colors.transparent,
-                                            borderRadius: 10.0,
-                                            borderWidth: 1.0,
-                                            buttonSize: 40.0,
-                                            icon: Icon(
-                                              Icons.delete_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              size: 20.0,
-                                            ),
-                                            onPressed: () async {
-                                              _model.apiResultmkj =
-                                                  await ImgGroup.imageDeleteCall
-                                                      .call(
-                                                image: getJsonField(
-                                                  columnProdutosByIdResponse
-                                                      .jsonBody,
-                                                  r'''$.response.ImagemRemota[0]''',
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: fotos.length,
+                                        itemBuilder: (context, fotosIndex) {
+                                          final fotosItem = fotos[fotosIndex];
+                                          return Stack(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        10.0, 10.0, 10.0, 10.0),
+                                                child: Image.network(
+                                                  valueOrDefault<String>(
+                                                    getJsonField(
+                                                      fotosItem,
+                                                      r'''$.ImagemRemota''',
+                                                    ),
+                                                    'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
+                                                  ),
+                                                  width: 100.0,
+                                                  height: 100.0,
+                                                  fit: BoxFit.cover,
                                                 ),
-                                                id: getJsonField(
-                                                  columnProdutosByIdResponse
-                                                      .jsonBody,
-                                                  r'''$.response._id''',
-                                                ).toString(),
-                                              );
-                                              if ((_model.apiResultmkj
-                                                      ?.succeeded ??
-                                                  true)) {
-                                                setState(() =>
-                                                    _model.apiRequestCompleter =
-                                                        null);
-                                                await _model
-                                                    .waitForApiRequestCompleted();
-                                              }
-
-                                              setState(() {});
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Stack(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10.0, 10.0, 10.0, 10.0),
-                                          child: Image.network(
-                                            valueOrDefault<String>(
-                                              getJsonField(
-                                                columnProdutosByIdResponse
-                                                    .jsonBody,
-                                                r'''$.response.ImagemRemota[3]''',
                                               ),
-                                              'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
-                                            ),
-                                            width: 100.0,
-                                            height: 100.0,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment:
-                                              AlignmentDirectional(1.03, -0.08),
-                                          child: FlutterFlowIconButton(
-                                            borderColor: Colors.transparent,
-                                            borderRadius: 10.0,
-                                            borderWidth: 1.0,
-                                            buttonSize: 40.0,
-                                            icon: Icon(
-                                              Icons.delete_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              size: 20.0,
-                                            ),
-                                            onPressed: () async {
-                                              _model.apiResultmkj5 =
-                                                  await ImgGroup.imageDeleteCall
-                                                      .call(
-                                                image: getJsonField(
-                                                  widget.produto,
-                                                  r'''$.response.ImagemRemota[3]''',
-                                                ),
-                                                id: getJsonField(
-                                                  columnProdutosByIdResponse
-                                                      .jsonBody,
-                                                  r'''$.response._id''',
-                                                ).toString(),
-                                              );
-                                              if ((_model.apiResultmkj5
-                                                      ?.succeeded ??
-                                                  true)) {
-                                                setState(() =>
-                                                    _model.apiRequestCompleter =
-                                                        null);
-                                                await _model
-                                                    .waitForApiRequestCompleted();
-                                              }
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    1.08, -1.02),
+                                                child: FlutterFlowIconButton(
+                                                  borderColor:
+                                                      Colors.transparent,
+                                                  borderRadius: 10.0,
+                                                  borderWidth: 1.0,
+                                                  buttonSize: 40.0,
+                                                  icon: Icon(
+                                                    Icons.delete_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .alternate,
+                                                    size: 20.0,
+                                                  ),
+                                                  onPressed: () async {
+                                                    _model.apiResultmkj =
+                                                        await ImgGroup
+                                                            .imageDeleteCall
+                                                            .call(
+                                                      image: getJsonField(
+                                                        columnProdutosByIdResponse
+                                                            .jsonBody,
+                                                        r'''$.response.ImagemRemota[0]''',
+                                                      ),
+                                                      id: getJsonField(
+                                                        columnProdutosByIdResponse
+                                                            .jsonBody,
+                                                        r'''$.response._id''',
+                                                      ).toString(),
+                                                    );
+                                                    if ((_model.apiResultmkj
+                                                            ?.succeeded ??
+                                                        true)) {
+                                                      setState(() => _model
+                                                              .apiRequestCompleter =
+                                                          null);
+                                                      await _model
+                                                          .waitForApiRequestCompleted();
+                                                    }
 
-                                              setState(() {});
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10.0, 10.0, 10.0, 10.0),
-                                          child: Image.network(
-                                            valueOrDefault<String>(
-                                              getJsonField(
-                                                columnProdutosByIdResponse
-                                                    .jsonBody,
-                                                r'''$.response.ImagemRemota[1]''',
+                                                    setState(() {});
+                                                  },
+                                                ),
                                               ),
-                                              'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
-                                            ),
-                                            width: 100.0,
-                                            height: 100.0,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment:
-                                              AlignmentDirectional(1.03, -0.08),
-                                          child: FlutterFlowIconButton(
-                                            borderColor: Colors.transparent,
-                                            borderRadius: 10.0,
-                                            borderWidth: 1.0,
-                                            buttonSize: 40.0,
-                                            icon: Icon(
-                                              Icons.delete_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              size: 20.0,
-                                            ),
-                                            onPressed: () async {
-                                              _model.apiResultmkj4 =
-                                                  await ImgGroup.imageDeleteCall
-                                                      .call(
-                                                image: getJsonField(
-                                                  widget.produto,
-                                                  r'''$.response.ImagemRemota[1]''',
-                                                ),
-                                                id: getJsonField(
-                                                  columnProdutosByIdResponse
-                                                      .jsonBody,
-                                                  r'''$.response._id''',
-                                                ).toString(),
-                                              );
-                                              if ((_model.apiResultmkj4
-                                                      ?.succeeded ??
-                                                  true)) {
-                                                setState(() =>
-                                                    _model.apiRequestCompleter =
-                                                        null);
-                                                await _model
-                                                    .waitForApiRequestCompleted();
-                                              }
-
-                                              setState(() {});
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Stack(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10.0, 10.0, 10.0, 10.0),
-                                          child: Image.network(
-                                            valueOrDefault<String>(
-                                              getJsonField(
-                                                columnProdutosByIdResponse
-                                                    .jsonBody,
-                                                r'''$.response.ImagemRemota[4]''',
-                                              ),
-                                              'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
-                                            ),
-                                            width: 100.0,
-                                            height: 100.0,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment:
-                                              AlignmentDirectional(1.03, -0.08),
-                                          child: FlutterFlowIconButton(
-                                            borderColor: Colors.transparent,
-                                            borderRadius: 10.0,
-                                            borderWidth: 1.0,
-                                            buttonSize: 40.0,
-                                            icon: Icon(
-                                              Icons.delete_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              size: 20.0,
-                                            ),
-                                            onPressed: () async {
-                                              _model.apiResultmkj3 =
-                                                  await ImgGroup.imageDeleteCall
-                                                      .call(
-                                                image: getJsonField(
-                                                  widget.produto,
-                                                  r'''$.response.ImagemRemota[4]''',
-                                                ),
-                                                id: getJsonField(
-                                                  columnProdutosByIdResponse
-                                                      .jsonBody,
-                                                  r'''$.response._id''',
-                                                ).toString(),
-                                              );
-                                              if ((_model.apiResultmkj3
-                                                      ?.succeeded ??
-                                                  true)) {
-                                                setState(() =>
-                                                    _model.apiRequestCompleter =
-                                                        null);
-                                                await _model
-                                                    .waitForApiRequestCompleted();
-                                              }
-
-                                              setState(() {});
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10.0, 10.0, 10.0, 10.0),
-                                          child: Image.network(
-                                            valueOrDefault<String>(
-                                              getJsonField(
-                                                columnProdutosByIdResponse
-                                                    .jsonBody,
-                                                r'''$.response.ImagemRemota[2]''',
-                                              ),
-                                              'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
-                                            ),
-                                            width: 100.0,
-                                            height: 100.0,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment:
-                                              AlignmentDirectional(1.03, -0.08),
-                                          child: FlutterFlowIconButton(
-                                            borderColor: Colors.transparent,
-                                            borderRadius: 10.0,
-                                            borderWidth: 1.0,
-                                            buttonSize: 40.0,
-                                            icon: Icon(
-                                              Icons.delete_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              size: 20.0,
-                                            ),
-                                            onPressed: () async {
-                                              _model.apiResultmkj2 =
-                                                  await ImgGroup.imageDeleteCall
-                                                      .call(
-                                                image: getJsonField(
-                                                  widget.produto,
-                                                  r'''$.response.ImagemRemota[2]''',
-                                                ),
-                                                id: getJsonField(
-                                                  columnProdutosByIdResponse
-                                                      .jsonBody,
-                                                  r'''$.response._id''',
-                                                ).toString(),
-                                              );
-                                              if ((_model.apiResultmkj2
-                                                      ?.succeeded ??
-                                                  true)) {
-                                                setState(() =>
-                                                    _model.apiRequestCompleter =
-                                                        null);
-                                                await _model
-                                                    .waitForApiRequestCompleted();
-                                              }
-
-                                              setState(() {});
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Stack(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10.0, 10.0, 10.0, 10.0),
-                                          child: Image.network(
-                                            valueOrDefault<String>(
-                                              getJsonField(
-                                                columnProdutosByIdResponse
-                                                    .jsonBody,
-                                                r'''$.response.ImagemRemota[5]''',
-                                              ),
-                                              'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
-                                            ),
-                                            width: 100.0,
-                                            height: 100.0,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment:
-                                              AlignmentDirectional(1.03, -0.08),
-                                          child: FlutterFlowIconButton(
-                                            borderColor: Colors.transparent,
-                                            borderRadius: 10.0,
-                                            borderWidth: 1.0,
-                                            buttonSize: 40.0,
-                                            icon: Icon(
-                                              Icons.delete_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              size: 20.0,
-                                            ),
-                                            onPressed: () async {
-                                              _model.apiResultmkj1 =
-                                                  await ImgGroup.imageDeleteCall
-                                                      .call(
-                                                image: getJsonField(
-                                                  widget.produto,
-                                                  r'''$.response.ImagemRemota[5]''',
-                                                ),
-                                                id: getJsonField(
-                                                  columnProdutosByIdResponse
-                                                      .jsonBody,
-                                                  r'''$.response._id''',
-                                                ).toString(),
-                                              );
-                                              if ((_model.apiResultmkj1
-                                                      ?.succeeded ??
-                                                  true)) {
-                                                setState(() =>
-                                                    _model.apiRequestCompleter =
-                                                        null);
-                                                await _model
-                                                    .waitForApiRequestCompleted();
-                                              }
-
-                                              setState(() {});
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
                                 ),
                               ],
                             ),
@@ -953,7 +598,7 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                             _model.dropDownValue ??=
                                                 getJsonField(
                                               widget.produto,
-                                              r'''$.response.Categoria''',
+                                              r'''$.Categoria''',
                                             ).toString(),
                                           ),
                                           options: (ListasGroup.categoriasCall
