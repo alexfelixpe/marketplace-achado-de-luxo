@@ -579,7 +579,7 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                   Align(
                                     alignment: AlignmentDirectional(-0.8, 0.0),
                                     child: Text(
-                                      'Quantidade',
+                                      'Estoque',
                                       textAlign: TextAlign.start,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1,
