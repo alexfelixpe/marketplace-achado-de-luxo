@@ -16,7 +16,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'adicionar_produto_model.dart';
 export 'adicionar_produto_model.dart';
@@ -462,179 +461,98 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 10.0, 0.0, 10.0),
-                                            child: Autocomplete<String>(
-                                              initialValue: TextEditingValue(),
-                                              optionsBuilder:
-                                                  (textEditingValue) {
-                                                if (textEditingValue.text ==
-                                                    '') {
-                                                  return const Iterable<
-                                                      String>.empty();
-                                                }
-                                                return ['Option 1']
-                                                    .where((option) {
-                                                  final lowercaseOption =
-                                                      option.toLowerCase();
-                                                  return lowercaseOption
-                                                      .contains(textEditingValue
-                                                          .text
-                                                          .toLowerCase());
-                                                });
-                                              },
-                                              optionsViewBuilder: (context,
-                                                  onSelected, options) {
-                                                return AutocompleteOptionsList(
-                                                  textFieldKey: _model.precoKey,
-                                                  textController:
-                                                      _model.precoController!,
-                                                  options: options.toList(),
-                                                  onSelected: onSelected,
-                                                  textStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyText1,
-                                                  textHighlightStyle:
-                                                      TextStyle(),
-                                                  elevation: 4.0,
-                                                  optionBackgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryBackground,
-                                                  optionHighlightColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondaryBackground,
-                                                  maxHeight: 200.0,
-                                                );
-                                              },
-                                              onSelected: (String selection) {
-                                                setState(() =>
-                                                    _model.precoSelectedOption =
-                                                        selection);
-                                                FocusScope.of(context)
-                                                    .unfocus();
-                                              },
-                                              fieldViewBuilder: (
-                                                context,
-                                                textEditingController,
-                                                focusNode,
-                                                onEditingComplete,
-                                              ) {
-                                                _model.precoController =
-                                                    textEditingController;
-                                                return TextFormField(
-                                                  key: _model.precoKey,
-                                                  controller:
-                                                      textEditingController,
-                                                  focusNode: focusNode,
-                                                  onEditingComplete:
-                                                      onEditingComplete,
-                                                  textCapitalization:
-                                                      TextCapitalization.none,
-                                                  obscureText: false,
-                                                  decoration: InputDecoration(
-                                                    labelText: 'Preço',
-                                                    enabledBorder:
-                                                        UnderlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                              .only(
-                                                        topLeft:
-                                                            Radius.circular(
-                                                                4.0),
-                                                        topRight:
-                                                            Radius.circular(
-                                                                4.0),
-                                                      ),
-                                                    ),
-                                                    focusedBorder:
-                                                        UnderlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0x00000000),
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                              .only(
-                                                        topLeft:
-                                                            Radius.circular(
-                                                                4.0),
-                                                        topRight:
-                                                            Radius.circular(
-                                                                4.0),
-                                                      ),
-                                                    ),
-                                                    errorBorder:
-                                                        UnderlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0x00000000),
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                              .only(
-                                                        topLeft:
-                                                            Radius.circular(
-                                                                4.0),
-                                                        topRight:
-                                                            Radius.circular(
-                                                                4.0),
-                                                      ),
-                                                    ),
-                                                    focusedErrorBorder:
-                                                        UnderlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0x00000000),
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                              .only(
-                                                        topLeft:
-                                                            Radius.circular(
-                                                                4.0),
-                                                        topRight:
-                                                            Radius.circular(
-                                                                4.0),
-                                                      ),
-                                                    ),
-                                                    prefixIcon: Icon(
-                                                      Icons.money_outlined,
-                                                    ),
-                                                    suffixIcon: Icon(
-                                                      Icons.threesixty_rounded,
-                                                      color: Color(0xFF757575),
-                                                      size: 22.0,
-                                                    ),
+                                            child: TextFormField(
+                                              controller:
+                                                  _model.precoController,
+                                              textCapitalization:
+                                                  TextCapitalization.none,
+                                              obscureText: false,
+                                              decoration: InputDecoration(
+                                                labelText: 'Preço',
+                                                enabledBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    width: 1.0,
                                                   ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(4.0),
+                                                    topRight:
+                                                        Radius.circular(4.0),
+                                                  ),
+                                                ),
+                                                focusedBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(4.0),
+                                                    topRight:
+                                                        Radius.circular(4.0),
+                                                  ),
+                                                ),
+                                                errorBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(4.0),
+                                                    topRight:
+                                                        Radius.circular(4.0),
+                                                  ),
+                                                ),
+                                                focusedErrorBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(4.0),
+                                                    topRight:
+                                                        Radius.circular(4.0),
+                                                  ),
+                                                ),
+                                                prefixIcon: Icon(
+                                                  Icons.money_outlined,
+                                                ),
+                                                suffixIcon: Icon(
+                                                  Icons.threesixty_rounded,
+                                                  color: Color(0xFF757575),
+                                                  size: 22.0,
+                                                ),
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
                                                       .bodyText1
                                                       .override(
                                                         fontFamily: 'Poppins',
                                                         fontSize: 22.0,
                                                       ),
-                                                  textAlign: TextAlign.end,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  validator: _model
-                                                      .precoControllerValidator
-                                                      .asValidator(context),
-                                                  inputFormatters: [
-                                                    _model.precoMask
-                                                  ],
-                                                );
-                                              },
+                                              textAlign: TextAlign.end,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              validator: _model
+                                                  .precoControllerValidator
+                                                  .asValidator(context),
+                                              inputFormatters: [
+                                                FilteringTextInputFormatter
+                                                    .allow(RegExp('[0-9]'))
+                                              ],
                                             ),
                                           ),
                                         ),

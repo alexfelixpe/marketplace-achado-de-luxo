@@ -244,10 +244,22 @@ class FFAppState extends ChangeNotifier {
     _profilePic = _value;
   }
 
-  dynamic _prodToEdit;
-  dynamic get prodToEdit => _prodToEdit;
-  set prodToEdit(dynamic _value) {
-    _prodToEdit = _value;
+  List<String> _prodImageList = [];
+  List<String> get prodImageList => _prodImageList;
+  set prodImageList(List<String> _value) {
+    _prodImageList = _value;
+  }
+
+  void addToProdImageList(String _value) {
+    _prodImageList.add(_value);
+  }
+
+  void removeFromProdImageList(String _value) {
+    _prodImageList.remove(_value);
+  }
+
+  void removeAtIndexFromProdImageList(int _index) {
+    _prodImageList.removeAt(_index);
   }
 }
 

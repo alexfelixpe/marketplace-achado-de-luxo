@@ -518,6 +518,7 @@ class ListasGroup {
   };
   static MarcasCall marcasCall = MarcasCall();
   static CategoriasCall categoriasCall = CategoriasCall();
+  static TamanhosCall tamanhosCall = TamanhosCall();
 }
 
 class MarcasCall {
@@ -575,7 +576,82 @@ class CategoriasCall {
       );
 }
 
+class TamanhosCall {
+  Future<ApiCallResponse> call() {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Tamanhos',
+      apiUrl: '${ListasGroup.baseUrl}/obj/Tamanho',
+      callType: ApiCallType.GET,
+      headers: {
+        ...ListasGroup.headers,
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: true,
+      cache: false,
+    );
+  }
+
+  dynamic tamanho(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].Nome''',
+        true,
+      );
+}
+
 /// End Listas Group Code
+
+/// Start Produto Group Code
+
+class ProdutoGroup {
+  static String baseUrl = 'https://achadodeluxo.com.br/version-test/api/1.1';
+  static Map<String, String> headers = {
+    'Authorization': 'Bearer 4d01049ceef6c90c1b68270781d35e20',
+  };
+  static UpdateCall updateCall = UpdateCall();
+}
+
+class UpdateCall {
+  Future<ApiCallResponse> call({
+    String? nome = '',
+    String? descricao = '',
+    int? quantidade,
+    String? categoria = '',
+    String? id = '',
+    List<String>? imgList,
+    String? marca = '',
+    String? cor = '',
+  }) {
+    final img = _serializeList(imgList);
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Update',
+      apiUrl: '${ProdutoGroup.baseUrl}/wf/prod-update',
+      callType: ApiCallType.POST,
+      headers: {
+        ...ProdutoGroup.headers,
+      },
+      params: {
+        'nome': nome,
+        'descricao': descricao,
+        'quantidade': quantidade,
+        'categoria': categoria,
+        'id': id,
+        'img': img,
+        'marca': marca,
+        'cor': cor,
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+/// End Produto Group Code
 
 class AuthCall {
   static Future<ApiCallResponse> call({

@@ -16,7 +16,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 
 class AdicionarProdutoModel extends FlutterFlowModel {
@@ -33,10 +32,7 @@ class AdicionarProdutoModel extends FlutterFlowModel {
   // State field(s) for CountController widget.
   int? countControllerValue;
   // State field(s) for Preco widget.
-  final precoKey = GlobalKey();
   TextEditingController? precoController;
-  String? precoSelectedOption;
-  final precoMask = MaskTextInputFormatter(mask: '##.##');
   String? Function(BuildContext, String?)? precoControllerValidator;
   bool isMediaUploading = false;
   FFUploadedFile uploadedLocalFile =
@@ -52,6 +48,7 @@ class AdicionarProdutoModel extends FlutterFlowModel {
 
   void dispose() {
     descricaoController?.dispose();
+    precoController?.dispose();
   }
 
   /// Additional helper methods are added here.

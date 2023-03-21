@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/components/mudar_foto/mudar_foto_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -6,6 +7,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/upload_media.dart';
+import '/pages/produto/produto_widget.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -18,33 +22,53 @@ class ProductEditModel extends FlutterFlowModel {
 
   final formKey = GlobalKey<FormState>();
   Completer<ApiCallResponse>? apiRequestCompleter;
+  bool isMediaUploading = false;
+  FFUploadedFile uploadedLocalFile =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl = '';
+
   // Stores action output result for [Backend Call - API (Image Delete)] action in IconButton widget.
   ApiCallResponse? apiResultmkj;
-  // State field(s) for arrobaloja widget.
-  TextEditingController? arrobalojaController;
-  String? Function(BuildContext, String?)? arrobalojaControllerValidator;
-  // State field(s) for yourName widget.
-  TextEditingController? yourNameController1;
-  String? Function(BuildContext, String?)? yourNameController1Validator;
-  // State field(s) for yourName widget.
-  TextEditingController? yourNameController2;
-  String? Function(BuildContext, String?)? yourNameController2Validator;
-  // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownController;
-  // State field(s) for myBio widget.
-  TextEditingController? myBioController;
-  String? Function(BuildContext, String?)? myBioControllerValidator;
+  // State field(s) for nomeProd widget.
+  TextEditingController? nomeProdController;
+  String? Function(BuildContext, String?)? nomeProdControllerValidator;
+  // State field(s) for descProd widget.
+  TextEditingController? descProdController;
+  String? Function(BuildContext, String?)? descProdControllerValidator;
+  // State field(s) for quantidade widget.
+  TextEditingController? quantidadeController;
+  String? Function(BuildContext, String?)? quantidadeControllerValidator;
+  // State field(s) for precoProd widget.
+  TextEditingController? precoProdController;
+  String? Function(BuildContext, String?)? precoProdControllerValidator;
+  // State field(s) for marcaProd widget.
+  TextEditingController? marcaProdController;
+  String? Function(BuildContext, String?)? marcaProdControllerValidator;
+  // State field(s) for categoriaProd widget.
+  String? categoriaProdValue;
+  FormFieldController<String>? categoriaProdController;
+  // State field(s) for corProd widget.
+  TextEditingController? corProdController;
+  String? Function(BuildContext, String?)? corProdControllerValidator;
+  // State field(s) for tamanhoProd widget.
+  String? tamanhoProdValue;
+  FormFieldController<String>? tamanhoProdController;
+  // Stores action output result for [Backend Call - API (Update)] action in Button widget.
+  ApiCallResponse? apiResultProdUpdate;
+  // Stores action output result for [Backend Call - API (Produtos By Id)] action in Button widget.
+  ApiCallResponse? apiResultUpdatedProd;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {}
 
   void dispose() {
-    arrobalojaController?.dispose();
-    yourNameController1?.dispose();
-    yourNameController2?.dispose();
-    myBioController?.dispose();
+    nomeProdController?.dispose();
+    descProdController?.dispose();
+    quantidadeController?.dispose();
+    precoProdController?.dispose();
+    marcaProdController?.dispose();
+    corProdController?.dispose();
   }
 
   /// Additional helper methods are added here.
