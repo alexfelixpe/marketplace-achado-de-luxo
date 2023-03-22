@@ -519,6 +519,7 @@ class ListasGroup {
   static MarcasCall marcasCall = MarcasCall();
   static CategoriasCall categoriasCall = CategoriasCall();
   static TamanhosCall tamanhosCall = TamanhosCall();
+  static CoresCall coresCall = CoresCall();
 }
 
 class MarcasCall {
@@ -536,7 +537,7 @@ class MarcasCall {
       },
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
     );
   }
@@ -600,16 +601,41 @@ class TamanhosCall {
       );
 }
 
+class CoresCall {
+  Future<ApiCallResponse> call() {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Cores',
+      apiUrl: '${ListasGroup.baseUrl}/obj/Cor',
+      callType: ApiCallType.GET,
+      headers: {
+        ...ListasGroup.headers,
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: true,
+      cache: false,
+    );
+  }
+
+  dynamic cor(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].Nome''',
+        true,
+      );
+}
+
 /// End Listas Group Code
 
 /// Start Produto Group Code
 
 class ProdutoGroup {
-  static String baseUrl = 'https://achadodeluxo.com.br/api/1.1';
+  static String baseUrl = 'https://achadodeluxo.com.br';
   static Map<String, String> headers = {
     'Authorization': 'Bearer 4d01049ceef6c90c1b68270781d35e20',
   };
   static UpdateCall updateCall = UpdateCall();
+  static ImageDeleteProdCall imageDeleteProdCall = ImageDeleteProdCall();
 }
 
 class UpdateCall {
@@ -622,12 +648,13 @@ class UpdateCall {
     List<String>? imgList,
     String? marca = '',
     String? cor = '',
+    String? tamanho = '',
   }) {
     final img = _serializeList(imgList);
 
     return ApiManager.instance.makeApiCall(
       callName: 'Update',
-      apiUrl: '${ProdutoGroup.baseUrl}/wf/prod-update',
+      apiUrl: '${ProdutoGroup.baseUrl}/api/1.1/wf/prod-update',
       callType: ApiCallType.POST,
       headers: {
         ...ProdutoGroup.headers,
@@ -641,11 +668,37 @@ class UpdateCall {
         'img': img,
         'marca': marca,
         'cor': cor,
+        'tamanho': tamanho,
       },
       bodyType: BodyType.MULTIPART,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class ImageDeleteProdCall {
+  Future<ApiCallResponse> call({
+    String? imagem = '',
+    String? id = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'ImageDeleteProd',
+      apiUrl: '${ProdutoGroup.baseUrl}/wf/prod-image-delete',
+      callType: ApiCallType.POST,
+      headers: {
+        ...ProdutoGroup.headers,
+      },
+      params: {
+        'imagem': imagem,
+        'id': id,
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: true,
       cache: false,
     );
   }
