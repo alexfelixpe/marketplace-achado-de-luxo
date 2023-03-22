@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_media.dart';
 import '/pages/produto/produto_widget.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -433,10 +434,20 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                         }
                                       }
 
+                                      _model.novoJson =
+                                          await actions.addImageOut(
+                                        getJsonField(
+                                          FFAppState().prodImageJson,
+                                          r'''$''',
+                                        ),
+                                        _model.uploadedFileUrl2,
+                                      );
                                       setState(() {
-                                        FFAppState().addToProdImageList(
-                                            _model.uploadedFileUrl2);
+                                        FFAppState().prodImageJson =
+                                            _model.novoJson!;
                                       });
+
+                                      setState(() {});
                                     },
                                     text: '+ Fotos',
                                     icon: Icon(

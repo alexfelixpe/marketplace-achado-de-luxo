@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_media.dart';
 import '/pages/produto/produto_widget.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -35,6 +36,8 @@ class ProductEditModel extends FlutterFlowModel {
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl2 = '';
 
+  // Stores action output result for [Custom Action - addImageOut] action in Button widget.
+  dynamic? novoJson;
   // State field(s) for nomeProd widget.
   TextEditingController? nomeProdController;
   String? Function(BuildContext, String?)? nomeProdControllerValidator;
