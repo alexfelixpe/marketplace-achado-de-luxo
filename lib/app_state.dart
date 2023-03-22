@@ -261,6 +261,12 @@ class FFAppState extends ChangeNotifier {
   void removeAtIndexFromProdImageList(int _index) {
     _prodImageList.removeAt(_index);
   }
+
+  dynamic _prodImageJson;
+  dynamic get prodImageJson => _prodImageJson;
+  set prodImageJson(dynamic _value) {
+    _prodImageJson = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

@@ -51,10 +51,13 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
       );
       if ((_model.apiProdResult?.succeeded ?? true)) {
         setState(() {
-          FFAppState().prodImageList = ProdutosByIdCall.imagemRemota(
+          FFAppState().prodImageList = ProdutosByIdCall.allFields(
             (_model.apiProdResult?.jsonBody ?? ''),
           )!
               .toList();
+          FFAppState().prodImageJson = ProdutosByIdCall.allFields(
+            (_model.apiProdResult?.jsonBody ?? ''),
+          );
         });
         await showDialog(
           context: context,
@@ -191,11 +194,10 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                 Expanded(
                                   child: Builder(
                                     builder: (context) {
-                                      final fotos = FFAppState()
-                                          .prodImageList
-                                          .toList()
-                                          .take(6)
-                                          .toList();
+                                      final fotos = getJsonField(
+                                        FFAppState().prodImageJson,
+                                        r'''$.ImagemRemota''',
+                                      ).toList().take(6).toList();
                                       return GridView.builder(
                                         padding: EdgeInsets.zero,
                                         gridDelegate:
