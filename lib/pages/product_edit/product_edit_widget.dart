@@ -54,7 +54,7 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
         setState(() {
           FFAppState().prodImageJson = getJsonField(
             (_model.apiProdResult?.jsonBody ?? ''),
-            r'''$.ImagemRemota''',
+            r'''$.response.ImagemRemota''',
           );
         });
         await showDialog(
