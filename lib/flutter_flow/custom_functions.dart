@@ -66,3 +66,13 @@ int somaQuantidade(
   num resultado = qtd1 + qtd2;
   return resultado.toInt();
 }
+
+List<String>? extractImageUrls(dynamic jsonString) {
+  if (jsonString == null) {
+    return null;
+  }
+
+  List<dynamic> imageList = jsonDecode(jsonString);
+  List<String> imageUrlList = imageList.map((url) => url.toString()).toList();
+  return imageUrlList;
+}

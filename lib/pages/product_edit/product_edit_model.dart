@@ -20,6 +20,8 @@ class ProductEditModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
+  // Stores action output result for [Backend Call - API (Produtos By Id)] action in ProductEdit widget.
+  ApiCallResponse? apiProdResult;
   Completer<ApiCallResponse>? apiRequestCompleter;
   bool isMediaUploading1 = false;
   FFUploadedFile uploadedLocalFile1 =

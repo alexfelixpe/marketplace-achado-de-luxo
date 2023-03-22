@@ -43,12 +43,51 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(const Duration(milliseconds: 2000));
-      FFAppState().prodImageList = getJsonField(
-        widget.produto,
-        r'''$.ImagemRemota''',
-      )!
-          .toList();
+      _model.apiProdResult = await ProdutosByIdCall.call(
+        id: getJsonField(
+          widget.produto,
+          r'''$._id''',
+        ).toString().toString(),
+      );
+      if ((_model.apiProdResult?.succeeded ?? true)) {
+        setState(() {
+          FFAppState().prodImageList = ProdutosByIdCall.imagemRemota(
+            (_model.apiProdResult?.jsonBody ?? ''),
+          )!
+              .toList();
+        });
+        await showDialog(
+          context: context,
+          builder: (alertDialogContext) {
+            return AlertDialog(
+              title: Text('Sucesso'),
+              content: Text('Sucesso'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(alertDialogContext),
+                  child: Text('Ok'),
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        await showDialog(
+          context: context,
+          builder: (alertDialogContext) {
+            return AlertDialog(
+              title: Text('Erro'),
+              content: Text('Erro'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(alertDialogContext),
+                  child: Text('Ok'),
+                ),
+              ],
+            );
+          },
+        );
+      }
     });
 
     _model.nomeProdController ??= TextEditingController(
