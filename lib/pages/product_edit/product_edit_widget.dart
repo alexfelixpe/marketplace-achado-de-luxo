@@ -51,10 +51,6 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
       );
       if ((_model.apiProdResult?.succeeded ?? true)) {
         setState(() {
-          FFAppState().prodImageList = ProdutosByIdCall.allFields(
-            (_model.apiProdResult?.jsonBody ?? ''),
-          )!
-              .toList();
           FFAppState().prodImageJson = ProdutosByIdCall.allFields(
             (_model.apiProdResult?.jsonBody ?? ''),
           );
