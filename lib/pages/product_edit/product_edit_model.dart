@@ -28,31 +28,43 @@ class ProductEditModel extends FlutterFlowModel {
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl1 = '';
 
+  // Stores action output result for [Backend Call - API (ImageUpload)] action in imgGridItem widget.
+  ApiCallResponse? imgUpload1;
   bool isDataUploading2 = false;
   FFUploadedFile uploadedLocalFile2 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl2 = '';
 
+  // Stores action output result for [Backend Call - API (ImageUpload)] action in imgGridItem widget.
+  ApiCallResponse? imgUpload2;
   bool isDataUploading3 = false;
   FFUploadedFile uploadedLocalFile3 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl3 = '';
 
+  // Stores action output result for [Backend Call - API (ImageUpload)] action in imgGridItem widget.
+  ApiCallResponse? imgUpload3;
   bool isDataUploading4 = false;
   FFUploadedFile uploadedLocalFile4 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl4 = '';
 
+  // Stores action output result for [Backend Call - API (ImageUpload)] action in imgGridItem widget.
+  ApiCallResponse? imgUpload4;
   bool isDataUploading5 = false;
   FFUploadedFile uploadedLocalFile5 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl5 = '';
 
+  // Stores action output result for [Backend Call - API (ImageUpload)] action in imgGridItem widget.
+  ApiCallResponse? imgUpload5;
   bool isDataUploading6 = false;
   FFUploadedFile uploadedLocalFile6 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl6 = '';
 
+  // Stores action output result for [Backend Call - API (ImageUpload)] action in imgGridItem widget.
+  ApiCallResponse? imgUpload6;
   // State field(s) for nomeProd widget.
   TextEditingController? nomeProdController;
   String? Function(BuildContext, String?)? nomeProdControllerValidator;

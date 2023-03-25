@@ -251,6 +251,11 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                       var downloadUrls =
                                                           <String>[];
                                                       try {
+                                                        showUploadMessage(
+                                                          context,
+                                                          'Enviando...',
+                                                          showLoading: true,
+                                                        );
                                                         selectedUploadedFiles =
                                                             selectedMedia
                                                                 .map((m) =>
@@ -285,6 +290,9 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                                 .map((u) => u!)
                                                                 .toList();
                                                       } finally {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .hideCurrentSnackBar();
                                                         _model.isDataUploading1 =
                                                             false;
                                                       }
@@ -303,17 +311,37 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                               downloadUrls
                                                                   .first;
                                                         });
+                                                        showUploadMessage(
+                                                            context,
+                                                            'Sucesso!');
                                                       } else {
                                                         setState(() {});
+                                                        showUploadMessage(
+                                                            context,
+                                                            'Falha ao enviar mídia.');
                                                         return;
                                                       }
                                                     }
 
+                                                    _model.imgUpload1 =
+                                                        await ImgGroup
+                                                            .imageUploadCall
+                                                            .call(
+                                                      image: _model
+                                                          .uploadedFileUrl1,
+                                                    );
                                                     setState(() {
                                                       FFAppState().prodImg1 =
-                                                          _model
-                                                              .uploadedFileUrl1;
+                                                          ImgGroup
+                                                              .imageUploadCall
+                                                              .imgUrl(
+                                                        (_model.imgUpload1
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      );
                                                     });
+
+                                                    setState(() {});
                                                   },
                                                   child: Image.network(
                                                     _model.uploadedFileUrl1 !=
@@ -384,6 +412,11 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                       var downloadUrls =
                                                           <String>[];
                                                       try {
+                                                        showUploadMessage(
+                                                          context,
+                                                          'Enviando...',
+                                                          showLoading: true,
+                                                        );
                                                         selectedUploadedFiles =
                                                             selectedMedia
                                                                 .map((m) =>
@@ -418,6 +451,9 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                                 .map((u) => u!)
                                                                 .toList();
                                                       } finally {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .hideCurrentSnackBar();
                                                         _model.isDataUploading2 =
                                                             false;
                                                       }
@@ -436,16 +472,37 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                               downloadUrls
                                                                   .first;
                                                         });
+                                                        showUploadMessage(
+                                                            context,
+                                                            'Sucesso!');
                                                       } else {
                                                         setState(() {});
+                                                        showUploadMessage(
+                                                            context,
+                                                            'Falha ao enviar mídia.');
                                                         return;
                                                       }
                                                     }
 
+                                                    _model.imgUpload2 =
+                                                        await ImgGroup
+                                                            .imageUploadCall
+                                                            .call(
+                                                      image: _model
+                                                          .uploadedFileUrl2,
+                                                    );
                                                     setState(() {
                                                       FFAppState().prodImg2 =
-                                                          FFAppState().prodImg2;
+                                                          ImgGroup
+                                                              .imageUploadCall
+                                                              .imgUrl(
+                                                        (_model.imgUpload3
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      );
                                                     });
+
+                                                    setState(() {});
                                                   },
                                                   child: Image.network(
                                                     _model.uploadedFileUrl2 !=
@@ -521,6 +578,11 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                       var downloadUrls =
                                                           <String>[];
                                                       try {
+                                                        showUploadMessage(
+                                                          context,
+                                                          'Enviando...',
+                                                          showLoading: true,
+                                                        );
                                                         selectedUploadedFiles =
                                                             selectedMedia
                                                                 .map((m) =>
@@ -555,6 +617,9 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                                 .map((u) => u!)
                                                                 .toList();
                                                       } finally {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .hideCurrentSnackBar();
                                                         _model.isDataUploading3 =
                                                             false;
                                                       }
@@ -573,16 +638,37 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                               downloadUrls
                                                                   .first;
                                                         });
+                                                        showUploadMessage(
+                                                            context,
+                                                            'Sucesso!');
                                                       } else {
                                                         setState(() {});
+                                                        showUploadMessage(
+                                                            context,
+                                                            'Falha ao enviar mídia.');
                                                         return;
                                                       }
                                                     }
 
+                                                    _model.imgUpload3 =
+                                                        await ImgGroup
+                                                            .imageUploadCall
+                                                            .call(
+                                                      image: _model
+                                                          .uploadedFileUrl3,
+                                                    );
                                                     setState(() {
                                                       FFAppState().prodImg3 =
-                                                          FFAppState().prodImg3;
+                                                          ImgGroup
+                                                              .imageUploadCall
+                                                              .imgUrl(
+                                                        (_model.imgUpload3
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      );
                                                     });
+
+                                                    setState(() {});
                                                   },
                                                   child: Image.network(
                                                     _model.uploadedFileUrl3 !=
@@ -653,6 +739,11 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                       var downloadUrls =
                                                           <String>[];
                                                       try {
+                                                        showUploadMessage(
+                                                          context,
+                                                          'Enviando...',
+                                                          showLoading: true,
+                                                        );
                                                         selectedUploadedFiles =
                                                             selectedMedia
                                                                 .map((m) =>
@@ -687,6 +778,9 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                                 .map((u) => u!)
                                                                 .toList();
                                                       } finally {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .hideCurrentSnackBar();
                                                         _model.isDataUploading4 =
                                                             false;
                                                       }
@@ -705,16 +799,37 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                               downloadUrls
                                                                   .first;
                                                         });
+                                                        showUploadMessage(
+                                                            context,
+                                                            'Sucesso!');
                                                       } else {
                                                         setState(() {});
+                                                        showUploadMessage(
+                                                            context,
+                                                            'Falha ao enviar mídia.');
                                                         return;
                                                       }
                                                     }
 
+                                                    _model.imgUpload4 =
+                                                        await ImgGroup
+                                                            .imageUploadCall
+                                                            .call(
+                                                      image: _model
+                                                          .uploadedFileUrl4,
+                                                    );
                                                     setState(() {
                                                       FFAppState().prodImg4 =
-                                                          FFAppState().prodImg4;
+                                                          ImgGroup
+                                                              .imageUploadCall
+                                                              .imgUrl(
+                                                        (_model.imgUpload4
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      );
                                                     });
+
+                                                    setState(() {});
                                                   },
                                                   child: Image.network(
                                                     _model.uploadedFileUrl4 !=
@@ -790,6 +905,11 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                       var downloadUrls =
                                                           <String>[];
                                                       try {
+                                                        showUploadMessage(
+                                                          context,
+                                                          'Enviando...',
+                                                          showLoading: true,
+                                                        );
                                                         selectedUploadedFiles =
                                                             selectedMedia
                                                                 .map((m) =>
@@ -824,6 +944,9 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                                 .map((u) => u!)
                                                                 .toList();
                                                       } finally {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .hideCurrentSnackBar();
                                                         _model.isDataUploading5 =
                                                             false;
                                                       }
@@ -842,16 +965,37 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                               downloadUrls
                                                                   .first;
                                                         });
+                                                        showUploadMessage(
+                                                            context,
+                                                            'Sucesso!');
                                                       } else {
                                                         setState(() {});
+                                                        showUploadMessage(
+                                                            context,
+                                                            'Falha ao enviar mídia.');
                                                         return;
                                                       }
                                                     }
 
+                                                    _model.imgUpload5 =
+                                                        await ImgGroup
+                                                            .imageUploadCall
+                                                            .call(
+                                                      image: _model
+                                                          .uploadedFileUrl5,
+                                                    );
                                                     setState(() {
                                                       FFAppState().prodImg5 =
-                                                          FFAppState().prodImg5;
+                                                          ImgGroup
+                                                              .imageUploadCall
+                                                              .imgUrl(
+                                                        (_model.imgUpload5
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      );
                                                     });
+
+                                                    setState(() {});
                                                   },
                                                   child: Image.network(
                                                     _model.uploadedFileUrl5 !=
@@ -922,6 +1066,11 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                       var downloadUrls =
                                                           <String>[];
                                                       try {
+                                                        showUploadMessage(
+                                                          context,
+                                                          'Enviando...',
+                                                          showLoading: true,
+                                                        );
                                                         selectedUploadedFiles =
                                                             selectedMedia
                                                                 .map((m) =>
@@ -956,6 +1105,9 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                                 .map((u) => u!)
                                                                 .toList();
                                                       } finally {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .hideCurrentSnackBar();
                                                         _model.isDataUploading6 =
                                                             false;
                                                       }
@@ -974,16 +1126,31 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                               downloadUrls
                                                                   .first;
                                                         });
+                                                        showUploadMessage(
+                                                            context,
+                                                            'Sucesso!');
                                                       } else {
                                                         setState(() {});
+                                                        showUploadMessage(
+                                                            context,
+                                                            'Falha ao enviar mídia.');
                                                         return;
                                                       }
                                                     }
 
+                                                    _model.imgUpload6 =
+                                                        await ImgGroup
+                                                            .imageUploadCall
+                                                            .call(
+                                                      image: _model
+                                                          .uploadedFileUrl6,
+                                                    );
                                                     setState(() {
                                                       FFAppState().prodImg6 =
-                                                          FFAppState().prodImg6;
+                                                          '';
                                                     });
+
+                                                    setState(() {});
                                                   },
                                                   child: Image.network(
                                                     _model.uploadedFileUrl6 !=
