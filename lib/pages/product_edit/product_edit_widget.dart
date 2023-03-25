@@ -344,18 +344,10 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                     setState(() {});
                                                   },
                                                   child: Image.network(
-                                                    _model.uploadedFileUrl1 !=
-                                                                null &&
-                                                            _model.uploadedFileUrl1 !=
-                                                                ''
-                                                        ? _model
-                                                            .uploadedFileUrl1
-                                                        : valueOrDefault<
-                                                            String>(
-                                                            FFAppState()
-                                                                .prodImg1,
-                                                            'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
-                                                          ),
+                                                    valueOrDefault<String>(
+                                                      FFAppState().prodImg1,
+                                                      'https://i.ibb.co/801KyNm/users-uploads-1679769212365000.png',
+                                                    ),
                                                     width: 100.0,
                                                     height: 100.0,
                                                     fit: BoxFit.cover,
@@ -505,18 +497,10 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                     setState(() {});
                                                   },
                                                   child: Image.network(
-                                                    _model.uploadedFileUrl2 !=
-                                                                null &&
-                                                            _model.uploadedFileUrl2 !=
-                                                                ''
-                                                        ? _model
-                                                            .uploadedFileUrl2
-                                                        : valueOrDefault<
-                                                            String>(
-                                                            FFAppState()
-                                                                .prodImg2,
-                                                            'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
-                                                          ),
+                                                    valueOrDefault<String>(
+                                                      FFAppState().prodImg2,
+                                                      'https://i.ibb.co/801KyNm/users-uploads-1679769212365000.png',
+                                                    ),
                                                     width: 100.0,
                                                     height: 100.0,
                                                     fit: BoxFit.cover,
