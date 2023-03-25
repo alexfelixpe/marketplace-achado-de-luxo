@@ -6,9 +6,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/flutter_flow/upload_media.dart';
+import '/flutter_flow/upload_data.dart';
 import '/pages/produto/produto_widget.dart';
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -44,6 +43,14 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setState(() {
+        FFAppState().prodImg1 = '';
+        FFAppState().prodImg2 = '';
+        FFAppState().prodImg3 = '';
+        FFAppState().prodImg4 = '';
+        FFAppState().prodImg5 = '';
+        FFAppState().prodImg6 = '';
+      });
       _model.apiProdResult = await ProdutosByIdCall.call(
         id: getJsonField(
           widget.produto,
@@ -52,9 +59,29 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
       );
       if ((_model.apiProdResult?.succeeded ?? true)) {
         setState(() {
-          FFAppState().prodImageJson = getJsonField(
-            (_model.apiProdResult?.jsonBody ?? ''),
-            r'''$.response.ImagemRemota''',
+          FFAppState().prodImg1 = getJsonField(
+            widget.produto,
+            r'''$.ImagemRemota[0]''',
+          );
+          FFAppState().prodImg2 = getJsonField(
+            widget.produto,
+            r'''$.ImagemRemota[1]''',
+          );
+          FFAppState().prodImg3 = getJsonField(
+            widget.produto,
+            r'''$.ImagemRemota[2]''',
+          );
+          FFAppState().prodImg4 = getJsonField(
+            widget.produto,
+            r'''$.ImagemRemota[3]''',
+          );
+          FFAppState().prodImg5 = getJsonField(
+            widget.produto,
+            r'''$.ImagemRemota[4]''',
+          );
+          FFAppState().prodImg6 = getJsonField(
+            widget.produto,
+            r'''$.ImagemRemota[5]''',
           );
         });
         await showDialog(
@@ -185,33 +212,20 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: Builder(
-                                    builder: (context) {
-                                      final fotos = FFAppState()
-                                          .prodImageJson
-                                          .toList()
-                                          .take(6)
-                                          .toList();
-                                      return GridView.builder(
-                                        padding: EdgeInsets.zero,
-                                        gridDelegate:
-                                            SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 3,
-                                          crossAxisSpacing: 10.0,
-                                          mainAxisSpacing: 10.0,
-                                          childAspectRatio: 1.0,
-                                        ),
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.vertical,
-                                        itemCount: fotos.length,
-                                        itemBuilder: (context, fotosIndex) {
-                                          final fotosItem = fotos[fotosIndex];
-                                          return Stack(
+                            Form(
+                              key: _model.formKey,
+                              autovalidateMode: AutovalidateMode.always,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Stack(
                                             children: [
                                               Padding(
                                                 padding: EdgeInsetsDirectional
@@ -230,7 +244,7 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                                 m.storagePath,
                                                                 context))) {
                                                       setState(() => _model
-                                                              .isMediaUploading1 =
+                                                              .isDataUploading1 =
                                                           true);
                                                       var selectedUploadedFiles =
                                                           <FFUploadedFile>[];
@@ -271,7 +285,7 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                                 .map((u) => u!)
                                                                 .toList();
                                                       } finally {
-                                                        _model.isMediaUploading1 =
+                                                        _model.isDataUploading1 =
                                                             false;
                                                       }
                                                       if (selectedUploadedFiles
@@ -296,13 +310,24 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                     }
 
                                                     setState(() {
-                                                      FFAppState()
-                                                          .addToProdImageList(_model
-                                                              .uploadedFileUrl1);
+                                                      FFAppState().prodImg1 =
+                                                          _model
+                                                              .uploadedFileUrl1;
                                                     });
                                                   },
                                                   child: Image.network(
-                                                    fotosItem,
+                                                    _model.uploadedFileUrl1 !=
+                                                                null &&
+                                                            _model.uploadedFileUrl1 !=
+                                                                ''
+                                                        ? _model
+                                                            .uploadedFileUrl1
+                                                        : valueOrDefault<
+                                                            String>(
+                                                            FFAppState()
+                                                                .prodImg1,
+                                                            'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
+                                                          ),
                                                     width: 100.0,
                                                     height: 100.0,
                                                     fit: BoxFit.cover,
@@ -325,709 +350,1484 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                         .alternate,
                                                     size: 20.0,
                                                   ),
-                                                  onPressed: () async {
-                                                    _model.apiResultmkj =
-                                                        await ImgGroup
-                                                            .imageDeleteCall
-                                                            .call(
-                                                      image: getJsonField(
-                                                        columnProdutosByIdResponse
-                                                            .jsonBody,
-                                                        r'''$.response.ImagemRemota[0]''',
-                                                      ),
-                                                      id: getJsonField(
-                                                        columnProdutosByIdResponse
-                                                            .jsonBody,
-                                                        r'''$.response._id''',
-                                                      ).toString(),
-                                                    );
-                                                    if ((_model.apiResultmkj
-                                                            ?.succeeded ??
-                                                        true)) {
-                                                      setState(() {
-                                                        FFAppState()
-                                                            .removeFromProdImageList(
-                                                                getJsonField(
-                                                          columnProdutosByIdResponse
-                                                              .jsonBody,
-                                                          r'''$.response.ImagemRemota[0]''',
-                                                        ));
-                                                      });
-                                                      setState(() => _model
-                                                              .apiRequestCompleter =
-                                                          null);
-                                                      await _model
-                                                          .waitForApiRequestCompleted();
-                                                    }
-
-                                                    setState(() {});
+                                                  onPressed: () {
+                                                    print(
+                                                        'IconButton pressed ...');
                                                   },
                                                 ),
                                               ),
                                             ],
-                                          );
-                                        },
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
-                                  child: FFButtonWidget(
-                                    onPressed: () async {
-                                      final selectedMedia =
-                                          await selectMediaWithSourceBottomSheet(
-                                        context: context,
-                                        allowPhoto: true,
-                                      );
-                                      if (selectedMedia != null &&
-                                          selectedMedia.every((m) =>
-                                              validateFileFormat(
-                                                  m.storagePath, context))) {
-                                        setState(() =>
-                                            _model.isMediaUploading2 = true);
-                                        var selectedUploadedFiles =
-                                            <FFUploadedFile>[];
-                                        var downloadUrls = <String>[];
-                                        try {
-                                          selectedUploadedFiles = selectedMedia
-                                              .map((m) => FFUploadedFile(
-                                                    name: m.storagePath
-                                                        .split('/')
-                                                        .last,
-                                                    bytes: m.bytes,
-                                                    height:
-                                                        m.dimensions?.height,
-                                                    width: m.dimensions?.width,
-                                                  ))
-                                              .toList();
-
-                                          downloadUrls = (await Future.wait(
-                                            selectedMedia.map(
-                                              (m) async => await uploadData(
-                                                  m.storagePath, m.bytes),
-                                            ),
-                                          ))
-                                              .where((u) => u != null)
-                                              .map((u) => u!)
-                                              .toList();
-                                        } finally {
-                                          _model.isMediaUploading2 = false;
-                                        }
-                                        if (selectedUploadedFiles.length ==
-                                                selectedMedia.length &&
-                                            downloadUrls.length ==
-                                                selectedMedia.length) {
-                                          setState(() {
-                                            _model.uploadedLocalFile2 =
-                                                selectedUploadedFiles.first;
-                                            _model.uploadedFileUrl2 =
-                                                downloadUrls.first;
-                                          });
-                                        } else {
-                                          setState(() {});
-                                          return;
-                                        }
-                                      }
-
-                                      _model.novoJson =
-                                          await actions.addImageOut(
-                                        getJsonField(
-                                          FFAppState().prodImageJson,
-                                          r'''$''',
-                                        ),
-                                        _model.uploadedFileUrl2,
-                                      );
-                                      setState(() {
-                                        FFAppState().prodImageJson =
-                                            _model.novoJson!;
-                                      });
-
-                                      setState(() {});
-                                    },
-                                    text: '+ Fotos',
-                                    icon: Icon(
-                                      Icons.camera_enhance,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                      size: 15.0,
-                                    ),
-                                    options: FFButtonOptions(
-                                      width: 130.0,
-                                      height: 40.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 0.0),
-                                      iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBtnText,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .subtitle2
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
                                           ),
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Form(
-                              key: _model.formKey,
-                              autovalidateMode: AutovalidateMode.always,
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 10.0),
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(-0.8, 0.0),
-                                        child: Text(
-                                          'Nome',
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 0.0, 20.0, 5.0),
-                                        child: TextFormField(
-                                          controller: _model.nomeProdController,
-                                          onChanged: (_) =>
-                                              EasyDebounce.debounce(
-                                            '_model.nomeProdController',
-                                            Duration(milliseconds: 2000),
-                                            () => setState(() {}),
+                                          Stack(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        10.0, 10.0, 10.0, 10.0),
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    final selectedMedia =
+                                                        await selectMediaWithSourceBottomSheet(
+                                                      context: context,
+                                                      allowPhoto: true,
+                                                    );
+                                                    if (selectedMedia != null &&
+                                                        selectedMedia.every((m) =>
+                                                            validateFileFormat(
+                                                                m.storagePath,
+                                                                context))) {
+                                                      setState(() => _model
+                                                              .isDataUploading2 =
+                                                          true);
+                                                      var selectedUploadedFiles =
+                                                          <FFUploadedFile>[];
+                                                      var downloadUrls =
+                                                          <String>[];
+                                                      try {
+                                                        selectedUploadedFiles =
+                                                            selectedMedia
+                                                                .map((m) =>
+                                                                    FFUploadedFile(
+                                                                      name: m
+                                                                          .storagePath
+                                                                          .split(
+                                                                              '/')
+                                                                          .last,
+                                                                      bytes: m
+                                                                          .bytes,
+                                                                      height: m
+                                                                          .dimensions
+                                                                          ?.height,
+                                                                      width: m
+                                                                          .dimensions
+                                                                          ?.width,
+                                                                    ))
+                                                                .toList();
+
+                                                        downloadUrls =
+                                                            (await Future.wait(
+                                                          selectedMedia.map(
+                                                            (m) async =>
+                                                                await uploadData(
+                                                                    m.storagePath,
+                                                                    m.bytes),
+                                                          ),
+                                                        ))
+                                                                .where((u) =>
+                                                                    u != null)
+                                                                .map((u) => u!)
+                                                                .toList();
+                                                      } finally {
+                                                        _model.isDataUploading2 =
+                                                            false;
+                                                      }
+                                                      if (selectedUploadedFiles
+                                                                  .length ==
+                                                              selectedMedia
+                                                                  .length &&
+                                                          downloadUrls.length ==
+                                                              selectedMedia
+                                                                  .length) {
+                                                        setState(() {
+                                                          _model.uploadedLocalFile2 =
+                                                              selectedUploadedFiles
+                                                                  .first;
+                                                          _model.uploadedFileUrl2 =
+                                                              downloadUrls
+                                                                  .first;
+                                                        });
+                                                      } else {
+                                                        setState(() {});
+                                                        return;
+                                                      }
+                                                    }
+
+                                                    setState(() {
+                                                      FFAppState().prodImg2 =
+                                                          FFAppState().prodImg2;
+                                                    });
+                                                  },
+                                                  child: Image.network(
+                                                    _model.uploadedFileUrl2 !=
+                                                                null &&
+                                                            _model.uploadedFileUrl2 !=
+                                                                ''
+                                                        ? _model
+                                                            .uploadedFileUrl2
+                                                        : valueOrDefault<
+                                                            String>(
+                                                            FFAppState()
+                                                                .prodImg2,
+                                                            'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
+                                                          ),
+                                                    width: 100.0,
+                                                    height: 100.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    1.08, -1.02),
+                                                child: FlutterFlowIconButton(
+                                                  borderColor:
+                                                      Colors.transparent,
+                                                  borderRadius: 10.0,
+                                                  borderWidth: 1.0,
+                                                  buttonSize: 40.0,
+                                                  icon: Icon(
+                                                    Icons.delete_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .alternate,
+                                                    size: 20.0,
+                                                  ),
+                                                  onPressed: () {
+                                                    print(
+                                                        'IconButton pressed ...');
+                                                  },
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          textCapitalization:
-                                              TextCapitalization.words,
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyText2,
-                                            hintStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyText2,
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .grayIcon,
-                                                width: 2.0,
+                                        ],
+                                      ),
+                                      Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Stack(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        10.0, 10.0, 10.0, 10.0),
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    final selectedMedia =
+                                                        await selectMediaWithSourceBottomSheet(
+                                                      context: context,
+                                                      allowPhoto: true,
+                                                    );
+                                                    if (selectedMedia != null &&
+                                                        selectedMedia.every((m) =>
+                                                            validateFileFormat(
+                                                                m.storagePath,
+                                                                context))) {
+                                                      setState(() => _model
+                                                              .isDataUploading3 =
+                                                          true);
+                                                      var selectedUploadedFiles =
+                                                          <FFUploadedFile>[];
+                                                      var downloadUrls =
+                                                          <String>[];
+                                                      try {
+                                                        selectedUploadedFiles =
+                                                            selectedMedia
+                                                                .map((m) =>
+                                                                    FFUploadedFile(
+                                                                      name: m
+                                                                          .storagePath
+                                                                          .split(
+                                                                              '/')
+                                                                          .last,
+                                                                      bytes: m
+                                                                          .bytes,
+                                                                      height: m
+                                                                          .dimensions
+                                                                          ?.height,
+                                                                      width: m
+                                                                          .dimensions
+                                                                          ?.width,
+                                                                    ))
+                                                                .toList();
+
+                                                        downloadUrls =
+                                                            (await Future.wait(
+                                                          selectedMedia.map(
+                                                            (m) async =>
+                                                                await uploadData(
+                                                                    m.storagePath,
+                                                                    m.bytes),
+                                                          ),
+                                                        ))
+                                                                .where((u) =>
+                                                                    u != null)
+                                                                .map((u) => u!)
+                                                                .toList();
+                                                      } finally {
+                                                        _model.isDataUploading3 =
+                                                            false;
+                                                      }
+                                                      if (selectedUploadedFiles
+                                                                  .length ==
+                                                              selectedMedia
+                                                                  .length &&
+                                                          downloadUrls.length ==
+                                                              selectedMedia
+                                                                  .length) {
+                                                        setState(() {
+                                                          _model.uploadedLocalFile3 =
+                                                              selectedUploadedFiles
+                                                                  .first;
+                                                          _model.uploadedFileUrl3 =
+                                                              downloadUrls
+                                                                  .first;
+                                                        });
+                                                      } else {
+                                                        setState(() {});
+                                                        return;
+                                                      }
+                                                    }
+
+                                                    setState(() {
+                                                      FFAppState().prodImg3 =
+                                                          FFAppState().prodImg3;
+                                                    });
+                                                  },
+                                                  child: Image.network(
+                                                    _model.uploadedFileUrl3 !=
+                                                                null &&
+                                                            _model.uploadedFileUrl3 !=
+                                                                ''
+                                                        ? _model
+                                                            .uploadedFileUrl3
+                                                        : valueOrDefault<
+                                                            String>(
+                                                            FFAppState()
+                                                                .prodImg3,
+                                                            'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
+                                                          ),
+                                                    width: 100.0,
+                                                    height: 100.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .gray600,
-                                                width: 2.0,
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    1.08, -1.02),
+                                                child: FlutterFlowIconButton(
+                                                  borderColor:
+                                                      Colors.transparent,
+                                                  borderRadius: 10.0,
+                                                  borderWidth: 1.0,
+                                                  buttonSize: 40.0,
+                                                  icon: Icon(
+                                                    Icons.delete_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .alternate,
+                                                    size: 20.0,
+                                                  ),
+                                                  onPressed: () {
+                                                    print(
+                                                        'IconButton pressed ...');
+                                                  },
+                                                ),
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 2.0,
+                                            ],
+                                          ),
+                                          Stack(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        10.0, 10.0, 10.0, 10.0),
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    final selectedMedia =
+                                                        await selectMediaWithSourceBottomSheet(
+                                                      context: context,
+                                                      allowPhoto: true,
+                                                    );
+                                                    if (selectedMedia != null &&
+                                                        selectedMedia.every((m) =>
+                                                            validateFileFormat(
+                                                                m.storagePath,
+                                                                context))) {
+                                                      setState(() => _model
+                                                              .isDataUploading4 =
+                                                          true);
+                                                      var selectedUploadedFiles =
+                                                          <FFUploadedFile>[];
+                                                      var downloadUrls =
+                                                          <String>[];
+                                                      try {
+                                                        selectedUploadedFiles =
+                                                            selectedMedia
+                                                                .map((m) =>
+                                                                    FFUploadedFile(
+                                                                      name: m
+                                                                          .storagePath
+                                                                          .split(
+                                                                              '/')
+                                                                          .last,
+                                                                      bytes: m
+                                                                          .bytes,
+                                                                      height: m
+                                                                          .dimensions
+                                                                          ?.height,
+                                                                      width: m
+                                                                          .dimensions
+                                                                          ?.width,
+                                                                    ))
+                                                                .toList();
+
+                                                        downloadUrls =
+                                                            (await Future.wait(
+                                                          selectedMedia.map(
+                                                            (m) async =>
+                                                                await uploadData(
+                                                                    m.storagePath,
+                                                                    m.bytes),
+                                                          ),
+                                                        ))
+                                                                .where((u) =>
+                                                                    u != null)
+                                                                .map((u) => u!)
+                                                                .toList();
+                                                      } finally {
+                                                        _model.isDataUploading4 =
+                                                            false;
+                                                      }
+                                                      if (selectedUploadedFiles
+                                                                  .length ==
+                                                              selectedMedia
+                                                                  .length &&
+                                                          downloadUrls.length ==
+                                                              selectedMedia
+                                                                  .length) {
+                                                        setState(() {
+                                                          _model.uploadedLocalFile4 =
+                                                              selectedUploadedFiles
+                                                                  .first;
+                                                          _model.uploadedFileUrl4 =
+                                                              downloadUrls
+                                                                  .first;
+                                                        });
+                                                      } else {
+                                                        setState(() {});
+                                                        return;
+                                                      }
+                                                    }
+
+                                                    setState(() {
+                                                      FFAppState().prodImg4 =
+                                                          FFAppState().prodImg4;
+                                                    });
+                                                  },
+                                                  child: Image.network(
+                                                    _model.uploadedFileUrl4 !=
+                                                                null &&
+                                                            _model.uploadedFileUrl4 !=
+                                                                ''
+                                                        ? _model
+                                                            .uploadedFileUrl4
+                                                        : valueOrDefault<
+                                                            String>(
+                                                            FFAppState()
+                                                                .prodImg4,
+                                                            'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
+                                                          ),
+                                                    width: 100.0,
+                                                    height: 100.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 2.0,
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    1.08, -1.02),
+                                                child: FlutterFlowIconButton(
+                                                  borderColor:
+                                                      Colors.transparent,
+                                                  borderRadius: 10.0,
+                                                  borderWidth: 1.0,
+                                                  buttonSize: 40.0,
+                                                  icon: Icon(
+                                                    Icons.delete_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .alternate,
+                                                    size: 20.0,
+                                                  ),
+                                                  onPressed: () {
+                                                    print(
+                                                        'IconButton pressed ...');
+                                                  },
+                                                ),
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Stack(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        10.0, 10.0, 10.0, 10.0),
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    final selectedMedia =
+                                                        await selectMediaWithSourceBottomSheet(
+                                                      context: context,
+                                                      allowPhoto: true,
+                                                    );
+                                                    if (selectedMedia != null &&
+                                                        selectedMedia.every((m) =>
+                                                            validateFileFormat(
+                                                                m.storagePath,
+                                                                context))) {
+                                                      setState(() => _model
+                                                              .isDataUploading5 =
+                                                          true);
+                                                      var selectedUploadedFiles =
+                                                          <FFUploadedFile>[];
+                                                      var downloadUrls =
+                                                          <String>[];
+                                                      try {
+                                                        selectedUploadedFiles =
+                                                            selectedMedia
+                                                                .map((m) =>
+                                                                    FFUploadedFile(
+                                                                      name: m
+                                                                          .storagePath
+                                                                          .split(
+                                                                              '/')
+                                                                          .last,
+                                                                      bytes: m
+                                                                          .bytes,
+                                                                      height: m
+                                                                          .dimensions
+                                                                          ?.height,
+                                                                      width: m
+                                                                          .dimensions
+                                                                          ?.width,
+                                                                    ))
+                                                                .toList();
+
+                                                        downloadUrls =
+                                                            (await Future.wait(
+                                                          selectedMedia.map(
+                                                            (m) async =>
+                                                                await uploadData(
+                                                                    m.storagePath,
+                                                                    m.bytes),
+                                                          ),
+                                                        ))
+                                                                .where((u) =>
+                                                                    u != null)
+                                                                .map((u) => u!)
+                                                                .toList();
+                                                      } finally {
+                                                        _model.isDataUploading5 =
+                                                            false;
+                                                      }
+                                                      if (selectedUploadedFiles
+                                                                  .length ==
+                                                              selectedMedia
+                                                                  .length &&
+                                                          downloadUrls.length ==
+                                                              selectedMedia
+                                                                  .length) {
+                                                        setState(() {
+                                                          _model.uploadedLocalFile5 =
+                                                              selectedUploadedFiles
+                                                                  .first;
+                                                          _model.uploadedFileUrl5 =
+                                                              downloadUrls
+                                                                  .first;
+                                                        });
+                                                      } else {
+                                                        setState(() {});
+                                                        return;
+                                                      }
+                                                    }
+
+                                                    setState(() {
+                                                      FFAppState().prodImg5 =
+                                                          FFAppState().prodImg5;
+                                                    });
+                                                  },
+                                                  child: Image.network(
+                                                    _model.uploadedFileUrl5 !=
+                                                                null &&
+                                                            _model.uploadedFileUrl5 !=
+                                                                ''
+                                                        ? _model
+                                                            .uploadedFileUrl5
+                                                        : valueOrDefault<
+                                                            String>(
+                                                            FFAppState()
+                                                                .prodImg5,
+                                                            'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
+                                                          ),
+                                                    width: 100.0,
+                                                    height: 100.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    1.08, -1.02),
+                                                child: FlutterFlowIconButton(
+                                                  borderColor:
+                                                      Colors.transparent,
+                                                  borderRadius: 10.0,
+                                                  borderWidth: 1.0,
+                                                  buttonSize: 40.0,
+                                                  icon: Icon(
+                                                    Icons.delete_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .alternate,
+                                                    size: 20.0,
+                                                  ),
+                                                  onPressed: () {
+                                                    print(
+                                                        'IconButton pressed ...');
+                                                  },
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Stack(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        10.0, 10.0, 10.0, 10.0),
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    final selectedMedia =
+                                                        await selectMediaWithSourceBottomSheet(
+                                                      context: context,
+                                                      allowPhoto: true,
+                                                    );
+                                                    if (selectedMedia != null &&
+                                                        selectedMedia.every((m) =>
+                                                            validateFileFormat(
+                                                                m.storagePath,
+                                                                context))) {
+                                                      setState(() => _model
+                                                              .isDataUploading6 =
+                                                          true);
+                                                      var selectedUploadedFiles =
+                                                          <FFUploadedFile>[];
+                                                      var downloadUrls =
+                                                          <String>[];
+                                                      try {
+                                                        selectedUploadedFiles =
+                                                            selectedMedia
+                                                                .map((m) =>
+                                                                    FFUploadedFile(
+                                                                      name: m
+                                                                          .storagePath
+                                                                          .split(
+                                                                              '/')
+                                                                          .last,
+                                                                      bytes: m
+                                                                          .bytes,
+                                                                      height: m
+                                                                          .dimensions
+                                                                          ?.height,
+                                                                      width: m
+                                                                          .dimensions
+                                                                          ?.width,
+                                                                    ))
+                                                                .toList();
+
+                                                        downloadUrls =
+                                                            (await Future.wait(
+                                                          selectedMedia.map(
+                                                            (m) async =>
+                                                                await uploadData(
+                                                                    m.storagePath,
+                                                                    m.bytes),
+                                                          ),
+                                                        ))
+                                                                .where((u) =>
+                                                                    u != null)
+                                                                .map((u) => u!)
+                                                                .toList();
+                                                      } finally {
+                                                        _model.isDataUploading6 =
+                                                            false;
+                                                      }
+                                                      if (selectedUploadedFiles
+                                                                  .length ==
+                                                              selectedMedia
+                                                                  .length &&
+                                                          downloadUrls.length ==
+                                                              selectedMedia
+                                                                  .length) {
+                                                        setState(() {
+                                                          _model.uploadedLocalFile6 =
+                                                              selectedUploadedFiles
+                                                                  .first;
+                                                          _model.uploadedFileUrl6 =
+                                                              downloadUrls
+                                                                  .first;
+                                                        });
+                                                      } else {
+                                                        setState(() {});
+                                                        return;
+                                                      }
+                                                    }
+
+                                                    setState(() {
+                                                      FFAppState().prodImg6 =
+                                                          FFAppState().prodImg6;
+                                                    });
+                                                  },
+                                                  child: Image.network(
+                                                    _model.uploadedFileUrl6 !=
+                                                                null &&
+                                                            _model.uploadedFileUrl6 !=
+                                                                ''
+                                                        ? _model
+                                                            .uploadedFileUrl6
+                                                        : valueOrDefault<
+                                                            String>(
+                                                            FFAppState()
+                                                                .prodImg6,
+                                                            'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
+                                                          ),
+                                                    width: 100.0,
+                                                    height: 100.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    1.08, -1.02),
+                                                child: FlutterFlowIconButton(
+                                                  borderColor:
+                                                      Colors.transparent,
+                                                  borderRadius: 10.0,
+                                                  borderWidth: 1.0,
+                                                  buttonSize: 40.0,
+                                                  icon: Icon(
+                                                    Icons.delete_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .alternate,
+                                                    size: 20.0,
+                                                  ),
+                                                  onPressed: () {
+                                                    print(
+                                                        'IconButton pressed ...');
+                                                  },
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 10.0),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(-0.8, 0.0),
+                                            child: Text(
+                                              'Nome',
+                                              textAlign: TextAlign.start,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1,
                                             ),
-                                            filled: true,
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryBtnText,
-                                            contentPadding:
+                                          ),
+                                          Padding(
+                                            padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    20.0, 24.0, 0.0, 24.0),
-                                            suffixIcon: _model
-                                                    .nomeProdController!
-                                                    .text
-                                                    .isNotEmpty
-                                                ? InkWell(
-                                                    onTap: () async {
-                                                      _model.nomeProdController
-                                                          ?.clear();
-                                                      setState(() {});
-                                                    },
-                                                    child: Icon(
-                                                      Icons.clear,
-                                                      color:
+                                                    20.0, 0.0, 20.0, 5.0),
+                                            child: TextFormField(
+                                              controller:
+                                                  _model.nomeProdController,
+                                              onChanged: (_) =>
+                                                  EasyDebounce.debounce(
+                                                '_model.nomeProdController',
+                                                Duration(milliseconds: 2000),
+                                                () => setState(() {}),
+                                              ),
+                                              textCapitalization:
+                                                  TextCapitalization.words,
+                                              obscureText: false,
+                                              decoration: InputDecoration(
+                                                labelStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText2,
+                                                hintStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText2,
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .grayIcon,
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .gray600,
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                errorBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                focusedErrorBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                filled: true,
+                                                fillColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBtnText,
+                                                contentPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(20.0, 24.0,
+                                                            0.0, 24.0),
+                                                suffixIcon: _model
+                                                        .nomeProdController!
+                                                        .text
+                                                        .isNotEmpty
+                                                    ? InkWell(
+                                                        onTap: () async {
+                                                          _model
+                                                              .nomeProdController
+                                                              ?.clear();
+                                                          setState(() {});
+                                                        },
+                                                        child: Icon(
+                                                          Icons.clear,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .noColor,
+                                                          size: 22.0,
+                                                        ),
+                                                      )
+                                                    : null,
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1,
+                                              maxLines: null,
+                                              validator: _model
+                                                  .nomeProdControllerValidator
+                                                  .asValidator(context),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(-0.8, 0.0),
+                                            child: Text(
+                                              'Descrição',
+                                              textAlign: TextAlign.start,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    20.0, 0.0, 20.0, 5.0),
+                                            child: TextFormField(
+                                              controller:
+                                                  _model.descProdController,
+                                              onChanged: (_) =>
+                                                  EasyDebounce.debounce(
+                                                '_model.descProdController',
+                                                Duration(milliseconds: 2000),
+                                                () => setState(() {}),
+                                              ),
+                                              autofillHints: [
+                                                AutofillHints.name
+                                              ],
+                                              obscureText: false,
+                                              decoration: InputDecoration(
+                                                labelStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText2,
+                                                hintStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText2,
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .grayIcon,
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                errorBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                focusedErrorBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                filled: true,
+                                                fillColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBtnText,
+                                                contentPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(20.0, 24.0,
+                                                            0.0, 24.0),
+                                                suffixIcon: _model
+                                                        .descProdController!
+                                                        .text
+                                                        .isNotEmpty
+                                                    ? InkWell(
+                                                        onTap: () async {
+                                                          _model
+                                                              .descProdController
+                                                              ?.clear();
+                                                          setState(() {});
+                                                        },
+                                                        child: Icon(
+                                                          Icons.clear,
+                                                          color:
+                                                              Color(0xFF757575),
+                                                          size: 22.0,
+                                                        ),
+                                                      )
+                                                    : null,
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1,
+                                              maxLines: null,
+                                              validator: _model
+                                                  .descProdControllerValidator
+                                                  .asValidator(context),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(-0.8, 0.0),
+                                            child: Text(
+                                              'Estoque',
+                                              textAlign: TextAlign.start,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    20.0, 0.0, 20.0, 5.0),
+                                            child: TextFormField(
+                                              controller:
+                                                  _model.quantidadeController,
+                                              onChanged: (_) =>
+                                                  EasyDebounce.debounce(
+                                                '_model.quantidadeController',
+                                                Duration(milliseconds: 2000),
+                                                () => setState(() {}),
+                                              ),
+                                              autofillHints: [
+                                                AutofillHints.name
+                                              ],
+                                              obscureText: false,
+                                              decoration: InputDecoration(
+                                                labelStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText2,
+                                                hintStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText2,
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .grayIcon,
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                errorBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                focusedErrorBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                filled: true,
+                                                fillColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBtnText,
+                                                contentPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(20.0, 24.0,
+                                                            0.0, 24.0),
+                                                suffixIcon: _model
+                                                        .quantidadeController!
+                                                        .text
+                                                        .isNotEmpty
+                                                    ? InkWell(
+                                                        onTap: () async {
+                                                          _model
+                                                              .quantidadeController
+                                                              ?.clear();
+                                                          setState(() {});
+                                                        },
+                                                        child: Icon(
+                                                          Icons.clear,
+                                                          color:
+                                                              Color(0xFF757575),
+                                                          size: 22.0,
+                                                        ),
+                                                      )
+                                                    : null,
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1,
+                                              maxLines: null,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              validator: _model
+                                                  .quantidadeControllerValidator
+                                                  .asValidator(context),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(-0.8, 0.0),
+                                            child: Text(
+                                              'Preço',
+                                              textAlign: TextAlign.start,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    20.0, 0.0, 20.0, 5.0),
+                                            child: TextFormField(
+                                              controller:
+                                                  _model.precoProdController,
+                                              onChanged: (_) =>
+                                                  EasyDebounce.debounce(
+                                                '_model.precoProdController',
+                                                Duration(milliseconds: 2000),
+                                                () => setState(() {}),
+                                              ),
+                                              autofillHints: [
+                                                AutofillHints.name
+                                              ],
+                                              obscureText: false,
+                                              decoration: InputDecoration(
+                                                labelStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText2,
+                                                hintStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText2,
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .grayIcon,
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                errorBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                focusedErrorBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                filled: true,
+                                                fillColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBtnText,
+                                                contentPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(20.0, 24.0,
+                                                            0.0, 24.0),
+                                                suffixIcon: _model
+                                                        .precoProdController!
+                                                        .text
+                                                        .isNotEmpty
+                                                    ? InkWell(
+                                                        onTap: () async {
+                                                          _model
+                                                              .precoProdController
+                                                              ?.clear();
+                                                          setState(() {});
+                                                        },
+                                                        child: Icon(
+                                                          Icons.clear,
+                                                          color:
+                                                              Color(0xFF757575),
+                                                          size: 22.0,
+                                                        ),
+                                                      )
+                                                    : null,
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1,
+                                              maxLines: null,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              validator: _model
+                                                  .precoProdControllerValidator
+                                                  .asValidator(context),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(-0.8, 0.0),
+                                            child: Text(
+                                              'Marca',
+                                              textAlign: TextAlign.start,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    20.0, 0.0, 20.0, 5.0),
+                                            child: TextFormField(
+                                              controller:
+                                                  _model.marcaProdController,
+                                              onChanged: (_) =>
+                                                  EasyDebounce.debounce(
+                                                '_model.marcaProdController',
+                                                Duration(milliseconds: 2000),
+                                                () => setState(() {}),
+                                              ),
+                                              autofocus: true,
+                                              autofillHints: [
+                                                AutofillHints.name
+                                              ],
+                                              obscureText: false,
+                                              decoration: InputDecoration(
+                                                labelStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText2,
+                                                hintStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText2,
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .grayIcon,
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                errorBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                focusedErrorBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0x00000000),
+                                                    width: 2.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                filled: true,
+                                                fillColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBtnText,
+                                                contentPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(20.0, 24.0,
+                                                            0.0, 24.0),
+                                                suffixIcon: _model
+                                                        .marcaProdController!
+                                                        .text
+                                                        .isNotEmpty
+                                                    ? InkWell(
+                                                        onTap: () async {
+                                                          _model
+                                                              .marcaProdController
+                                                              ?.clear();
+                                                          setState(() {});
+                                                        },
+                                                        child: Icon(
+                                                          Icons.clear,
+                                                          color:
+                                                              Color(0xFF757575),
+                                                          size: 22.0,
+                                                        ),
+                                                      )
+                                                    : null,
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1,
+                                              maxLines: null,
+                                              validator: _model
+                                                  .marcaProdControllerValidator
+                                                  .asValidator(context),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(-0.8, 0.0),
+                                            child: Text(
+                                              'Categoria',
+                                              textAlign: TextAlign.start,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1,
+                                            ),
+                                          ),
+                                          Wrap(
+                                            spacing: 5.0,
+                                            runSpacing: 0.0,
+                                            alignment: WrapAlignment.start,
+                                            crossAxisAlignment:
+                                                WrapCrossAlignment.start,
+                                            direction: Axis.horizontal,
+                                            runAlignment: WrapAlignment.start,
+                                            verticalDirection:
+                                                VerticalDirection.down,
+                                            clipBehavior: Clip.none,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        20.0, 0.0, 20.0, 0.0),
+                                                child: FutureBuilder<
+                                                    ApiCallResponse>(
+                                                  future: ListasGroup
+                                                      .categoriasCall
+                                                      .call(),
+                                                  builder: (context, snapshot) {
+                                                    // Customize what your widget looks like when it's loading.
+                                                    if (!snapshot.hasData) {
+                                                      return Center(
+                                                        child: SizedBox(
+                                                          width: 50.0,
+                                                          height: 50.0,
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryColor,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                    final categoriaProdCategoriasResponse =
+                                                        snapshot.data!;
+                                                    return FlutterFlowDropDown<
+                                                        String>(
+                                                      controller: _model
+                                                              .categoriaProdController ??=
+                                                          FormFieldController<
+                                                              String>(
+                                                        _model.categoriaProdValue ??=
+                                                            getJsonField(
+                                                          widget.produto,
+                                                          r'''$.Categoria[0]''',
+                                                        ).toString(),
+                                                      ),
+                                                      options: (ListasGroup
+                                                              .categoriasCall
+                                                              .categoria(
+                                                        categoriaProdCategoriasResponse
+                                                            .jsonBody,
+                                                      ) as List)
+                                                          .map<String>((s) =>
+                                                              s.toString())
+                                                          .toList()!
+                                                          .toList(),
+                                                      onChanged: (val) =>
+                                                          setState(() => _model
+                                                                  .categoriaProdValue =
+                                                              val),
+                                                      width: double.infinity,
+                                                      height: 50.0,
+                                                      textStyle:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .noColor,
-                                                      size: 22.0,
-                                                    ),
-                                                  )
-                                                : null,
+                                                              .bodyText1,
+                                                      hintText: 'Selecione...',
+                                                      fillColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryBtnText,
+                                                      elevation: 2.0,
+                                                      borderColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .grayIcon,
+                                                      borderWidth: 2.0,
+                                                      borderRadius: 8.0,
+                                                      margin:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  12.0,
+                                                                  4.0,
+                                                                  12.0,
+                                                                  4.0),
+                                                      hidesUnderline: true,
+                                                      isSearchable: false,
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                          maxLines: null,
-                                          validator: _model
-                                              .nomeProdControllerValidator
-                                              .asValidator(context),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(-0.8, 0.0),
-                                        child: Text(
-                                          'Descrição',
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 0.0, 20.0, 5.0),
-                                        child: TextFormField(
-                                          controller: _model.descProdController,
-                                          onChanged: (_) =>
-                                              EasyDebounce.debounce(
-                                            '_model.descProdController',
-                                            Duration(milliseconds: 2000),
-                                            () => setState(() {}),
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(-0.8, 0.0),
+                                            child: Text(
+                                              'Cor',
+                                              textAlign: TextAlign.start,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1,
+                                            ),
                                           ),
-                                          autofillHints: [AutofillHints.name],
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyText2,
-                                            hintStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyText2,
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .grayIcon,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            filled: true,
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryBtnText,
-                                            contentPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    20.0, 24.0, 0.0, 24.0),
-                                            suffixIcon: _model
-                                                    .descProdController!
-                                                    .text
-                                                    .isNotEmpty
-                                                ? InkWell(
-                                                    onTap: () async {
-                                                      _model.descProdController
-                                                          ?.clear();
-                                                      setState(() {});
-                                                    },
-                                                    child: Icon(
-                                                      Icons.clear,
-                                                      color: Color(0xFF757575),
-                                                      size: 22.0,
-                                                    ),
-                                                  )
-                                                : null,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                          maxLines: null,
-                                          validator: _model
-                                              .descProdControllerValidator
-                                              .asValidator(context),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(-0.8, 0.0),
-                                        child: Text(
-                                          'Estoque',
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 0.0, 20.0, 5.0),
-                                        child: TextFormField(
-                                          controller:
-                                              _model.quantidadeController,
-                                          onChanged: (_) =>
-                                              EasyDebounce.debounce(
-                                            '_model.quantidadeController',
-                                            Duration(milliseconds: 2000),
-                                            () => setState(() {}),
-                                          ),
-                                          autofillHints: [AutofillHints.name],
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyText2,
-                                            hintStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyText2,
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .grayIcon,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            filled: true,
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryBtnText,
-                                            contentPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    20.0, 24.0, 0.0, 24.0),
-                                            suffixIcon: _model
-                                                    .quantidadeController!
-                                                    .text
-                                                    .isNotEmpty
-                                                ? InkWell(
-                                                    onTap: () async {
-                                                      _model
-                                                          .quantidadeController
-                                                          ?.clear();
-                                                      setState(() {});
-                                                    },
-                                                    child: Icon(
-                                                      Icons.clear,
-                                                      color: Color(0xFF757575),
-                                                      size: 22.0,
-                                                    ),
-                                                  )
-                                                : null,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                          maxLines: null,
-                                          keyboardType: TextInputType.number,
-                                          validator: _model
-                                              .quantidadeControllerValidator
-                                              .asValidator(context),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(-0.8, 0.0),
-                                        child: Text(
-                                          'Preço',
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 0.0, 20.0, 5.0),
-                                        child: TextFormField(
-                                          controller:
-                                              _model.precoProdController,
-                                          onChanged: (_) =>
-                                              EasyDebounce.debounce(
-                                            '_model.precoProdController',
-                                            Duration(milliseconds: 2000),
-                                            () => setState(() {}),
-                                          ),
-                                          autofillHints: [AutofillHints.name],
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyText2,
-                                            hintStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyText2,
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .grayIcon,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            filled: true,
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryBtnText,
-                                            contentPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    20.0, 24.0, 0.0, 24.0),
-                                            suffixIcon: _model
-                                                    .precoProdController!
-                                                    .text
-                                                    .isNotEmpty
-                                                ? InkWell(
-                                                    onTap: () async {
-                                                      _model.precoProdController
-                                                          ?.clear();
-                                                      setState(() {});
-                                                    },
-                                                    child: Icon(
-                                                      Icons.clear,
-                                                      color: Color(0xFF757575),
-                                                      size: 22.0,
-                                                    ),
-                                                  )
-                                                : null,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                          maxLines: null,
-                                          keyboardType: TextInputType.number,
-                                          validator: _model
-                                              .precoProdControllerValidator
-                                              .asValidator(context),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(-0.8, 0.0),
-                                        child: Text(
-                                          'Marca',
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 0.0, 20.0, 5.0),
-                                        child: TextFormField(
-                                          controller:
-                                              _model.marcaProdController,
-                                          onChanged: (_) =>
-                                              EasyDebounce.debounce(
-                                            '_model.marcaProdController',
-                                            Duration(milliseconds: 2000),
-                                            () => setState(() {}),
-                                          ),
-                                          autofocus: true,
-                                          autofillHints: [AutofillHints.name],
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyText2,
-                                            hintStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyText2,
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .grayIcon,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            filled: true,
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryBtnText,
-                                            contentPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    20.0, 24.0, 0.0, 24.0),
-                                            suffixIcon: _model
-                                                    .marcaProdController!
-                                                    .text
-                                                    .isNotEmpty
-                                                ? InkWell(
-                                                    onTap: () async {
-                                                      _model.marcaProdController
-                                                          ?.clear();
-                                                      setState(() {});
-                                                    },
-                                                    child: Icon(
-                                                      Icons.clear,
-                                                      color: Color(0xFF757575),
-                                                      size: 22.0,
-                                                    ),
-                                                  )
-                                                : null,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                          maxLines: null,
-                                          validator: _model
-                                              .marcaProdControllerValidator
-                                              .asValidator(context),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(-0.8, 0.0),
-                                        child: Text(
-                                          'Categoria',
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                      ),
-                                      Wrap(
-                                        spacing: 5.0,
-                                        runSpacing: 0.0,
-                                        alignment: WrapAlignment.start,
-                                        crossAxisAlignment:
-                                            WrapCrossAlignment.start,
-                                        direction: Axis.horizontal,
-                                        runAlignment: WrapAlignment.start,
-                                        verticalDirection:
-                                            VerticalDirection.down,
-                                        clipBehavior: Clip.none,
-                                        children: [
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child:
                                                 FutureBuilder<ApiCallResponse>(
-                                              future: ListasGroup.categoriasCall
+                                              future:
+                                                  ListasGroup.coresCall.call(),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 50.0,
+                                                      height: 50.0,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                                final corProdCoresResponse =
+                                                    snapshot.data!;
+                                                return FlutterFlowDropDown<
+                                                    String>(
+                                                  controller: _model
+                                                          .corProdController ??=
+                                                      FormFieldController<
+                                                          String>(
+                                                    _model.corProdValue ??=
+                                                        getJsonField(
+                                                      widget.produto,
+                                                      r'''$.Cor''',
+                                                    ).toString(),
+                                                  ),
+                                                  options: (ListasGroup
+                                                          .coresCall
+                                                          .cor(
+                                                    corProdCoresResponse
+                                                        .jsonBody,
+                                                  ) as List)
+                                                      .map<String>(
+                                                          (s) => s.toString())
+                                                      .toList()!
+                                                      .toList(),
+                                                  onChanged: (val) => setState(
+                                                      () => _model
+                                                          .corProdValue = val),
+                                                  width: double.infinity,
+                                                  height: 50.0,
+                                                  textStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyText1,
+                                                  hintText: 'Selecione...',
+                                                  fillColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryBtnText,
+                                                  elevation: 2.0,
+                                                  borderColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .grayIcon,
+                                                  borderWidth: 2.0,
+                                                  borderRadius: 8.0,
+                                                  margin: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          12.0, 4.0, 12.0, 4.0),
+                                                  hidesUnderline: true,
+                                                  isSearchable: false,
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(-0.8, 0.0),
+                                            child: Text(
+                                              'Tamanho',
+                                              textAlign: TextAlign.start,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    20.0, 0.0, 20.0, 0.0),
+                                            child:
+                                                FutureBuilder<ApiCallResponse>(
+                                              future: ListasGroup.tamanhosCall
                                                   .call(),
                                               builder: (context, snapshot) {
                                                 // Customize what your widget looks like when it's loading.
@@ -1046,33 +1846,35 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                     ),
                                                   );
                                                 }
-                                                final categoriaProdCategoriasResponse =
+                                                final tamanhoProdTamanhosResponse =
                                                     snapshot.data!;
                                                 return FlutterFlowDropDown<
                                                     String>(
                                                   controller: _model
-                                                          .categoriaProdController ??=
+                                                          .tamanhoProdController ??=
                                                       FormFieldController<
                                                           String>(
-                                                    _model.categoriaProdValue ??=
+                                                    _model.tamanhoProdValue ??=
                                                         getJsonField(
                                                       widget.produto,
-                                                      r'''$.Categoria[0]''',
+                                                      r'''$[0]''',
                                                     ).toString(),
                                                   ),
                                                   options: (ListasGroup
-                                                          .categoriasCall
-                                                          .categoria(
-                                                    categoriaProdCategoriasResponse
+                                                          .tamanhosCall
+                                                          .tamanho(
+                                                    tamanhoProdTamanhosResponse
                                                         .jsonBody,
                                                   ) as List)
                                                       .map<String>(
                                                           (s) => s.toString())
                                                       .toList()!
+                                                      .map((e) => e.toString())
+                                                      .toList()
                                                       .toList(),
                                                   onChanged: (val) => setState(
                                                       () => _model
-                                                              .categoriaProdValue =
+                                                              .tamanhoProdValue =
                                                           val),
                                                   width: double.infinity,
                                                   height: 50.0,
@@ -1096,353 +1898,241 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                       .fromSTEB(
                                                           12.0, 4.0, 12.0, 4.0),
                                                   hidesUnderline: true,
+                                                  isSearchable: false,
                                                 );
                                               },
                                             ),
                                           ),
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.05),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 10.0, 0.0, 0.0),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  _model.apiResultProdUpdate =
+                                                      await ProdutoGroup
+                                                          .updateCall
+                                                          .call(
+                                                    nome: _model
+                                                        .nomeProdController
+                                                        .text,
+                                                    descricao: _model
+                                                        .descProdController
+                                                        .text,
+                                                    quantidade: int.tryParse(
+                                                        _model
+                                                            .quantidadeController
+                                                            .text),
+                                                    categoria: _model
+                                                        .categoriaProdValue,
+                                                    id: getJsonField(
+                                                      widget.produto,
+                                                      r'''$._id''',
+                                                    ).toString(),
+                                                    marca: _model
+                                                        .marcaProdController
+                                                        .text,
+                                                    cor: _model.corProdValue,
+                                                    tamanho:
+                                                        _model.tamanhoProdValue,
+                                                    imagem1:
+                                                        FFAppState().prodImg1,
+                                                    imagem2:
+                                                        FFAppState().prodImg2,
+                                                    imagem3:
+                                                        FFAppState().prodImg3,
+                                                    imagem4:
+                                                        FFAppState().prodImg4,
+                                                    imagem5:
+                                                        FFAppState().prodImg5,
+                                                    imagem6:
+                                                        FFAppState().prodImg6,
+                                                  );
+                                                  if ((_model
+                                                          .apiResultProdUpdate
+                                                          ?.succeeded ??
+                                                      true)) {
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title:
+                                                              Text('Sucesso!'),
+                                                          content: Text(
+                                                              'Produto atualizado com sucesso!'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                    _model.apiResultUpdatedProd =
+                                                        await ProdutosByIdCall
+                                                            .call(
+                                                      id: getJsonField(
+                                                        widget.produto,
+                                                        r'''$._id''',
+                                                      ).toString(),
+                                                    );
+                                                    if ((_model
+                                                            .apiResultUpdatedProd
+                                                            ?.succeeded ??
+                                                        true)) {
+                                                      setState(() {
+                                                        FFAppState().prodImg1 =
+                                                            '';
+                                                        FFAppState().prodImg2 =
+                                                            '';
+                                                        FFAppState().prodImg3 =
+                                                            '';
+                                                        FFAppState().prodImg4 =
+                                                            '';
+                                                        FFAppState().prodImg5 =
+                                                            '';
+                                                        FFAppState().prodImg6 =
+                                                            '';
+                                                      });
+                                                      await Navigator.push(
+                                                        context,
+                                                        PageTransition(
+                                                          type:
+                                                              PageTransitionType
+                                                                  .fade,
+                                                          duration: Duration(
+                                                              milliseconds:
+                                                                  300),
+                                                          reverseDuration:
+                                                              Duration(
+                                                                  milliseconds:
+                                                                      300),
+                                                          child: ProdutoWidget(
+                                                            produto:
+                                                                ProdutosByIdCall
+                                                                    .allFields(
+                                                              (_model.apiResultUpdatedProd
+                                                                      ?.jsonBody ??
+                                                                  ''),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                  } else {
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title: Text('Erro!'),
+                                                          content: Text(
+                                                              'Tente novamente em alguns instantes...'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  }
+
+                                                  setState(() {});
+                                                },
+                                                text: 'Salvar',
+                                                options: FFButtonOptions(
+                                                  width: 340.0,
+                                                  height: 50.0,
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
+                                                  textStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .subtitle2
+                                                      .override(
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color: Colors.white,
+                                                        fontSize: 16.0,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                                  elevation: 2.0,
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1.0,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.05),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 10.0, 0.0, 0.0),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  Navigator.pop(context);
+                                                },
+                                                text: 'Cancelar',
+                                                options: FFButtonOptions(
+                                                  width: 340.0,
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
+                                                  textStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .subtitle2
+                                                      .override(
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color: Colors.white,
+                                                        fontSize: 16.0,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                                  elevation: 2.0,
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1.0,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                         ],
                                       ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(-0.8, 0.0),
-                                        child: Text(
-                                          'Cor',
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 0.0, 20.0, 0.0),
-                                        child: FutureBuilder<ApiCallResponse>(
-                                          future: ListasGroup.coresCall.call(),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: SizedBox(
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryColor,
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                            final corProdCoresResponse =
-                                                snapshot.data!;
-                                            return FlutterFlowDropDown<String>(
-                                              controller: _model
-                                                      .corProdController ??=
-                                                  FormFieldController<String>(
-                                                _model.corProdValue ??=
-                                                    getJsonField(
-                                                  widget.produto,
-                                                  r'''$.Cor''',
-                                                ).toString(),
-                                              ),
-                                              options:
-                                                  (ListasGroup.coresCall.cor(
-                                                corProdCoresResponse.jsonBody,
-                                              ) as List)
-                                                      .map<String>(
-                                                          (s) => s.toString())
-                                                      .toList()!
-                                                      .toList(),
-                                              onChanged: (val) => setState(() =>
-                                                  _model.corProdValue = val),
-                                              width: double.infinity,
-                                              height: 50.0,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyText1,
-                                              hintText: 'Selecione...',
-                                              fillColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryBtnText,
-                                              elevation: 2.0,
-                                              borderColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .grayIcon,
-                                              borderWidth: 2.0,
-                                              borderRadius: 8.0,
-                                              margin: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      12.0, 4.0, 12.0, 4.0),
-                                              hidesUnderline: true,
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(-0.8, 0.0),
-                                        child: Text(
-                                          'Tamanho',
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 0.0, 20.0, 0.0),
-                                        child: FutureBuilder<ApiCallResponse>(
-                                          future:
-                                              ListasGroup.tamanhosCall.call(),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: SizedBox(
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryColor,
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                            final tamanhoProdTamanhosResponse =
-                                                snapshot.data!;
-                                            return FlutterFlowDropDown<String>(
-                                              controller: _model
-                                                      .tamanhoProdController ??=
-                                                  FormFieldController<String>(
-                                                _model.tamanhoProdValue ??=
-                                                    getJsonField(
-                                                  widget.produto,
-                                                  r'''$[0]''',
-                                                ).toString(),
-                                              ),
-                                              options: (ListasGroup.tamanhosCall
-                                                      .tamanho(
-                                                tamanhoProdTamanhosResponse
-                                                    .jsonBody,
-                                              ) as List)
-                                                  .map<String>(
-                                                      (s) => s.toString())
-                                                  .toList()!
-                                                  .map((e) => e.toString())
-                                                  .toList()
-                                                  .toList(),
-                                              onChanged: (val) => setState(() =>
-                                                  _model.tamanhoProdValue =
-                                                      val),
-                                              width: double.infinity,
-                                              height: 50.0,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyText1,
-                                              hintText: 'Selecione...',
-                                              fillColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryBtnText,
-                                              elevation: 2.0,
-                                              borderColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .grayIcon,
-                                              borderWidth: 2.0,
-                                              borderRadius: 8.0,
-                                              margin: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      12.0, 4.0, 12.0, 4.0),
-                                              hidesUnderline: true,
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.05),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 10.0, 0.0, 0.0),
-                                          child: FFButtonWidget(
-                                            onPressed: () async {
-                                              _model.apiResultProdUpdate =
-                                                  await ProdutoGroup.updateCall
-                                                      .call(
-                                                nome: _model
-                                                    .nomeProdController.text,
-                                                descricao: _model
-                                                    .descProdController.text,
-                                                quantidade: int.tryParse(_model
-                                                    .quantidadeController.text),
-                                                categoria:
-                                                    _model.categoriaProdValue,
-                                                id: getJsonField(
-                                                  widget.produto,
-                                                  r'''$._id''',
-                                                ).toString(),
-                                                imgList:
-                                                    FFAppState().prodImageList,
-                                                marca: _model
-                                                    .marcaProdController.text,
-                                                cor: _model.corProdValue,
-                                                tamanho:
-                                                    _model.tamanhoProdValue,
-                                              );
-                                              if ((_model.apiResultProdUpdate
-                                                      ?.succeeded ??
-                                                  true)) {
-                                                await showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (alertDialogContext) {
-                                                    return AlertDialog(
-                                                      title: Text('Sucesso!'),
-                                                      content: Text(
-                                                          'Produto atualizado com sucesso!'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext),
-                                                          child: Text('Ok'),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
-                                                _model.apiResultUpdatedProd =
-                                                    await ProdutosByIdCall.call(
-                                                  id: getJsonField(
-                                                    widget.produto,
-                                                    r'''$._id''',
-                                                  ).toString(),
-                                                );
-                                                if ((_model.apiResultUpdatedProd
-                                                        ?.succeeded ??
-                                                    true)) {
-                                                  await Navigator.push(
-                                                    context,
-                                                    PageTransition(
-                                                      type: PageTransitionType
-                                                          .fade,
-                                                      duration: Duration(
-                                                          milliseconds: 300),
-                                                      reverseDuration: Duration(
-                                                          milliseconds: 300),
-                                                      child: ProdutoWidget(
-                                                        produto:
-                                                            ProdutosByIdCall
-                                                                .allFields(
-                                                          (_model.apiResultUpdatedProd
-                                                                  ?.jsonBody ??
-                                                              ''),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  );
-                                                }
-                                              } else {
-                                                await showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (alertDialogContext) {
-                                                    return AlertDialog(
-                                                      title: Text('Erro!'),
-                                                      content: Text(
-                                                          'Tente novamente em alguns instantes...'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext),
-                                                          child: Text('Ok'),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
-                                              }
-
-                                              setState(() {});
-                                            },
-                                            text: 'Salvar',
-                                            options: FFButtonOptions(
-                                              width: 340.0,
-                                              height: 50.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryColor,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .subtitle2
-                                                      .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color: Colors.white,
-                                                        fontSize: 16.0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
-                                              elevation: 2.0,
-                                              borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1.0,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.05),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 10.0, 0.0, 0.0),
-                                          child: FFButtonWidget(
-                                            onPressed: () async {
-                                              Navigator.pop(context);
-                                            },
-                                            text: 'Cancelar',
-                                            options: FFButtonOptions(
-                                              width: 340.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .subtitle2
-                                                      .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color: Colors.white,
-                                                        fontSize: 16.0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
-                                              elevation: 2.0,
-                                              borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1.0,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
                             ),
                           ],

@@ -7,7 +7,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_media.dart';
+import '/flutter_flow/upload_data.dart';
 import '/main.dart';
 import '/pages/login/login_widget.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -34,7 +34,7 @@ class AdicionarProdutoModel extends FlutterFlowModel {
   // State field(s) for Preco widget.
   TextEditingController? precoController;
   String? Function(BuildContext, String?)? precoControllerValidator;
-  bool isMediaUploading = false;
+  bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl = '';

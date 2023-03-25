@@ -6,9 +6,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/flutter_flow/upload_media.dart';
+import '/flutter_flow/upload_data.dart';
 import '/pages/produto/produto_widget.dart';
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -24,20 +23,36 @@ class ProductEditModel extends FlutterFlowModel {
   // Stores action output result for [Backend Call - API (Produtos By Id)] action in ProductEdit widget.
   ApiCallResponse? apiProdResult;
   Completer<ApiCallResponse>? apiRequestCompleter;
-  bool isMediaUploading1 = false;
+  bool isDataUploading1 = false;
   FFUploadedFile uploadedLocalFile1 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl1 = '';
 
-  // Stores action output result for [Backend Call - API (Image Delete)] action in IconButton widget.
-  ApiCallResponse? apiResultmkj;
-  bool isMediaUploading2 = false;
+  bool isDataUploading2 = false;
   FFUploadedFile uploadedLocalFile2 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl2 = '';
 
-  // Stores action output result for [Custom Action - addImageOut] action in Button widget.
-  dynamic? novoJson;
+  bool isDataUploading3 = false;
+  FFUploadedFile uploadedLocalFile3 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl3 = '';
+
+  bool isDataUploading4 = false;
+  FFUploadedFile uploadedLocalFile4 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl4 = '';
+
+  bool isDataUploading5 = false;
+  FFUploadedFile uploadedLocalFile5 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl5 = '';
+
+  bool isDataUploading6 = false;
+  FFUploadedFile uploadedLocalFile6 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl6 = '';
+
   // State field(s) for nomeProd widget.
   TextEditingController? nomeProdController;
   String? Function(BuildContext, String?)? nomeProdControllerValidator;

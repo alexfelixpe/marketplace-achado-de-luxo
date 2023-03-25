@@ -120,6 +120,7 @@ class _CondicaoWidgetState extends State<CondicaoWidget> {
                                   await showModalBottomSheet(
                                     isScrollControlled: true,
                                     backgroundColor: Colors.transparent,
+                                    barrierColor: Color(0x00000000),
                                     context: context,
                                     builder: (context) {
                                       return Padding(
@@ -169,6 +170,7 @@ class _CondicaoWidgetState extends State<CondicaoWidget> {
                                   await showModalBottomSheet(
                                     isScrollControlled: true,
                                     backgroundColor: Colors.transparent,
+                                    barrierColor: Color(0x00000000),
                                     context: context,
                                     builder: (context) {
                                       return Padding(

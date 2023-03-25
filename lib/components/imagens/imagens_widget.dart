@@ -5,7 +5,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_media.dart';
+import '/flutter_flow/upload_data.dart';
 import '/pages/produto/produto_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -125,6 +125,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                   await showModalBottomSheet(
                                     isScrollControlled: true,
                                     backgroundColor: Colors.transparent,
+                                    barrierColor: Color(0x00000000),
                                     context: context,
                                     builder: (context) {
                                       return Padding(
@@ -186,7 +187,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                         m.storagePath,
                                                         context))) {
                                               setState(() => _model
-                                                  .isMediaUploading1 = true);
+                                                  .isDataUploading1 = true);
                                               var selectedUploadedFiles =
                                                   <FFUploadedFile>[];
                                               var downloadUrls = <String>[];
@@ -229,8 +230,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                               } finally {
                                                 ScaffoldMessenger.of(context)
                                                     .hideCurrentSnackBar();
-                                                _model.isMediaUploading1 =
-                                                    false;
+                                                _model.isDataUploading1 = false;
                                               }
                                               if (selectedUploadedFiles
                                                           .length ==
@@ -325,6 +325,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                   await showModalBottomSheet(
                                     isScrollControlled: true,
                                     backgroundColor: Colors.transparent,
+                                    barrierColor: Color(0x00000000),
                                     context: context,
                                     builder: (context) {
                                       return Padding(
@@ -386,7 +387,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                         m.storagePath,
                                                         context))) {
                                               setState(() => _model
-                                                  .isMediaUploading2 = true);
+                                                  .isDataUploading2 = true);
                                               var selectedUploadedFiles =
                                                   <FFUploadedFile>[];
                                               var downloadUrls = <String>[];
@@ -429,8 +430,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                               } finally {
                                                 ScaffoldMessenger.of(context)
                                                     .hideCurrentSnackBar();
-                                                _model.isMediaUploading2 =
-                                                    false;
+                                                _model.isDataUploading2 = false;
                                               }
                                               if (selectedUploadedFiles
                                                           .length ==
@@ -525,6 +525,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                   await showModalBottomSheet(
                                     isScrollControlled: true,
                                     backgroundColor: Colors.transparent,
+                                    barrierColor: Color(0x00000000),
                                     context: context,
                                     builder: (context) {
                                       return Padding(
@@ -586,7 +587,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                         m.storagePath,
                                                         context))) {
                                               setState(() => _model
-                                                  .isMediaUploading3 = true);
+                                                  .isDataUploading3 = true);
                                               var selectedUploadedFiles =
                                                   <FFUploadedFile>[];
                                               var downloadUrls = <String>[];
@@ -629,8 +630,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                               } finally {
                                                 ScaffoldMessenger.of(context)
                                                     .hideCurrentSnackBar();
-                                                _model.isMediaUploading3 =
-                                                    false;
+                                                _model.isDataUploading3 = false;
                                               }
                                               if (selectedUploadedFiles
                                                           .length ==
@@ -725,6 +725,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                   await showModalBottomSheet(
                                     isScrollControlled: true,
                                     backgroundColor: Colors.transparent,
+                                    barrierColor: Color(0x00000000),
                                     context: context,
                                     builder: (context) {
                                       return Padding(
@@ -786,7 +787,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                                         m.storagePath,
                                                         context))) {
                                               setState(() => _model
-                                                  .isMediaUploading4 = true);
+                                                  .isDataUploading4 = true);
                                               var selectedUploadedFiles =
                                                   <FFUploadedFile>[];
                                               var downloadUrls = <String>[];
@@ -829,8 +830,7 @@ class _ImagensWidgetState extends State<ImagensWidget> {
                                               } finally {
                                                 ScaffoldMessenger.of(context)
                                                     .hideCurrentSnackBar();
-                                                _model.isMediaUploading4 =
-                                                    false;
+                                                _model.isDataUploading4 = false;
                                               }
                                               if (selectedUploadedFiles
                                                           .length ==

@@ -244,28 +244,10 @@ class FFAppState extends ChangeNotifier {
     _profilePic = _value;
   }
 
-  List<String> _prodImageList = [];
-  List<String> get prodImageList => _prodImageList;
-  set prodImageList(List<String> _value) {
-    _prodImageList = _value;
-  }
-
-  void addToProdImageList(String _value) {
-    _prodImageList.add(_value);
-  }
-
-  void removeFromProdImageList(String _value) {
-    _prodImageList.remove(_value);
-  }
-
-  void removeAtIndexFromProdImageList(int _index) {
-    _prodImageList.removeAt(_index);
-  }
-
-  dynamic _prodImageJson;
-  dynamic get prodImageJson => _prodImageJson;
-  set prodImageJson(dynamic _value) {
-    _prodImageJson = _value;
+  String _prodImg6 = '';
+  String get prodImg6 => _prodImg6;
+  set prodImg6(String _value) {
+    _prodImg6 = _value;
   }
 }
 

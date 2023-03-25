@@ -3,7 +3,7 @@ import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_media.dart';
+import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -188,8 +188,7 @@ class _MudarFotoWidgetState extends State<MudarFotoWidget> {
                                     selectedMedia.every((m) =>
                                         validateFileFormat(
                                             m.storagePath, context))) {
-                                  setState(
-                                      () => _model.isMediaUploading = true);
+                                  setState(() => _model.isDataUploading = true);
                                   var selectedUploadedFiles =
                                       <FFUploadedFile>[];
                                   var downloadUrls = <String>[];
@@ -214,7 +213,7 @@ class _MudarFotoWidgetState extends State<MudarFotoWidget> {
                                         .map((u) => u!)
                                         .toList();
                                   } finally {
-                                    _model.isMediaUploading = false;
+                                    _model.isDataUploading = false;
                                   }
                                   if (selectedUploadedFiles.length ==
                                           selectedMedia.length &&

@@ -7,7 +7,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_media.dart';
+import '/flutter_flow/upload_data.dart';
 import '/main.dart';
 import '/pages/login/login_widget.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -590,6 +590,7 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                                                 isScrollControlled: true,
                                                 backgroundColor:
                                                     Colors.transparent,
+                                                barrierColor: Color(0x00000000),
                                                 context: context,
                                                 builder: (context) {
                                                   return Padding(
@@ -687,7 +688,7 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                     if (selectedMedia != null &&
                         selectedMedia.every((m) =>
                             validateFileFormat(m.storagePath, context))) {
-                      setState(() => _model.isMediaUploading = true);
+                      setState(() => _model.isDataUploading = true);
                       var selectedUploadedFiles = <FFUploadedFile>[];
                       var downloadUrls = <String>[];
                       try {
@@ -716,7 +717,7 @@ class _AdicionarProdutoWidgetState extends State<AdicionarProdutoWidget> {
                             .toList();
                       } finally {
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                        _model.isMediaUploading = false;
+                        _model.isDataUploading = false;
                       }
                       if (selectedUploadedFiles.length ==
                               selectedMedia.length &&

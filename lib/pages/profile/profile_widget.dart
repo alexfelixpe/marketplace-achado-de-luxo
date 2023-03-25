@@ -883,12 +883,17 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                           },
                                                           child:
                                                               CachedNetworkImage(
-                                                            imageUrl: functions
-                                                                .imageCompress(
-                                                                    getJsonField(
-                                                              gridListProdutosItem,
-                                                              r'''$.ImagemRemota[0]''',
-                                                            ).toString())!,
+                                                            imageUrl:
+                                                                valueOrDefault<
+                                                                    String>(
+                                                              functions
+                                                                  .imageCompress(
+                                                                      getJsonField(
+                                                                gridListProdutosItem,
+                                                                r'''$.ImagemRemota[0]''',
+                                                              ).toString()),
+                                                              'https://www.mayers.com.br/view/_image/semFoto.jpg',
+                                                            ),
                                                             width:
                                                                 double.infinity,
                                                             height:

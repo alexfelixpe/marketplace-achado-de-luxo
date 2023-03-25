@@ -132,11 +132,15 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                                                   children: [
                                                     Expanded(
                                                       child: Image.network(
-                                                        functions.imageCompress(
-                                                            getJsonField(
-                                                          imagensItem,
-                                                          r'''$''',
-                                                        ).toString())!,
+                                                        valueOrDefault<String>(
+                                                          functions
+                                                              .imageCompress(
+                                                                  getJsonField(
+                                                            imagensItem,
+                                                            r'''$''',
+                                                          ).toString()),
+                                                          'https://www.mayers.com.br/view/_image/semFoto.jpg',
+                                                        ),
                                                         width: MediaQuery.of(
                                                                     context)
                                                                 .size
