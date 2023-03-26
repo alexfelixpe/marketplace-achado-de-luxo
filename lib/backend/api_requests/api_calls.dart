@@ -599,6 +599,10 @@ class TamanhosCall {
         r'''$.response.results[:].Nome''',
         true,
       );
+  dynamic response(dynamic response) => getJsonField(
+        response,
+        r'''$.response''',
+      );
 }
 
 class CoresCall {
@@ -956,6 +960,10 @@ class ProdutosByIdCall {
   static dynamic quantidade(dynamic response) => getJsonField(
         response,
         r'''$.response.Quantidade''',
+      );
+  static dynamic vendedor(dynamic response) => getJsonField(
+        response,
+        r'''$.response.Vendedor''',
       );
 }
 

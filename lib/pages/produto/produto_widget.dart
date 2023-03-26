@@ -219,35 +219,40 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                                                 ),
                                               ),
                                             ),
-                                            FlutterFlowIconButton(
-                                              borderColor: Colors.transparent,
-                                              borderRadius: 30.0,
-                                              borderWidth: 1.0,
-                                              buttonSize: 60.0,
-                                              icon: Icon(
-                                                Icons.edit,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                size: 30.0,
-                                              ),
-                                              onPressed: () async {
-                                                await Navigator.push(
-                                                  context,
-                                                  PageTransition(
-                                                    type:
-                                                        PageTransitionType.fade,
-                                                    duration: Duration(
-                                                        milliseconds: 300),
-                                                    reverseDuration: Duration(
-                                                        milliseconds: 300),
-                                                    child: ProductEditWidget(
-                                                      produto: widget.produto,
+                                            if (getJsonField(
+                                                  widget.produto,
+                                                  r'''$.response.Vendedor''',
+                                                ) ==
+                                                FFAppState().userid)
+                                              FlutterFlowIconButton(
+                                                borderColor: Colors.transparent,
+                                                borderRadius: 30.0,
+                                                borderWidth: 1.0,
+                                                buttonSize: 60.0,
+                                                icon: Icon(
+                                                  Icons.edit,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  size: 30.0,
+                                                ),
+                                                onPressed: () async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    PageTransition(
+                                                      type: PageTransitionType
+                                                          .fade,
+                                                      duration: Duration(
+                                                          milliseconds: 300),
+                                                      reverseDuration: Duration(
+                                                          milliseconds: 300),
+                                                      child: ProductEditWidget(
+                                                        produto: widget.produto,
+                                                      ),
                                                     ),
-                                                  ),
-                                                );
-                                              },
-                                            ),
+                                                  );
+                                                },
+                                              ),
                                           ],
                                         ),
                                       ),

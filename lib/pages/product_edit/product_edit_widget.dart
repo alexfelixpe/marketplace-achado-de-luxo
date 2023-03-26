@@ -346,7 +346,7 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                   child: Image.network(
                                                     valueOrDefault<String>(
                                                       FFAppState().prodImg1,
-                                                      'https://i.ibb.co/801KyNm/users-uploads-1679769212365000.png',
+                                                      'https://picsum.photos/seed/12/600',
                                                     ),
                                                     width: 100.0,
                                                     height: 100.0,
@@ -499,7 +499,7 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                   child: Image.network(
                                                     valueOrDefault<String>(
                                                       FFAppState().prodImg2,
-                                                      'https://i.ibb.co/801KyNm/users-uploads-1679769212365000.png',
+                                                      'https://picsum.photos/seed/12/600',
                                                     ),
                                                     width: 100.0,
                                                     height: 100.0,
@@ -655,18 +655,10 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                     setState(() {});
                                                   },
                                                   child: Image.network(
-                                                    _model.uploadedFileUrl3 !=
-                                                                null &&
-                                                            _model.uploadedFileUrl3 !=
-                                                                ''
-                                                        ? _model
-                                                            .uploadedFileUrl3
-                                                        : valueOrDefault<
-                                                            String>(
-                                                            FFAppState()
-                                                                .prodImg3,
-                                                            'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
-                                                          ),
+                                                    valueOrDefault<String>(
+                                                      FFAppState().prodImg3,
+                                                      'https://picsum.photos/seed/12/600',
+                                                    ),
                                                     width: 100.0,
                                                     height: 100.0,
                                                     fit: BoxFit.cover,
@@ -816,18 +808,10 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                     setState(() {});
                                                   },
                                                   child: Image.network(
-                                                    _model.uploadedFileUrl4 !=
-                                                                null &&
-                                                            _model.uploadedFileUrl4 !=
-                                                                ''
-                                                        ? _model
-                                                            .uploadedFileUrl4
-                                                        : valueOrDefault<
-                                                            String>(
-                                                            FFAppState()
-                                                                .prodImg4,
-                                                            'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
-                                                          ),
+                                                    valueOrDefault<String>(
+                                                      FFAppState().prodImg4,
+                                                      'https://picsum.photos/seed/12/600',
+                                                    ),
                                                     width: 100.0,
                                                     height: 100.0,
                                                     fit: BoxFit.cover,
@@ -982,18 +966,10 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                     setState(() {});
                                                   },
                                                   child: Image.network(
-                                                    _model.uploadedFileUrl5 !=
-                                                                null &&
-                                                            _model.uploadedFileUrl5 !=
-                                                                ''
-                                                        ? _model
-                                                            .uploadedFileUrl5
-                                                        : valueOrDefault<
-                                                            String>(
-                                                            FFAppState()
-                                                                .prodImg5,
-                                                            'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
-                                                          ),
+                                                    valueOrDefault<String>(
+                                                      FFAppState().prodImg5,
+                                                      'https://picsum.photos/seed/12/600',
+                                                    ),
                                                     width: 100.0,
                                                     height: 100.0,
                                                     fit: BoxFit.cover,
@@ -1137,18 +1113,10 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                     setState(() {});
                                                   },
                                                   child: Image.network(
-                                                    _model.uploadedFileUrl6 !=
-                                                                null &&
-                                                            _model.uploadedFileUrl6 !=
-                                                                ''
-                                                        ? _model
-                                                            .uploadedFileUrl6
-                                                        : valueOrDefault<
-                                                            String>(
-                                                            FFAppState()
-                                                                .prodImg6,
-                                                            'https://conteudo.imguol.com.br/blogs/174/files/2018/05/iStock-648229868-1024x909.jpg',
-                                                          ),
+                                                    valueOrDefault<String>(
+                                                      FFAppState().prodImg6,
+                                                      'https://picsum.photos/seed/12/600',
+                                                    ),
                                                     width: 100.0,
                                                     height: 100.0,
                                                     fit: BoxFit.cover,
@@ -2008,7 +1976,7 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                     _model.tamanhoProdValue ??=
                                                         getJsonField(
                                                       widget.produto,
-                                                      r'''$[0]''',
+                                                      r'''$.Tamanho[0]''',
                                                     ).toString(),
                                                   ),
                                                   options: (ListasGroup
@@ -2020,8 +1988,6 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                       .map<String>(
                                                           (s) => s.toString())
                                                       .toList()!
-                                                      .map((e) => e.toString())
-                                                      .toList()
                                                       .toList(),
                                                   onChanged: (val) => setState(
                                                       () => _model
