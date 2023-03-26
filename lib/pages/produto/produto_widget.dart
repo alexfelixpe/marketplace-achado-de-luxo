@@ -197,26 +197,24 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Expanded(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        5.0, 10.0, 0.0, 0.0),
-                                                child: AutoSizeText(
-                                                  getJsonField(
-                                                    widget.produto,
-                                                    r'''$.Nome''',
-                                                  ).toString(),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .title2
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        color:
-                                                            Color(0xFF3C3462),
-                                                        fontSize: 26.0,
-                                                      ),
-                                                ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      5.0, 10.0, 0.0, 0.0),
+                                              child: AutoSizeText(
+                                                getJsonField(
+                                                  widget.produto,
+                                                  r'''$.Nome''',
+                                                ).toString(),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .title2
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color:
+                                                              Color(0xFF3C3462),
+                                                          fontSize: 26.0,
+                                                        ),
                                               ),
                                             ),
                                             if (getJsonField(
