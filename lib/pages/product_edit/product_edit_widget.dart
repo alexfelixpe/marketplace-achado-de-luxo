@@ -85,10 +85,10 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
             r'''$.ImagemRemota[5]''',
           );
         });
+        await actions.reloadPage(
+          context,
+        );
       }
-      await actions.reloadPage(
-        context,
-      );
     });
 
     _model.nomeProdController ??= TextEditingController(
