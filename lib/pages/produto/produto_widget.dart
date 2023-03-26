@@ -221,7 +221,7 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                                             ),
                                             if (getJsonField(
                                                   widget.produto,
-                                                  r'''$.response.Vendedor''',
+                                                  r'''$.Vendedor''',
                                                 ) ==
                                                 FFAppState().userid)
                                               FlutterFlowIconButton(

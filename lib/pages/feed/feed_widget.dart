@@ -35,26 +35,6 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
   final _unfocusNode = FocusNode();
 
   final animationsMap = {
-    'rowOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(69.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
     'iconButtonOnActionTriggerAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onActionTrigger,
       applyInitialState: true,
@@ -217,7 +197,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                       Expanded(
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 5.0, 5.0, 5.0),
+                              0.0, 5.0, 0.0, 5.0),
                           child: Image.network(
                             'https://i.ibb.co/3NMtq69/Logo-Horizontal.jpg',
                             width: MediaQuery.of(context).size.width * 0.8,
@@ -229,7 +209,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                         borderColor: FlutterFlowTheme.of(context).noColor,
                         borderRadius: 5.0,
                         borderWidth: 2.0,
-                        buttonSize: 30.0,
+                        buttonSize: 40.0,
                         icon: Icon(
                           Icons.add,
                           color: Color(0xFF886BC7),
@@ -249,9 +229,9 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                       ),
                       FlutterFlowIconButton(
                         borderColor: FlutterFlowTheme.of(context).noColor,
-                        borderRadius: 10.0,
+                        borderRadius: 20.0,
                         borderWidth: 2.0,
-                        buttonSize: 30.0,
+                        buttonSize: 40.0,
                         icon: Icon(
                           Icons.search,
                           color: Color(0xFF886BC7),
@@ -271,9 +251,9 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                       ),
                       FlutterFlowIconButton(
                         borderColor: FlutterFlowTheme.of(context).noColor,
-                        borderRadius: 10.0,
+                        borderRadius: 20.0,
                         borderWidth: 2.0,
-                        buttonSize: 30.0,
+                        buttonSize: 40.0,
                         icon: Icon(
                           Icons.person,
                           color: Color(0xFF886BC7),
@@ -308,9 +288,9 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                         child: FlutterFlowIconButton(
                           borderColor: FlutterFlowTheme.of(context).noColor,
-                          borderRadius: 10.0,
+                          borderRadius: 20.0,
                           borderWidth: 2.0,
-                          buttonSize: 30.0,
+                          buttonSize: 40.0,
                           icon: Icon(
                             Icons.chat,
                             color: Color(0xFF886BC7),
@@ -454,8 +434,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                               ),
                                             ],
                                           ),
-                                        ).animateOnPageLoad(animationsMap[
-                                            'rowOnPageLoadAnimation']!);
+                                        );
                                       },
                                     ),
                                     Column(
