@@ -541,6 +541,11 @@ class MarcasCall {
       cache: false,
     );
   }
+
+  dynamic results(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results''',
+      );
 }
 
 class CategoriasCall {
@@ -565,6 +570,7 @@ class CategoriasCall {
   dynamic categoria(dynamic response) => getJsonField(
         response,
         r'''$.response.results[:].Categoria''',
+        true,
       );
   dynamic response(dynamic response) => getJsonField(
         response,
@@ -574,6 +580,11 @@ class CategoriasCall {
   dynamic id(dynamic response) => getJsonField(
         response,
         r'''$.response.results[:]._id''',
+        true,
+      );
+  dynamic results(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results''',
       );
 }
 

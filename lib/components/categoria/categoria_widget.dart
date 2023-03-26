@@ -119,11 +119,10 @@ class _CategoriaWidgetState extends State<CategoriaWidget> {
                             return Builder(
                               builder: (context) {
                                 final categoria = ListasGroup.categoriasCall
-                                        .response(
-                                          wrapCategoriasResponse.jsonBody,
-                                        )
-                                        ?.toList() ??
-                                    [];
+                                    .results(
+                                      wrapCategoriasResponse.jsonBody,
+                                    )
+                                    .toList();
                                 return Wrap(
                                   spacing: 0.0,
                                   runSpacing: 0.0,

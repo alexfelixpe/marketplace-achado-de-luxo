@@ -118,10 +118,11 @@ class _MarcaWidgetState extends State<MarcaWidget> {
                             final wrapMarcasResponse = snapshot.data!;
                             return Builder(
                               builder: (context) {
-                                final categoria = getJsonField(
-                                  wrapMarcasResponse.jsonBody,
-                                  r'''$.response''',
-                                ).toList();
+                                final categoria = ListasGroup.marcasCall
+                                    .results(
+                                      wrapMarcasResponse.jsonBody,
+                                    )
+                                    .toList();
                                 return Wrap(
                                   spacing: 0.0,
                                   runSpacing: 0.0,

@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/pages/produto/produto_widget.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -84,38 +85,10 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
             r'''$.ImagemRemota[5]''',
           );
         });
-        await showDialog(
-          context: context,
-          builder: (alertDialogContext) {
-            return AlertDialog(
-              title: Text('Sucesso'),
-              content: Text('Sucesso'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(alertDialogContext),
-                  child: Text('Ok'),
-                ),
-              ],
-            );
-          },
-        );
-      } else {
-        await showDialog(
-          context: context,
-          builder: (alertDialogContext) {
-            return AlertDialog(
-              title: Text('Erro'),
-              content: Text('Erro'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(alertDialogContext),
-                  child: Text('Ok'),
-                ),
-              ],
-            );
-          },
-        );
       }
+      await actions.reloadPage(
+        context,
+      );
     });
 
     _model.nomeProdController ??= TextEditingController(
@@ -370,9 +343,11 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                         .alternate,
                                                     size: 20.0,
                                                   ),
-                                                  onPressed: () {
-                                                    print(
-                                                        'IconButton pressed ...');
+                                                  onPressed: () async {
+                                                    setState(() {
+                                                      FFAppState().prodImg1 =
+                                                          '';
+                                                    });
                                                   },
                                                 ),
                                               ),
@@ -523,9 +498,11 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                         .alternate,
                                                     size: 20.0,
                                                   ),
-                                                  onPressed: () {
-                                                    print(
-                                                        'IconButton pressed ...');
+                                                  onPressed: () async {
+                                                    setState(() {
+                                                      FFAppState().prodImg2 =
+                                                          '';
+                                                    });
                                                   },
                                                 ),
                                               ),
@@ -681,9 +658,11 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                         .alternate,
                                                     size: 20.0,
                                                   ),
-                                                  onPressed: () {
-                                                    print(
-                                                        'IconButton pressed ...');
+                                                  onPressed: () async {
+                                                    setState(() {
+                                                      FFAppState().prodImg3 =
+                                                          '';
+                                                    });
                                                   },
                                                 ),
                                               ),
@@ -834,9 +813,11 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                         .alternate,
                                                     size: 20.0,
                                                   ),
-                                                  onPressed: () {
-                                                    print(
-                                                        'IconButton pressed ...');
+                                                  onPressed: () async {
+                                                    setState(() {
+                                                      FFAppState().prodImg4 =
+                                                          '';
+                                                    });
                                                   },
                                                 ),
                                               ),
@@ -992,9 +973,11 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                         .alternate,
                                                     size: 20.0,
                                                   ),
-                                                  onPressed: () {
-                                                    print(
-                                                        'IconButton pressed ...');
+                                                  onPressed: () async {
+                                                    setState(() {
+                                                      FFAppState().prodImg5 =
+                                                          '';
+                                                    });
                                                   },
                                                 ),
                                               ),
@@ -1107,7 +1090,13 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                     );
                                                     setState(() {
                                                       FFAppState().prodImg6 =
-                                                          '';
+                                                          ImgGroup
+                                                              .imageUploadCall
+                                                              .imgUrl(
+                                                        (_model.imgUpload6
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      );
                                                     });
 
                                                     setState(() {});
@@ -1139,9 +1128,11 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                         .alternate,
                                                     size: 20.0,
                                                   ),
-                                                  onPressed: () {
-                                                    print(
-                                                        'IconButton pressed ...');
+                                                  onPressed: () async {
+                                                    setState(() {
+                                                      FFAppState().prodImg6 =
+                                                          '';
+                                                    });
                                                   },
                                                 ),
                                               ),
@@ -1640,7 +1631,6 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
                                                 Duration(milliseconds: 2000),
                                                 () => setState(() {}),
                                               ),
-                                              autofocus: true,
                                               autofillHints: [
                                                 AutofillHints.name
                                               ],

@@ -8,8 +8,9 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future<void> refreshPage(BuildContext context, String? pageName) async {
+import 'dart:html' as html;
+
+Future reloadPage(BuildContext context) async {
   // Add your function code here!
-  await Future.delayed(Duration(seconds: 1));
-  Navigator.pushReplacementNamed(context, pageName ?? '/');
+  html.window.location.reload();
 }
