@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/pages/produto/produto_widget.dart';
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -85,9 +84,6 @@ class _ProductEditWidgetState extends State<ProductEditWidget> {
             r'''$.ImagemRemota[5]''',
           );
         });
-        await actions.reloadPage(
-          context,
-        );
       }
     });
 

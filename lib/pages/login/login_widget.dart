@@ -219,6 +219,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                       obscureText: false,
                                                       decoration:
                                                           InputDecoration(
+                                                        labelText: 'WhatsApp',
                                                         labelStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -230,7 +231,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                                           context)
                                                                       .grayIcon,
                                                                 ),
-                                                        hintText: 'WhatsApp',
                                                         hintStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)

@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
+import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -13,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'produto_model.dart';
 export 'produto_model.dart';
@@ -131,23 +133,86 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                                                       MainAxisSize.max,
                                                   children: [
                                                     Expanded(
-                                                      child: Image.network(
-                                                        valueOrDefault<String>(
-                                                          functions
-                                                              .imageCompress(
-                                                                  getJsonField(
-                                                            imagensItem,
-                                                            r'''$''',
-                                                          ).toString()),
-                                                          'https://www.mayers.com.br/view/_image/semFoto.jpg',
+                                                      child: InkWell(
+                                                        onTap: () async {
+                                                          await Navigator.push(
+                                                            context,
+                                                            PageTransition(
+                                                              type:
+                                                                  PageTransitionType
+                                                                      .fade,
+                                                              child:
+                                                                  FlutterFlowExpandedImageView(
+                                                                image: Image
+                                                                    .network(
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                    functions
+                                                                        .imageCompress(
+                                                                            getJsonField(
+                                                                      imagensItem,
+                                                                      r'''$''',
+                                                                    ).toString()),
+                                                                    'https://www.mayers.com.br/view/_image/semFoto.jpg',
+                                                                  ),
+                                                                  fit: BoxFit
+                                                                      .contain,
+                                                                ),
+                                                                allowRotation:
+                                                                    false,
+                                                                tag:
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                  functions
+                                                                      .imageCompress(
+                                                                          getJsonField(
+                                                                    imagensItem,
+                                                                    r'''$''',
+                                                                  ).toString()),
+                                                                  'https://www.mayers.com.br/view/_image/semFoto.jpg' +
+                                                                      '$imagensIndex',
+                                                                ),
+                                                                useHeroAnimation:
+                                                                    true,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                        child: Hero(
+                                                          tag: valueOrDefault<
+                                                              String>(
+                                                            functions
+                                                                .imageCompress(
+                                                                    getJsonField(
+                                                              imagensItem,
+                                                              r'''$''',
+                                                            ).toString()),
+                                                            'https://www.mayers.com.br/view/_image/semFoto.jpg' +
+                                                                '$imagensIndex',
+                                                          ),
+                                                          transitionOnUserGestures:
+                                                              true,
+                                                          child: Image.network(
+                                                            valueOrDefault<
+                                                                String>(
+                                                              functions
+                                                                  .imageCompress(
+                                                                      getJsonField(
+                                                                imagensItem,
+                                                                r'''$''',
+                                                              ).toString()),
+                                                              'https://www.mayers.com.br/view/_image/semFoto.jpg',
+                                                            ),
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                1.0,
+                                                            height:
+                                                                double.infinity,
+                                                            fit: BoxFit.cover,
+                                                          ),
                                                         ),
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            1.0,
-                                                        height: double.infinity,
-                                                        fit: BoxFit.cover,
                                                       ),
                                                     ),
                                                   ],
@@ -196,6 +261,8 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                                             0.0, 5.0, 0.0, 5.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Padding(
                                               padding: EdgeInsetsDirectional
@@ -223,16 +290,18 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                                                 ) ==
                                                 FFAppState().userid)
                                               FlutterFlowIconButton(
-                                                borderColor: Colors.transparent,
+                                                borderColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .noColor,
                                                 borderRadius: 30.0,
                                                 borderWidth: 1.0,
-                                                buttonSize: 60.0,
+                                                buttonSize: 40.0,
                                                 icon: Icon(
-                                                  Icons.edit,
+                                                  Icons.edit_outlined,
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .primaryColor,
-                                                  size: 30.0,
+                                                      .customColor4,
+                                                  size: 20.0,
                                                 ),
                                                 onPressed: () async {
                                                   await Navigator.push(
@@ -343,6 +412,25 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                             getJsonField(
                               widget.produto,
                               r'''$.Descricao''',
+                            ).toString(),
+                            style: FlutterFlowTheme.of(context).bodyText1,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: AlignmentDirectional(-1.0, 0.0),
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+                        child: InkWell(
+                          onTap: () async {
+                            scaffoldKey.currentState!.openEndDrawer();
+                          },
+                          child: AutoSizeText(
+                            getJsonField(
+                              widget.produto,
+                              r'''$.Quantidade''',
                             ).toString(),
                             style: FlutterFlowTheme.of(context).bodyText1,
                           ),
