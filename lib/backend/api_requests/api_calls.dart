@@ -545,6 +545,12 @@ class MarcasCall {
   dynamic results(dynamic response) => getJsonField(
         response,
         r'''$.response.results''',
+        true,
+      );
+  dynamic nome(dynamic response) => getJsonField(
+        response,
+        r'''$.response.results[:].Nome''',
+        true,
       );
 }
 

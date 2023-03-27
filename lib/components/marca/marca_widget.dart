@@ -119,10 +119,11 @@ class _MarcaWidgetState extends State<MarcaWidget> {
                             return Builder(
                               builder: (context) {
                                 final categoria = ListasGroup.marcasCall
-                                    .results(
-                                      wrapMarcasResponse.jsonBody,
-                                    )
-                                    .toList();
+                                        .results(
+                                          wrapMarcasResponse.jsonBody,
+                                        )
+                                        ?.toList() ??
+                                    [];
                                 return Wrap(
                                   spacing: 0.0,
                                   runSpacing: 0.0,

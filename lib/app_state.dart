@@ -41,6 +41,13 @@ class FFAppState extends ChangeNotifier {
         }).toList() ??
         _prodMsg;
     _likedProds = prefs.getStringList('ff_likedProds') ?? _likedProds;
+    if (prefs.containsKey('ff_produtosTemp')) {
+      try {
+        _produtosTemp = jsonDecode(prefs.getString('ff_produtosTemp') ?? '');
+      } catch (e) {
+        print("Can't decode persisted json. Error: $e.");
+      }
+    }
   }
 
   void update(VoidCallback callback) {
@@ -248,6 +255,13 @@ class FFAppState extends ChangeNotifier {
   String get prodImg6 => _prodImg6;
   set prodImg6(String _value) {
     _prodImg6 = _value;
+  }
+
+  dynamic _produtosTemp;
+  dynamic get produtosTemp => _produtosTemp;
+  set produtosTemp(dynamic _value) {
+    _produtosTemp = _value;
+    prefs.setString('ff_produtosTemp', jsonEncode(_value));
   }
 }
 

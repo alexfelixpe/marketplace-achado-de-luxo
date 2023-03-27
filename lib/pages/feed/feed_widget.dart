@@ -710,7 +710,7 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                               vendedorID:
                                                                   getJsonField(
                                                                 produtosItem,
-                                                                r'''$.response.results[:].Vendedor''',
+                                                                r'''$.Vendedor''',
                                                               ).toString(),
                                                               clienteID:
                                                                   FFAppState()
