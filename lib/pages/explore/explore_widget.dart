@@ -349,10 +349,8 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 44.0),
                 child: Builder(
                   builder: (context) {
-                    final novdades = getJsonField(
-                      FFAppState().produtosTemp,
-                      r'''$.response.results''',
-                    ).toList().take(50).toList();
+                    final novdades =
+                        FFAppState().produtosTemp.toList().take(50).toList();
                     return Wrap(
                       spacing: 2.0,
                       runSpacing: 2.0,

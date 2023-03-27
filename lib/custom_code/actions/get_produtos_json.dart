@@ -11,8 +11,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-Future getProdutosJson() async {
-  // Add your function code here!
+Future<void> getProdutosJson() async {
   var sortField = 'created date';
   var descending = true;
   var apiToken = '4d01049ceef6c90c1b68270781d35e20';
@@ -32,20 +31,20 @@ Future getProdutosJson() async {
   var produtos = [];
 
   var appState = FFAppState();
-  while (remaining > 0) {
+  while (remaining > 0 && cursor < 10) {
+    // Verifica se o valor de cursor é menor que 10
     var url = Uri.parse(
         'https://achadodeluxo.com.br/api/1.1/obj/produto?sort_field=$sortField&descending=$descending&api_token=$apiToken&constraints=$constraints&cursor=$cursor');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
-      produtos.addAll(jsonResponse);
-      remaining = jsonResponse['remaining'];
+      produtos.addAll(jsonResponse['response']['results']);
+      remaining = jsonResponse['response']['remaining'];
       cursor += 1;
+      appState.produtosTemp = produtos;
     } else {
       print('Request failed with status: ${response.statusCode}.');
       break;
     }
   }
-
-  appState.produtosTemp = produtos;
 }
