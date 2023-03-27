@@ -778,10 +778,13 @@ class _FeedWidgetState extends State<FeedWidget> with TickerProviderStateMixin {
                                                 children: [
                                                   Expanded(
                                                     child: Text(
-                                                      getJsonField(
-                                                        produtosItem,
-                                                        r'''$.Marca''',
-                                                      ).toString(),
+                                                      valueOrDefault<String>(
+                                                        getJsonField(
+                                                          produtosItem,
+                                                          r'''$.Marca''',
+                                                        ).toString(),
+                                                        'Sem Marca',
+                                                      ),
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyText1

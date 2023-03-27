@@ -1,13 +1,11 @@
 import '/backend/api_requests/api_calls.dart';
-import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/login/login_widget.dart';
 import '/pages/produto/produto_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,7 +46,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
       }
     });
 
-    _model.textController ??= TextEditingController();
+    _model.searchController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -89,258 +87,151 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                 ),
                 child: Stack(
                   children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
-                          16.0, 12.0, 16.0, 12.0),
-                      child: TextFormField(
-                        controller: _model.textController,
-                        onChanged: (_) => EasyDebounce.debounce(
-                          '_model.textController',
-                          Duration(milliseconds: 2000),
-                          () => setState(() {}),
+                    Align(
+                      alignment: AlignmentDirectional(0.0, 0.0),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            12.0, 8.0, 12.0, 8.0),
+                        child: Container(
+                          width: double.infinity,
+                          height: 60.0,
+                          decoration: BoxDecoration(
+                            color: Color(0x23FFFFFF),
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                12.0, 8.0, 12.0, 8.0),
+                            child: Container(
+                              width: double.infinity,
+                              height: 60.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context).white,
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    8.0, 0.0, 8.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: TextFormField(
+                                        controller: _model.searchController,
+                                        autofocus: true,
+                                        obscureText: false,
+                                        decoration: InputDecoration(
+                                          hintText: 'Busca...',
+                                          hintStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyText2,
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0x00000000),
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(4.0),
+                                              topRight: Radius.circular(4.0),
+                                            ),
+                                          ),
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0x00000000),
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(4.0),
+                                              topRight: Radius.circular(4.0),
+                                            ),
+                                          ),
+                                          errorBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0x00000000),
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(4.0),
+                                              topRight: Radius.circular(4.0),
+                                            ),
+                                          ),
+                                          focusedErrorBorder:
+                                              UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0x00000000),
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(4.0),
+                                              topRight: Radius.circular(4.0),
+                                            ),
+                                          ),
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
+                                        validator: _model
+                                            .searchControllerValidator
+                                            .asValidator(context),
+                                      ),
+                                    ),
+                                    FFButtonWidget(
+                                      onPressed: () async {
+                                        _model.apiResultSearch =
+                                            await ProdutoGroup.searchCall.call(
+                                          busca: _model.searchController.text,
+                                        );
+                                        if ((_model
+                                                .apiResultSearch?.succeeded ??
+                                            true)) {
+                                          setState(() {
+                                            FFAppState().produtosTemp =
+                                                getJsonField(
+                                              (_model.apiResultSearch
+                                                      ?.jsonBody ??
+                                                  ''),
+                                              r'''$.response.response''',
+                                            );
+                                          });
+                                        }
+
+                                        setState(() {});
+                                      },
+                                      text: 'Busca',
+                                      options: FFButtonOptions(
+                                        width: 80.0,
+                                        height: 30.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .tertiary400,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .subtitle2
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Colors.white,
+                                            ),
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'Busca',
-                          labelStyle: FlutterFlowTheme.of(context).bodyText2,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          filled: true,
-                          fillColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          prefixIcon: Icon(
-                            Icons.search_rounded,
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                          ),
-                        ),
-                        style: FlutterFlowTheme.of(context).bodyText1,
-                        validator:
-                            _model.textControllerValidator.asValidator(context),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                height: 160.0,
-                decoration: BoxDecoration(),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: FutureBuilder<ApiCallResponse>(
-                            future: ListasGroup.categoriasCall.call(),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                    ),
-                                  ),
-                                );
-                              }
-                              final categoriCategoriasResponse = snapshot.data!;
-                              return FlutterFlowDropDown<String>(
-                                controller: _model.categoriController ??=
-                                    FormFieldController<String>(null),
-                                options: (ListasGroup.categoriasCall.categoria(
-                                  categoriCategoriasResponse.jsonBody,
-                                ) as List)
-                                    .map<String>((s) => s.toString())
-                                    .toList()!
-                                    .toList(),
-                                onChanged: (val) =>
-                                    setState(() => _model.categoriValue = val),
-                                width: 180.0,
-                                height: 50.0,
-                                searchHintTextStyle:
-                                    FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                        ),
-                                textStyle:
-                                    FlutterFlowTheme.of(context).bodyText1,
-                                hintText: 'Categoria...',
-                                searchHintText: 'Buscar categoria...',
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                elevation: 2.0,
-                                borderColor: Colors.transparent,
-                                borderWidth: 0.0,
-                                borderRadius: 0.0,
-                                margin: EdgeInsetsDirectional.fromSTEB(
-                                    12.0, 4.0, 12.0, 4.0),
-                                hidesUnderline: true,
-                                isSearchable: true,
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: FutureBuilder<ApiCallResponse>(
-                            future: ListasGroup.marcasCall.call(),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                    ),
-                                  ),
-                                );
-                              }
-                              final marcMarcasResponse = snapshot.data!;
-                              return FlutterFlowDropDown<String>(
-                                controller: _model.marcController ??=
-                                    FormFieldController<String>(null),
-                                options: (ListasGroup.marcasCall.nome(
-                                  marcMarcasResponse.jsonBody,
-                                ) as List)
-                                    .map<String>((s) => s.toString())
-                                    .toList()!
-                                    .map((e) => e.toString())
-                                    .toList()
-                                    .toList(),
-                                onChanged: (val) =>
-                                    setState(() => _model.marcValue = val),
-                                width: 180.0,
-                                height: 50.0,
-                                searchHintTextStyle:
-                                    FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                        ),
-                                textStyle:
-                                    FlutterFlowTheme.of(context).bodyText1,
-                                hintText: 'Marca',
-                                searchHintText: 'Buscar marca..',
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                elevation: 2.0,
-                                borderColor: Colors.transparent,
-                                borderWidth: 0.0,
-                                borderRadius: 0.0,
-                                margin: EdgeInsetsDirectional.fromSTEB(
-                                    12.0, 4.0, 12.0, 4.0),
-                                hidesUnderline: true,
-                                isSearchable: true,
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: FutureBuilder<ApiCallResponse>(
-                            future: ListasGroup.coresCall.call(),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                    ),
-                                  ),
-                                );
-                              }
-                              final cor1CoresResponse = snapshot.data!;
-                              return FlutterFlowDropDown<String>(
-                                controller: _model.cor1Controller ??=
-                                    FormFieldController<String>(null),
-                                options: (ListasGroup.coresCall.cor(
-                                  cor1CoresResponse.jsonBody,
-                                ) as List)
-                                    .map<String>((s) => s.toString())
-                                    .toList()!
-                                    .toList(),
-                                onChanged: (val) =>
-                                    setState(() => _model.cor1Value = val),
-                                width: 180.0,
-                                height: 50.0,
-                                searchHintTextStyle:
-                                    FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                        ),
-                                textStyle:
-                                    FlutterFlowTheme.of(context).bodyText1,
-                                hintText: 'Cor',
-                                searchHintText: 'Buscar cor...',
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                elevation: 2.0,
-                                borderColor: Colors.transparent,
-                                borderWidth: 0.0,
-                                borderRadius: 0.0,
-                                margin: EdgeInsetsDirectional.fromSTEB(
-                                    12.0, 4.0, 12.0, 4.0),
-                                hidesUnderline: true,
-                                isSearchable: true,
-                              );
-                            },
-                          ),
-                        ),
-                      ],
                     ),
                   ],
                 ),
@@ -414,10 +305,13 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         8.0, 12.0, 0.0, 0.0),
                                     child: AutoSizeText(
-                                      getJsonField(
-                                        novdadesItem,
-                                        r'''$.Marca''',
-                                      ).toString(),
+                                      valueOrDefault<String>(
+                                        getJsonField(
+                                          novdadesItem,
+                                          r'''$.Marca''',
+                                        ).toString(),
+                                        'Sem Marca',
+                                      ),
                                       maxLines: 1,
                                       style: FlutterFlowTheme.of(context)
                                           .subtitle1,

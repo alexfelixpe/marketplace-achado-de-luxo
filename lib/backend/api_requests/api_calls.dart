@@ -657,6 +657,7 @@ class ProdutoGroup {
   };
   static UpdateCall updateCall = UpdateCall();
   static ImageDeleteProdCall imageDeleteProdCall = ImageDeleteProdCall();
+  static SearchCall searchCall = SearchCall();
 }
 
 class UpdateCall {
@@ -734,6 +735,34 @@ class ImageDeleteProdCall {
       cache: false,
     );
   }
+}
+
+class SearchCall {
+  Future<ApiCallResponse> call({
+    String? busca = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Search',
+      apiUrl: '${ProdutoGroup.baseUrl}/api/1.1/wf/prod-search',
+      callType: ApiCallType.GET,
+      headers: {
+        ...ProdutoGroup.headers,
+      },
+      params: {
+        'busca': busca,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: true,
+      cache: false,
+    );
+  }
+
+  dynamic response(dynamic response) => getJsonField(
+        response,
+        r'''$.response.response''',
+        true,
+      );
 }
 
 /// End Produto Group Code

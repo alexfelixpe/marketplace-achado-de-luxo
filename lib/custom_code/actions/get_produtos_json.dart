@@ -31,8 +31,11 @@ Future<void> getProdutosJson() async {
   var produtos = [];
 
   var appState = FFAppState();
-  while (remaining > 0 && cursor < 40) {
-    // Verifica se o valor de cursor é menor que 10
+
+  // Esvaziar a lista antes de popular
+  appState.produtosTemp.clear();
+
+  while (remaining > 0) {
     var url = Uri.parse(
         'https://achadodeluxo.com.br/api/1.1/obj/produto?sort_field=$sortField&descending=$descending&api_token=$apiToken&constraints=$constraints&cursor=$cursor');
     var response = await http.get(url);
