@@ -287,7 +287,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                     categoriasChild[categoriasChildIndex];
                                 return Container(
                                   width: 100.0,
-                                  height: 100.0,
+                                  height: 50.0,
                                   constraints: BoxConstraints(
                                     maxWidth:
                                         MediaQuery.of(context).size.width * 0.5,
