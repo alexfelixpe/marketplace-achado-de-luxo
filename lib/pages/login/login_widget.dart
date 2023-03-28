@@ -223,14 +223,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                         labelStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .grayIcon,
-                                                                ),
+                                                                .bodyText2,
                                                         hintStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -243,56 +236,13 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                                       .grayIcon,
                                                                 ),
                                                         enabledBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Colors.white,
-                                                            width: 1.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                        ),
+                                                            InputBorder.none,
                                                         focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Color(
-                                                                0x00000000),
-                                                            width: 1.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                        ),
+                                                            InputBorder.none,
                                                         errorBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Color(
-                                                                0x00000000),
-                                                            width: 1.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                        ),
+                                                            InputBorder.none,
                                                         focusedErrorBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Color(
-                                                                0x00000000),
-                                                            width: 1.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                        ),
+                                                            InputBorder.none,
                                                         filled: true,
                                                         fillColor: Colors.white,
                                                         contentPadding:
@@ -354,12 +304,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   obscureText: !_model
                                                       .passwordLobinVisibility,
                                                   decoration: InputDecoration(
-                                                    labelText: 'Senha\n',
+                                                    labelText: 'Senha',
                                                     labelStyle:
                                                         FlutterFlowTheme.of(
                                                                 context)
                                                             .bodyText2,
-                                                    hintText: 'Senha',
+                                                    hintText: '\n',
                                                     hintStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .bodyText1
@@ -373,48 +323,13 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                               FontWeight.normal,
                                                         ),
                                                     enabledBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color: Colors.white,
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                    ),
+                                                        InputBorder.none,
                                                     focusedBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0x00000000),
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                    ),
+                                                        InputBorder.none,
                                                     errorBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0x00000000),
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                    ),
+                                                        InputBorder.none,
                                                     focusedErrorBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0x00000000),
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                    ),
+                                                        InputBorder.none,
                                                     filled: true,
                                                     fillColor: Colors.white,
                                                     contentPadding:
@@ -453,7 +368,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                       .override(
                                                         fontFamily: 'Poppins',
                                                         color:
-                                                            Color(0xFF0F1113),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .black600,
                                                       ),
                                                   validator: _model
                                                       .passwordLobinControllerValidator
